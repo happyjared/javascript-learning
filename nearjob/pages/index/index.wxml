@@ -1,5 +1,16 @@
 <!--index.wxml-->
-<van-button type="primary">按钮</van-button>
+<van-search value="{{ value }}" placeholder="搜索关键词" bind:search="onSearch" bind:cancel="onCancel" background="#EBC9A6" maxlength="20" />
+
+<van-panel title="Java开发工程师/30k-50k" desc="杭州蚂蚁金服有限公司" status="08-12 12:50发布">
+  <van-row>
+    <van-col offset="1" span="22">
+      <view>职位诱惑：周末双休,五险一金,项目奖金,高并发平台</view>
+    </van-col>
+  </van-row>
+</van-panel>
+
+
+
 <view class="container">
   <view class="userinfo">
     <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
@@ -11,4 +22,5 @@
   <view class="usermotto">
     <text class="user-motto">{{motto}}</text>
   </view>
+
 </view>

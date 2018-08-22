@@ -1,5 +1,10 @@
 {
   "usingComponents": {
-    "van-button": "../../dist/button/index"
+    "van-button": "../../dist/button/index",
+    "van-search": "../../dist/search/index",
+    "van-panel": "../../dist/panel/index",
+    "van-row": "../../dist/row/index",
+    "van-col": "../../dist/col/index",
+    "van-tree-select": "../../dist/tree-select/index"
   }
 }
