@@ -1,0 +1,38 @@
+{
+  "pages": [
+    "pages/dashboard/index",
+    "pages/actionsheet/index",
+    "pages/badge/index",
+    "pages/button/index",
+    "pages/card/index",
+    "pages/cell/index",
+    "pages/col/index",
+    "pages/field/index",
+    "pages/icon/index",
+    "pages/loading/index",
+    "pages/nav-bar/index",
+    "pages/notice-bar/index",
+    "pages/notify/index",
+    "pages/panel/index",
+    "pages/popup/index",
+    "pages/stepper/index",
+    "pages/steps/index",
+    "pages/switch/index",
+    "pages/switch-cell/index",
+    "pages/search/index",
+    "pages/slider/index",
+    "pages/tag/index",
+    "pages/toast/index",
+    "pages/tabbar/index",
+    "pages/transition/index",
+    "pages/tree-select/index"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#f8f8f8",
+    "navigationBarTitleText": "Vant Weapp",
+    "navigationBarTextStyle": "black",
+    "backgroundTextStyle": "dark",
+    "backgroundColor": "#f8f8f8"
+  },
+  "debug": true
+}
