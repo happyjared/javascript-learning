@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "ui-popup": "../../packages/touchui-wx-components/ui-popup/dist/index",
+    "ui-slider": "../../packages/touchui-wx-components/ui-slider/dist/index",
+    "ui-cascader": "../../packages/touchui-wx-components/ui-cascader/dist/index",
+    "ui-swipe-out": "../../packages/touchui-wx-components/ui-swipe-out/dist/index"
+  }
+}

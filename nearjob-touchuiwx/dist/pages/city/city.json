@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "ui-index-list": "../../packages/touchui-wx-components/ui-index-list/dist/index",
+    "ui-tags": "../../packages/touchui-wx-components/ui-tags/dist/index"
+  },
+  "disableScroll": false
+}

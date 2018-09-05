@@ -1,0 +1,157 @@
+<template>
+    <view class="ui-dialog-content">
+        <view class="ui-dialog-body">
+            <ui-index-list
+                           height="{{wx.DEFAULT_CONTENT_HEIGHT}}"
+                           show-top data={{list}}>
+                <view class="top_box">
+                    <view>
+                        <view class="title">坐标定位</view>
+                        <view class="position">
+                            <ui-icon type="home-map" color="#00ab48"></ui-icon>
+                            {{position}}
+                        </view>
+                    </view>
+                    <view class="top2">
+                        <view class="title" style="margin-left:-10px">热门城市</view>
+                        <ui-tags 
+                          data="{{tagsData}}" 
+                          bindchange="singleTap" 
+                          fixed-width
+                          col-number="4">
+                        </ui-tags>
+                    </view>
+                </view>
+            </ui-index-list>
+        </view>
+    </view>
+</template>
+
+<script>
+const tagStyle = `
+    font-size: 14px;
+    margin-top: 10px;
+    border-radius: 4px;
+    color: #666;
+    background-color:#fff;
+    border:1px solid #f1f1f1;
+    line-height:35px;
+    text-align:center;
+`
+export default {
+    config: {
+        disableScroll: false
+    },
+    data : {
+        tagsData:[{
+            text: '广州',
+            tagStyle: tagStyle
+        }, {
+            text: '上海',
+            tagStyle: tagStyle
+        }, {
+            text: '成都',
+            tagStyle: tagStyle
+        }, {
+            text: '深圳',
+            tagStyle: tagStyle
+        }, {
+            text: '杭州',
+            tagStyle: tagStyle
+        }, {
+            text: '郑州',
+            tagStyle: tagStyle
+        },{
+            text: '西安',
+            tagStyle: tagStyle
+        }, {
+            text: '南京',
+            tagStyle: tagStyle
+        }, {
+            text: '武汉',
+            tagStyle: tagStyle
+        }, {
+            text: '深圳',
+            tagStyle: tagStyle
+        }, {
+            text: '杭州',
+            tagStyle: tagStyle
+        }, {
+            text: '郑州',
+            tagStyle: tagStyle
+        }],
+        position:'北京'
+    },
+    singleTap(e){
+        console.log(e)
+        let index = e.detail.index
+        var pages = getCurrentPages()
+        var currPage = pages[pages.length - 1];   //当前页面
+        var prevPage = pages[pages.length - 2];
+        console.log(this.data.tagsData[index].text)
+        prevPage.setData({
+            changeCity:this.data.tagsData[index].text
+        })
+        wx.navigateBack()
+    },
+    getPosition(){
+        wx.request({
+            url: 'https://apis.map.qq.com/ws/location/v1/ip', 
+            data: {
+                key: 'RHGBZ-S2LAU-5MRV7-4QPTZ-JI25K-HVBDV'
+            },
+            success: (res) => {
+                this.position = res.data.result.ad_info.city
+                console.log(this.position)
+            }
+        })
+    },
+    onLoad(options){
+        this.getPosition()
+        console.log(options)
+        // this.setData({
+        //     selectCity:options.city
+        // })
+    },
+    onReady(options){
+        //this.getPosition()
+    }
+}
+</script>
+
+<style lang="less">
+.top_box{
+    height:310px;
+    background-color:#f7f7f7;
+    padding-bottom:20px;
+    border-bottom: 1px solid #ece3e3;
+    .position{
+        background-color: #fff;
+        padding:5px 15px;
+        display: inline-block;
+        margin:0 10px;
+        border-radius:3px;
+        border:1px solid #f1f1f1;
+    }
+    .title{
+        font-size:12px;
+        color:#999;
+        padding:0 10px;
+        margin:10px 0;
+    }
+    .top2{
+        margin:0 10px;
+    }
+} 
+.now-city {
+    display: flex;
+    background: white;
+    font-size: 15px;
+    line-height: 1.0;
+    letter-spacing: 0.4px;
+    color: #333333;
+    padding: 6px 16rpx;
+    border: solid 1px #dbdbdb;
+    margin-top: 9px;
+}
+</style>

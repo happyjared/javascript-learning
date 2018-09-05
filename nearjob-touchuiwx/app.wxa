@@ -1,0 +1,36 @@
+<template>
+  <page></page>
+</template>
+
+<script>
+import system from './static/utils/system'
+export default {
+  config: {
+    usingComponents: {},
+    pages: ['pages/home/index', 'pages/city/city', 'pages/detail/detail'],
+    window: {
+      backgroundTextStyle: 'light',
+      backgroundColor: '#EBC9A6',
+      navigationBarBackgroundColor: '#EBC9A6',
+      navigationBarTitleText: '附近求职',
+      navigationBarTextStyle: 'black'
+    },
+    networkTimeout: {
+      request: 10000
+    },
+    theme: {
+      'theme-color': '#39f'
+    }
+  },
+  globalData: {},
+  onLaunch() {
+    system.attachInfo()
+  },
+  onShow() {},
+  onHide() {}
+}
+</script>
+
+<style lang="less">
+@import './static/styles/index.less';
+</style>

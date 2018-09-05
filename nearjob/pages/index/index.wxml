@@ -4,7 +4,8 @@
 <van-panel title="Java开发工程师/30k-50k" desc="杭州蚂蚁金服有限公司" status="08-12 12:50发布">
   <van-row>
     <van-col offset="1" span="22">
-      <view>职位诱惑：周末双休,五险一金,项目奖金,高并发平台</view>
+      <view>经验3-5年 | 本科 </view>
+      <view>移动互联网 | 社交网络 | B轮 | 150-500人</view>
     </van-col>
   </van-row>
 </van-panel>
