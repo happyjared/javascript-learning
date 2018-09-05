@@ -5,13 +5,16 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = Page({
     data: {
-        jobList: [{ color: '#FCB300', title: '广播', text: '第37周|总票房8.11亿较上周上涨4.38%，《猩猿崛起》突破票房10亿', switcher: 'off', icon: 'api-access' }, { color: '#FF7360', title: '总结', text: '总票房9.60亿较上周 下降30.64%，《战狼2》突破票房10亿', switcher: 'off', icon: 'api-network' }, { color: '#39CCC5', title: '脑洞', text: '本周悬疑《心理罪》、喜剧《鲛珠传》、动作《上船下套》等多部电影在电影院上映。', switcher: 'off', icon: 'api-configure' }, { color: '#FCB300', title: '广播', text: '第37周|总票房8.11亿较上周上涨4.38%，《猩猿崛起》突破票房10亿', switcher: 'off', icon: 'api-access' }, { color: '#FF7360', title: '总结', text: '总票房9.60亿较上周 下降30.64%，《战狼2》突破票房10亿', switcher: 'off', icon: 'api-network' }, { color: '#39CCC5', title: '脑洞', text: '本周悬疑《心理罪》、喜剧《鲛珠传》、动作《上船下套》等多部电影在电影院上映。', switcher: 'off', icon: 'api-configure' }, { color: '#FCB300', title: '广播', text: '第37周|总票房8.11亿较上周上涨4.38%，《猩猿崛起》突破票房10亿', switcher: 'off', icon: 'api-access' }, { color: '#FF7360', title: '总结', text: '总票房9.60亿较上周 下降30.64%，《战狼2》突破票房10亿', switcher: 'off', icon: 'api-network' }, { color: '#39CCC5', title: '脑洞', text: '本周悬疑《心理罪》、喜剧《鲛珠传》、动作《上船下套》等多部电影在电影院上映。', switcher: 'off', icon: 'api-configure' }, { color: '#FCB300', title: '广播', text: '第37周|总票房8.11亿较上周上涨4.38%，《猩猿崛起》突破票房10亿', switcher: 'off', icon: 'api-access' }, { color: '#FF7360', title: '总结', text: '总票房9.60亿较上周 下降30.64%，《战狼2》突破票房10亿', switcher: 'off', icon: 'api-network' }, { color: '#39CCC5', title: '脑洞', text: '本周悬疑《心理罪》、喜剧《鲛珠传》、动作《上船下套》等多部电影在电影院上映。', switcher: 'off', icon: 'api-configure' }],
+        width: wx.WIN_WIDTH,
+        height: wx.DEFAULT_CONTENT_HEIGHT,
+        poptpTop: wx.DEFAULT_HEADER_HEIGHT - 5,
+        jobDataList: [{ color: '#FCB300', title: '广播', text: '第37周|总票房8.11亿较上周上涨4.38%，《猩猿崛起》突破票房10亿', switcher: 'off', icon: 'api-access' }, { color: '#FF7360', title: '总结', text: '总票房9.60亿较上周 下降30.64%，《战狼2》突破票房10亿', switcher: 'off', icon: 'api-network' }, { color: '#39CCC5', title: '脑洞', text: '本周悬疑《心理罪》、喜剧《鲛珠传》、动作《上船下套》等多部电影在电影院上映。', switcher: 'off', icon: 'api-configure' }, { color: '#FCB300', title: '广播', text: '第37周|总票房8.11亿较上周上涨4.38%，《猩猿崛起》突破票房10亿', switcher: 'off', icon: 'api-access' }, { color: '#FF7360', title: '总结', text: '总票房9.60亿较上周 下降30.64%，《战狼2》突破票房10亿', switcher: 'off', icon: 'api-network' }, { color: '#39CCC5', title: '脑洞', text: '本周悬疑《心理罪》、喜剧《鲛珠传》、动作《上船下套》等多部电影在电影院上映。', switcher: 'off', icon: 'api-configure' }, { color: '#FCB300', title: '广播', text: '第37周|总票房8.11亿较上周上涨4.38%，《猩猿崛起》突破票房10亿', switcher: 'off', icon: 'api-access' }, { color: '#FF7360', title: '总结', text: '总票房9.60亿较上周 下降30.64%，《战狼2》突破票房10亿', switcher: 'off', icon: 'api-network' }, { color: '#39CCC5', title: '脑洞', text: '本周悬疑《心理罪》、喜剧《鲛珠传》、动作《上船下套》等多部电影在电影院上映。', switcher: 'off', icon: 'api-configure' }, { color: '#FCB300', title: '广播', text: '第37周|总票房8.11亿较上周上涨4.38%，《猩猿崛起》突破票房10亿', switcher: 'off', icon: 'api-access' }, { color: '#FF7360', title: '总结', text: '总票房9.60亿较上周 下降30.64%，《战狼2》突破票房10亿', switcher: 'off', icon: 'api-network' }, { color: '#39CCC5', title: '脑洞', text: '本周悬疑《心理罪》、喜剧《鲛珠传》、动作《上船下套》等多部电影在电影院上映。', switcher: 'off', icon: 'api-configure' }],
         el: 'undefined',
         currentCity: '广州',
-        width: wx.WIN_WIDTH,
-        show: false,
+        showDistance: false,
         defaultDistance: 3,
-        tbObj6: {
+        currentDistance: 3,
+        styleOfDistance: {
             'background-image': 'url(http://images.uileader.com/20180417/7bec98d5-4efa-424a-b294-e416da6159bd.png)',
             'background-position': '50% 50%',
             'background-repeat': 'no-repeat',
@@ -23,55 +26,48 @@ exports.default = Page({
             'left': '0px',
             'border-radius': '5px'
         },
-        show5: false,
-        title5: '岗位',
-        poptpTop: wx.DEFAULT_HEADER_HEIGHT - 5,
-        height: wx.DEFAULT_CONTENT_HEIGHT,
-        data3: [{
+        showJob: false,
+        currentJob: '职位',
+        jobList: [{
             name: '后端开发',
-            value: 'DP_01',
-            children: [{ name: 'Java', value: 'DP_0101' }, { name: 'Python', value: 'DP_0102' }, { name: 'Php', value: 'DP_0103' }]
+            children: [{ name: 'java', value: 1 }, { name: 'python', value: 2 }, { name: 'php', value: 3 }]
         }, {
             name: '移动开发',
-            value: 'DP_02',
-            children: [{ name: 'Andrioid', value: 'DP_0201' }, { name: 'IOS', value: 'DP_0202' }, { name: 'Web前端', value: 'DP_0203' }]
+            children: [{ name: 'andrioid', value: 4 }, { name: 'ios', value: 5 }, { name: 'web前端', value: 6 }]
         }]
     },
-    handleselected5: function handleselected5(e) {
+    jobSelected: function jobSelected(e) {
         var data = e.detail;
-        this.data.title4 = "";
-        for (var i = 0; i < data.length; i++) {
-            this.data.title4 += data[i].name + ' ';
-        }
         this.setData({
-            show5: false,
-            title4: this.data.title4
+            showJob: !this.data.showJob,
+            currentJob: data[1].name
         });
     },
-    showPop5: function showPop5() {
+    jobPopup: function jobPopup() {
         this.setData({
-            show5: true
+            showJob: !this.data.showJob
         });
     },
-    showPopup: function showPopup() {
+    distanceSelected: function distanceSelected(e) {
+        var data = e.detail;
         this.setData({
-            show: true
+            currentDistance: data.value
         });
     },
-    hidePopup: function hidePopup() {
+    distancePopup: function distancePopup() {
         this.setData({
-            show: false
+            showDistance: !this.data.showDistance
         });
     },
-    del: function del(index) {
+    notInterestingJob: function notInterestingJob(index) {
         var index = index.target.dataset.idx;
         console.log(index);
-        this.data.jobList.splice(index, 1);
-        console.log(this.data.jobList);
+        this.data.jobDataList.splice(index, 1);
+        console.log(this.data.jobDataList);
         this.setData({
-            jobList: this.data.jobList
+            jobDataList: this.data.jobDataList
         });
-        console.log(this.data.jobList);
+        console.log(this.data.jobDataList);
         this.setData({
             el: 'undefined'
         });
@@ -85,16 +81,16 @@ exports.default = Page({
         var index = res.currentTarget.dataset.index;
         if (this.data.el !== index) {
             if (this.data.el !== 'undefined') {
-                this.data.jobList[this.data.el].switcher = 'off';
+                this.data.jobDataList[this.data.el].switcher = 'off';
             }
-            this.data.jobList[index].switcher = 'on';
+            this.data.jobDataList[index].switcher = 'on';
             this.setData({
-                jobList: this.data.jobList
+                jobDataList: this.data.jobDataList
             });
             this.data.el = index;
         }
     },
-    selectCity: function selectCity() {
+    toCitySelect: function toCitySelect() {
         wx.navigateTo({
             url: '../city/city'
         });
