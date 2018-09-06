@@ -1,13 +1,13 @@
 <template>
   <view>
+    
     <!-- 顶部导航区域 -->
-    <ui-row border-bottom height="40">
-        
+    <ui-row border-bottom height="40" style="color:#666">
         <!-- 城市 -->
         <ui-col border-right align="center" vertical-align="middle">
-            <view class="sample_content" bindtap="toCitySelect">
+            <view bindtap="toCitySelect">
                 <text>{{currentCity}}</text>
-                <ui-icon type="slide_down" size="8" color="#878787;" style="padding-left:4px"></ui-icon>
+                <ui-icon type="slide_down" size="8" color="#878787" style="padding-left:4px"></ui-icon>
             </view>
         </ui-col>
 
@@ -20,7 +20,7 @@
         </ui-col>
 
         <!-- 距离 -->
-        <ui-col border-right align="center" vertical-align="middle">
+        <ui-col align="center" vertical-align="middle">
             <view bindtap="distancePopup">{{currentDistance}}km</view>
             <ui-popup show="{{showDistance}}">
                 <view style="margin:25px 10px;">
@@ -42,13 +42,11 @@
                 </view>
             </ui-popup>
         </ui-col>
-
-        <!-- 排序 -->
-        <ui-col border-right align="center" vertical-align="middle">
-          <view>排序</view>
-        </ui-col>
     </ui-row>
- 
+
+    <!-- 排序区域 -->
+    <ui-tags data="{{sortList}}" bindchange="changeSort" fixed-width item-width="{{width/3-10}}" col-number=3></ui-tags>
+
     <!-- 职位区域 -->
     <ui-swipe-out height="80" operate-width="80" data-index="{{index}}" can-swipe="{{item.canSwipe}}"
      value="{{item.switcher}}" wx:for="{{jobDataList}}" bindchange="changeHandler1" bindtap="toDeail">
@@ -60,16 +58,27 @@
             </view>
           </ui-col>
           <ui-col class="text" align="left" vertical-align="middle" space="20">
-            <view style="width: 100%;">
-              <ui-row height="30">
-                <ui-col align="left" vertical-align="middle">
-                  <text>{{ item.title }}</text>
-                </ui-col>
-                <ui-col align="right" width="100" vertical-align="middle" space-right="10">
-                  <text>09-18</text>
-                </ui-col>
-              </ui-row>
-              <view>{{ item.text }}</view>
+            <view style="width:100%">
+                <ui-row height="30">
+                    <ui-col align="left" vertical-align="middle">
+                    <text>{{ item.title }}</text>
+                    </ui-col>
+                    <ui-col align="right" width="80" vertical-align="middle" space-right="10">
+                        <text style="font-size:11px;color:#666">08-12 12:50</text>
+                    </ui-col>
+                </ui-row>
+                <view>{{ item.text }}</view>
+                <ui-row>
+                    <ui-col align="left" vertical-align="middle">
+                    <view-text style="font-size:10px;color:#9C9FA4;">
+                        广州腾讯研发中心          
+                         <ui-icon style="padding-left:10px" type="api-position" size="10"> 0.8公里</ui-icon>
+                    </view-text>
+                    </ui-col>
+                    <ui-col align="right" width="80" vertical-align="middle" space-right="10">
+                    <text style="font-size:10px;color:#9C9FA4">数据来源: 拉勾</text>
+                    </ui-col>
+                </ui-row>
             </view>
           </ui-col>
         </ui-row>
@@ -83,24 +92,49 @@
 </template>
 
 <script>
+const sortStyle = `
+    background: #efefef;
+    color: #999;
+    margin:5px 0 5px 10px;
+    font-size: 12px;
+    border-radius: 30px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 20px;
+`
+
+const sortSelectStyle = `
+    border: 1px solid #EBC9A6;
+    background: #efefef;
+    color: orange;
+    margin:5px 0 5px 10px;
+    font-size: 12px;
+    border-radius: 30px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 20px;
+`
 export default {
     data :{
         width:wx.WIN_WIDTH,
         height: wx.DEFAULT_CONTENT_HEIGHT,
         poptpTop: wx.DEFAULT_HEADER_HEIGHT-5,
         jobDataList: [
-            { color: '#FCB300', title:'广播', text: '第37周|总票房8.11亿较上周上涨4.38%，《猩猿崛起》突破票房10亿', switcher: 'off', icon: 'api-access'},
-            { color: '#FF7360', title:'总结', text: '总票房9.60亿较上周 下降30.64%，《战狼2》突破票房10亿', switcher: 'off', icon: 'api-network'},
-            { color: '#39CCC5', title:'脑洞', text: '本周悬疑《心理罪》、喜剧《鲛珠传》、动作《上船下套》等多部电影在电影院上映。', switcher: 'off', icon: 'api-configure'},
-            { color: '#FCB300', title:'广播', text: '第37周|总票房8.11亿较上周上涨4.38%，《猩猿崛起》突破票房10亿', switcher: 'off', icon: 'api-access'},
-            { color: '#FF7360', title:'总结', text: '总票房9.60亿较上周 下降30.64%，《战狼2》突破票房10亿', switcher: 'off', icon: 'api-network'},
-            { color: '#39CCC5', title:'脑洞', text: '本周悬疑《心理罪》、喜剧《鲛珠传》、动作《上船下套》等多部电影在电影院上映。', switcher: 'off', icon: 'api-configure'},
-            { color: '#FCB300', title:'广播', text: '第37周|总票房8.11亿较上周上涨4.38%，《猩猿崛起》突破票房10亿', switcher: 'off', icon: 'api-access'},
-            { color: '#FF7360', title:'总结', text: '总票房9.60亿较上周 下降30.64%，《战狼2》突破票房10亿', switcher: 'off', icon: 'api-network'},
-            { color: '#39CCC5', title:'脑洞', text: '本周悬疑《心理罪》、喜剧《鲛珠传》、动作《上船下套》等多部电影在电影院上映。', switcher: 'off', icon: 'api-configure'},
-            { color: '#FCB300', title:'广播', text: '第37周|总票房8.11亿较上周上涨4.38%，《猩猿崛起》突破票房10亿', switcher: 'off', icon: 'api-access'},
-            { color: '#FF7360', title:'总结', text: '总票房9.60亿较上周 下降30.64%，《战狼2》突破票房10亿', switcher: 'off', icon: 'api-network'},
-            { color: '#39CCC5', title:'脑洞', text: '本周悬疑《心理罪》、喜剧《鲛珠传》、动作《上船下套》等多部电影在电影院上映。', switcher: 'off', icon: 'api-configure'},
+            { color: '#FCB300', title:'Java开发工程师 / 30k-50k', text: '本科 | 经验3-5年 | 150-500人', switcher: 'off', icon: 'api-access'},
+            { color: '#FF7360', title:'Java开发工程师 / 30k-50k', text: '本科 | 经验3-5年 | 150-500人', switcher: 'off', icon: 'api-network'},
+            { color: '#39CCC5', title:'Java开发工程师 / 30k-50k', text: '本科 | 经验3-5年 | 150-500人', switcher: 'off', icon: 'api-configure'},
+            { color: '#FCB300', title:'Java开发工程师 / 30k-50k', text: '本科 | 经验3-5年 | 150-500人', switcher: 'off', icon: 'api-media'},
+            { color: '#FF7360', title:'Java开发工程师 / 30k-50k', text: '本科 | 经验3-5年 | 150-500人', switcher: 'off', icon: 'api-data'},
+            { color: '#39CCC5', title:'Java开发工程师 / 30k-50k', text: '本科 | 经验3-5年 | 150-500人', switcher: 'off', icon: 'api-position'},
+            { color: '#FCB300', title:'Java开发工程师 / 30k-50k', text: '本科 | 经验3-5年 | 150-500人', switcher: 'off', icon: 'api-event'},
+            { color: '#FF7360', title:'Java开发工程师 / 30k-50k', text: '本科 | 经验3-5年 | 150-500人', switcher: 'off', icon: 'api-browser'},
+            { color: '#39CCC5', title:'Java开发工程师 / 30k-50k', text: '本科 | 经验3-5年 | 150-500人', switcher: 'off', icon: 'api-interface'},
+            { color: '#FCB300', title:'Java开发工程师 / 30k-50k', text: '本科 | 经验3-5年 | 150-500人', switcher: 'off', icon: 'api-frame'},
+            { color: '#FF7360', title:'Java开发工程师 / 30k-50k', text: '本科 | 经验3-5年 | 150-500人', switcher: 'off', icon: 'api-equipment'},
         ],
         el: 'undefined',
         currentCity: '广州',
@@ -120,7 +154,7 @@ export default {
           'border-radius':'5px'
         },
         showJob: false,
-        currentJob: '职位',
+        currentJob: 'java',
         jobList: [{
             name: '后端开发',
             children: [
@@ -136,7 +170,38 @@ export default {
               { name: 'web前端', value: 6 }
             ]
         }],
+        sortList: [{
+            text: '最新发布',
+            tagStyle: sortStyle,
+            tagSelectedStyle: sortSelectStyle,
+            checked: true
+        }, {
+            text: '离我最近',
+            tagStyle: sortStyle,
+            tagSelectedStyle: sortSelectStyle,
+            checked: false
+        }, {
+            text: '数据来源',
+            tagStyle: sortStyle,
+            tagSelectedStyle: sortSelectStyle,
+            checked: false
+        }]
     },
+    // 修改排序规则
+    changeSort (e) {
+        let opt = e.detail.index
+        wx.showToast({
+            title: this.data.sortList[opt].text,
+            icon:'none'
+        })
+        this.data.sortList.forEach((item, index) => {
+            item.checked = (index === opt)
+        })
+        this.setData({
+            sortList:this.data.sortList
+        })
+    },
+    // 选择职位
     jobSelected(e) {
         let data = e.detail
         this.setData({
@@ -144,37 +209,36 @@ export default {
             currentJob: data[1].name
         })
     },
+    // 职位弹出框
     jobPopup(){
         this.setData({
             showJob: !this.data.showJob
         })
     },
+    // 选择距离
     distanceSelected(e) {
         let data = e.detail
         this.setData({
             currentDistance: data.value
         })
     },
+    // 距离弹出框
     distancePopup(){
         this.setData({
             showDistance: !this.data.showDistance
         })
     },
+    // 不感兴趣
     notInterestingJob (index) {
         var index = index.target.dataset.idx
         console.log(index)
         this.data.jobDataList.splice(index,1)
-        console.log(this.data.jobDataList)
         this.setData({
             jobDataList:this.data.jobDataList
         })
-        console.log(this.data.jobDataList)
         this.setData({
             el:'undefined'
         })
-    },
-    toDeail: function(e){
-        console.log('to detail')
     },
     changeHandler1 (res) {
         console.log(this.data.el)
@@ -190,6 +254,13 @@ export default {
             this.data.el = index  
         }
     },
+    // 跳转到职位详情页面
+    toDeail: function(e){
+        wx.navigateTo({
+            url: `../detail/detail`
+        })
+    },
+    // 跳转到城市选择页面
     toCitySelect () {
         wx.navigateTo({
             url: `../city/city`
@@ -219,12 +290,12 @@ export default {
     }
     .text{
         text{
-            font-size: 16px;
+            font-size: 12px;
             color: #313338;
         }
         view{
             color: #9C9FA4;
-            font-size: 12px;
+            font-size: 10px;
             .mix-text-overflow();
         }
     }

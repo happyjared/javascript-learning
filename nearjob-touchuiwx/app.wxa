@@ -7,7 +7,7 @@ import system from './static/utils/system'
 export default {
   config: {
     usingComponents: {},
-    pages: ['pages/home/index', 'pages/city/city', 'pages/detail/detail'],
+    pages: ['pages/home/index', 'pages/city/city','pages/detail/detail'],
     window: {
       backgroundTextStyle: 'light',
       backgroundColor: '#EBC9A6',

@@ -6,20 +6,24 @@ Object.defineProperty(exports, "__esModule", {
 var tagStyle = '\n    font-size: 14px;\n    margin-top: 10px;\n    border-radius: 4px;\n    color: #666;\n    background-color:#fff;\n    border:1px solid #f1f1f1;\n    line-height:35px;\n    text-align:center;\n';
 exports.default = Page({
     data: {
+        position: '暂无定位',
         tagsData: [{
-            text: '广州',
+            text: '北京',
             tagStyle: tagStyle
         }, {
             text: '上海',
             tagStyle: tagStyle
         }, {
-            text: '成都',
+            text: '广州',
             tagStyle: tagStyle
         }, {
             text: '深圳',
             tagStyle: tagStyle
         }, {
             text: '杭州',
+            tagStyle: tagStyle
+        }, {
+            text: '成都',
             tagStyle: tagStyle
         }, {
             text: '郑州',
@@ -34,26 +38,21 @@ exports.default = Page({
             text: '武汉',
             tagStyle: tagStyle
         }, {
-            text: '深圳',
+            text: '长沙',
             tagStyle: tagStyle
         }, {
-            text: '杭州',
+            text: '武汉',
             tagStyle: tagStyle
-        }, {
-            text: '郑州',
-            tagStyle: tagStyle
-        }],
-        position: '北京'
+        }]
     },
-    singleTap: function singleTap(e) {
-        console.log(e);
+    changeCity: function changeCity(e) {
         var index = e.detail.index;
         var pages = getCurrentPages();
         var currPage = pages[pages.length - 1]; //当前页面
         var prevPage = pages[pages.length - 2];
         console.log(this.data.tagsData[index].text);
         prevPage.setData({
-            changeCity: this.data.tagsData[index].text
+            currentCity: this.data.tagsData[index].text
         });
         wx.navigateBack();
     },
@@ -66,19 +65,13 @@ exports.default = Page({
                 key: 'RHGBZ-S2LAU-5MRV7-4QPTZ-JI25K-HVBDV'
             },
             success: function success(res) {
-                _this.position = res.data.result.ad_info.city;
-                console.log(_this.position);
+                _this.setData({
+                    position: res.data.result.ad_info.city
+                });
             }
         });
     },
     onLoad: function onLoad(options) {
         this.getPosition();
-        console.log(options);
-        // this.setData({
-        //     selectCity:options.city
-        // })
-    },
-    onReady: function onReady(options) {
-        //this.getPosition()
     }
 });

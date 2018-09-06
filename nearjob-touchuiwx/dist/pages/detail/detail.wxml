@@ -1,1 +1,112 @@
-<view></view>
+<view>
+  <view class="ui-row" style="height:30px;">
+    <view class="ui-col ui-col-9" style="flex: 0 0 75%;padding-left: 15px;">
+      <view class="ui-col-content">
+        <view style="font-size:20px;font-weight:bold;">Python爬虫工程师</view>
+      </view>
+    </view>
+    <view class="ui-col ui-col-align-center align-center valign-bottom" style="padding-left: 20px;padding-right: 10px;">
+      <view class="ui-col-content align-center valign-bottom">
+        <view style="color:orange">10k-15k</view>
+      </view>
+    </view>
+  </view>
+  <view class="ui-row" style="margin-top: 5px;">
+    <view class="ui-col ui-col-align-left align-left valign-middle" style="padding-left: 15px;">
+      <view class="ui-col-content align-left valign-middle">
+        <view class="text-color">广州 | 经验3-5年 | 本科</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="ui-row" style="margin-top: 20px;">
+    <view class="ui-col" style="padding-left: 15px;">
+      <view class="ui-col-content">
+        <view class="small-title">技能标签</view>
+      </view>
+    </view>
+  </view>
+  <view class="ui-row" style="margin-top: 20px;">
+    <view class="ui-col" style="padding-left: 15px;">
+      <view class="ui-col-content">
+        <ui-tags class="text-color" data="{{labelList}}" fixed-width col-number="4" _pid="{{_pid}}"></ui-tags>
+      </view>
+    </view>
+  </view>
+
+  <view class="ui-row" style="margin-top: 20px;">
+    <view class="ui-col" style="padding-left: 15px;">
+      <view class="ui-col-content">
+        <view class="small-title">职位诱惑</view>
+      </view>
+    </view>
+  </view>
+  <view class="ui-row" style="margin-top: 20px;">
+    <view class="ui-col" style="padding-left: 15px;">
+      <view class="ui-col-content">
+        <ui-tags class="text-color" data="{{tagList}}" fixed-width col-number="4" _pid="{{_pid}}"></ui-tags>
+      </view>
+    </view>
+  </view>
+
+  <view class="ui-row" style="margin-top: 20px;">
+    <view class="ui-col" style="padding-left: 15px;">
+      <view class="ui-col-content">
+        <view class="small-title">岗位描述</view>
+      </view>
+    </view>
+  </view>
+  <view class="ui-row" style="">
+    <view class="ui-col" style="padding-left: 15px;padding-right: 10px;">
+      <view class="ui-col-content">
+        <ui-summary height="150" animate="{{false}}" _pid="{{_pid}}">
+          <text style="font-size:14px;color:#333">
+            1、专科及以上学历。2-3年工作经验，精通PHP5，热爱PHP技术，熟悉面向对象设计，有良好编程习惯；
+            2、熟悉MySQL，熟悉SQL语言，熟练通过索引优化查询效率；
+            3、熟练配置LAMP开发环境；
+            4、熟悉网页前台技术，XHTML，CSS，Javascript；
+            5、熟练掌握AJAX技术；
+            6、熟练掌握SMARTY模板引擎；
+            7、了解PHP框架技术，如：ThinkPHP5；
+            8、有团队合作意识，有工作责任心，吃苦耐劳；
+            9、有大型项目或Java（Spring、IBatis、MINA）开发经验者优先；
+            福利待遇介绍：
+            ◆公司实行五天八小时工作制，提供工作餐；
+            ◆公司配备专车接送上下班，主线为：3#大石地铁站往返公司；
+            ◆年度结束后，公司会为每一位当年在公司服务满一年的员工提供年终奖。
+            ◆节日福利、高温补贴、生育津贴、生日礼物......
+            ◆公司为员工提供五险一金。
+            ◆公司为员工提供舒适的工作环境，及不定期的集体活动，定期的体检，活动内容包括：聚餐、登山、KTV、烧烤活动等、每年一至两次的省内
+          </text>
+        </ui-summary>
+      </view>
+    </view>
+  </view>
+
+  <view class="ui-row" style="margin-top: 10px;">
+    <view class="ui-col" style="padding-left: 15px;">
+      <view class="ui-col-content">
+        <view class="small-title">公司地址</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="ui-row ui-row-border-bottom" style="margin-bottom: 50px;margin-top: 20px;height:40px;">
+    <view class="ui-col ui-col-11" style="flex: 0 0 91.66666666666666%;padding-left: 15px;">
+      <view class="ui-col-content">
+        <view style="font-size:18px">
+          <text class="text-color">广州市天河区中山大道138号</text>
+        </view>
+      </view>
+    </view>
+    <view class="ui-col ui-col-align-center align-center valign-center" style="padding-right: 0px;">
+      <view class="ui-col-content align-center valign-center">
+        <span type="arrow-right" class="ui-icon icon-arrow-right" style="font-size: 16px;"></span>
+      </view>
+    </view>
+  </view>
+
+  <ui-fixed-view bottom="0" left="0" right="0" _pid="{{_pid}}">
+    <view class="fixed-view-content" bindtap="copyJobLink">复制链接</view>
+  </ui-fixed-view>
+</view>

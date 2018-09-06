@@ -39,12 +39,12 @@
   line-height: 50px;
 }
 .top_tip .text text {
-  font-size: 16px;
+  font-size: 12px;
   color: #313338;
 }
 .top_tip .text view {
   color: #9C9FA4;
-  font-size: 12px;
+  font-size: 10px;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;

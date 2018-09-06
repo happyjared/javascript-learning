@@ -1,13 +1,13 @@
 <view>
-  <!-- 顶部导航区域 -->
-  <view class="ui-row ui-row-border-bottom" style="height:40px;">
 
+  <!-- 顶部导航区域 -->
+  <view style="color:#666;height:40px;" class="ui-row ui-row-border-bottom">
     <!-- 城市 -->
     <view class="ui-col ui-col-border-right ui-col-align-center align-center valign-middle" style="">
       <view class="ui-col-content align-center valign-middle">
-        <view class="sample_content" bindtap="toCitySelect">
+        <view bindtap="toCitySelect">
           <text>{{currentCity}}</text>
-          <span type="slide_down" size="8" color="#878787;" style="padding-left:4px;color: #878787;;font-size: 8px;" class="ui-icon icon-slide_down"></span>
+          <span type="slide_down" size="8" color="#878787" style="padding-left:4px;color: #878787;font-size: 8px;" class="ui-icon icon-slide_down"></span>
         </view>
       </view>
     </view>
@@ -23,7 +23,7 @@
     </view>
 
     <!-- 距离 -->
-    <view class="ui-col ui-col-border-right ui-col-align-center align-center valign-middle" style="">
+    <view class="ui-col ui-col-align-center align-center valign-middle" style="">
       <view class="ui-col-content align-center valign-middle">
         <view bindtap="distancePopup">{{currentDistance}}km</view>
         <ui-popup show="{{showDistance}}" _pid="{{_pid}}">
@@ -37,14 +37,10 @@
         </ui-popup>
       </view>
     </view>
-
-    <!-- 排序 -->
-    <view class="ui-col ui-col-border-right ui-col-align-center align-center valign-middle" style="">
-      <view class="ui-col-content align-center valign-middle">
-        <view>排序</view>
-      </view>
-    </view>
   </view>
+
+  <!-- 排序区域 -->
+  <ui-tags data="{{sortList}}" bindchange="changeSort" fixed-width item-width="{{width/3-10}}" col-number="3" _pid="{{_pid}}"></ui-tags>
 
   <!-- 职位区域 -->
   <ui-swipe-out height="80" operate-width="80" data-index="{{index}}" can-swipe="{{item.canSwipe}}" value="{{item.switcher}}" wx:for="{{jobDataList}}" bindchange="changeHandler1" bindtap="toDeail" _pid="{{_pid}}">
@@ -59,20 +55,35 @@
         </view>
         <view class="text ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px; padding-right: 10px;">
           <view class="ui-col-content align-left valign-middle">
-            <view style="width: 100%;">
+            <view style="width:100%">
               <view class="ui-row" style="height:30px;">
                 <view class="ui-col ui-col-align-left align-left valign-middle" style="">
                   <view class="ui-col-content align-left valign-middle">
                     <text>{{ item.title }}</text>
                   </view>
                 </view>
-                <view class="ui-col ui-col-align-right align-right valign-middle" style="padding-right: 10px;flex:0 0 100px;">
+                <view class="ui-col ui-col-align-right align-right valign-middle" style="padding-right: 10px;flex:0 0 80px;">
                   <view class="ui-col-content align-right valign-middle">
-                    <text>09-18</text>
+                    <text style="font-size:11px;color:#666">08-12 12:50</text>
                   </view>
                 </view>
               </view>
               <view>{{ item.text }}</view>
+              <view class="ui-row" style="">
+                <view class="ui-col ui-col-align-left align-left valign-middle" style="">
+                  <view class="ui-col-content align-left valign-middle">
+                    <view-text style="font-size:10px;color:#9C9FA4;">
+                      广州腾讯研发中心
+                      <span style="padding-left:10px;font-size: 10px;" type="api-position" size="10" class="ui-icon icon-api-position"> 0.8公里</span>
+                    </view-text>
+                  </view>
+                </view>
+                <view class="ui-col ui-col-align-right align-right valign-middle" style="padding-right: 10px;flex:0 0 80px;">
+                  <view class="ui-col-content align-right valign-middle">
+                    <text style="font-size:10px;color:#9C9FA4">数据来源: 拉勾</text>
+                  </view>
+                </view>
+              </view>
             </view>
           </view>
         </view>
