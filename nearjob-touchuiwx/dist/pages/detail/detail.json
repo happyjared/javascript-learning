@@ -4,8 +4,5 @@
     "ui-summary": "../../packages/touchui-wx-components/ui-summary/dist/index",
     "ui-fixed-view": "../../packages/touchui-wx-components/ui-fixed-view/dist/index"
   },
-  "navigationBarTitleText": "职位详情",
-  "navigationBarBorderColor": "rgba(231, 231, 231, 0.6)",
-  "navigationBarBackgroundColor": "#FFFFFF",
-  "navigationBarTextStyle": "black"
+  "navigationBarTitleText": "职位详情"
 }

@@ -1,5 +1,5 @@
 <view>
-  <view class="ui-row" style="height:30px;">
+  <view class="ui-row" style="margin-top: 10px;height:30px;">
     <view class="ui-col ui-col-9" style="flex: 0 0 75%;padding-left: 15px;">
       <view class="ui-col-content">
         <view style="font-size:20px;font-weight:bold;">Python爬虫工程师</view>
@@ -7,7 +7,7 @@
     </view>
     <view class="ui-col ui-col-align-center align-center valign-bottom" style="padding-left: 20px;padding-right: 10px;">
       <view class="ui-col-content align-center valign-bottom">
-        <view style="color:orange">10k-15k</view>
+        <view style="color:#54d09f">10k-15k</view>
       </view>
     </view>
   </view>
@@ -86,13 +86,61 @@
   <view class="ui-row" style="margin-top: 10px;">
     <view class="ui-col" style="padding-left: 15px;">
       <view class="ui-col-content">
-        <view class="small-title">公司地址</view>
+        <view class="small-title">公司信息</view>
+      </view>
+    </view>
+  </view>
+  <view class="ui-row" style="margin-top: 20px;height:50px;">
+    <view class="ui-col ui-col-2" style="flex: 0 0 16.666666666666664%;padding-left: 15px;">
+      <view class="ui-col-content">
+        <image src="http://images.uileader.com/20180313/41448b31-1f65-4c3d-be58-e7d66601d1c0.png" style="width:100%;height:95%" />
+      </view>
+    </view>
+    <view class="ui-col" style="padding-left: 15px;padding-right: 15px;">
+      <view class="ui-col-content">
+        <view class="ui-row" style="height:35px;">
+          <view class="text-color ui-col" style="">
+            <view class="ui-col-content">广州阿里游戏有限公司</view>
+          </view>
+        </view>
+        <view class="ui-row" style="height:15px;">
+          <view class="small-text-color ui-col valign-bottom" style="">
+            <view class="ui-col-content valign-bottom">移动互联网 • 游戏 • 天使轮 • 15-50人</view>
+          </view>
+        </view>
       </view>
     </view>
   </view>
 
+  <view class="ui-row" style="margin-top: 20px;">
+    <view class="ui-col" style="padding-left: 15px;">
+      <view class="ui-col-content">
+        <view class="small-title">地理区域</view>
+      </view>
+    </view>
+  </view>
+  <view class="ui-row" style="margin-top: 20px;">
+    <view class="ui-col" style="padding-left: 15px;">
+      <view class="ui-col-content">
+        <ui-tags class="text-color" data="{{positionList}}" fixed-width col-number="3" _pid="{{_pid}}"></ui-tags>
+      </view>
+    </view>
+  </view>
+
+  <view class="ui-row" style="margin-top: 20px;">
+    <view class="ui-col" style="padding-left: 15px;">
+      <view class="ui-col-content">
+        <view class="small-title">工作地址</view>
+      </view>
+    </view>
+  </view>
   <view class="ui-row ui-row-border-bottom" style="margin-bottom: 50px;margin-top: 20px;height:40px;">
-    <view class="ui-col ui-col-11" style="flex: 0 0 91.66666666666666%;padding-left: 15px;">
+    <view class="ui-col ui-col-1" style="flex: 0 0 8.333333333333332%;padding-left: 15px;">
+      <view class="ui-col-content">
+        <span type="api-position" color="#A9DC21" size="18" class="ui-icon icon-api-position" style="color: #A9DC21;font-size: 18px;"></span>
+      </view>
+    </view>
+    <view class="ui-col ui-col-9" style="flex: 0 0 75%;padding-left: 5px;">
       <view class="ui-col-content">
         <view style="font-size:18px">
           <text class="text-color">广州市天河区中山大道138号</text>

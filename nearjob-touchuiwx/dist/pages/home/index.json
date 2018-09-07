@@ -5,5 +5,9 @@
     "ui-slider": "../../packages/touchui-wx-components/ui-slider/dist/index",
     "ui-tags": "../../packages/touchui-wx-components/ui-tags/dist/index",
     "ui-swipe-out": "../../packages/touchui-wx-components/ui-swipe-out/dist/index"
-  }
+  },
+  "backgroundTextStyle": "dark",
+  "navigationBarTitleText": "附近好工作",
+  "enablePullDownRefresh": true,
+  "onReachBottomDistance": 100
 }

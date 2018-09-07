@@ -19,13 +19,13 @@
 /* 水平垂直居中 */
 /* 超出部分出省略号 */
 /* 多行文本超出部分省略号 */
-.delete {
+.delNotInsJob {
   width: 80px;
   text-align: center;
   line-height: 80px;
   font-size: 14px;
   color: #fff;
-  background: #f22;
+  background: #dfdfdf;
 }
 .top_tip {
   background-color: #fff;

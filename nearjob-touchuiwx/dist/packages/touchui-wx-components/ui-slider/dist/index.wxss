@@ -36,7 +36,7 @@
   left: 0;
   width: 0;
   height: 4px;
-  background-color: #39f;
+  background-color: #A9DC21;
 }
 .ui-slider .slider-bar-wrap1 {
   position: absolute;

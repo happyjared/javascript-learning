@@ -1,20 +1,18 @@
 {
   "pages": [
     "pages/home/index",
-    "pages/city/city",
-    "pages/detail/detail"
+    "pages/detail/detail",
+    "pages/city/city"
   ],
   "window": {
-    "backgroundTextStyle": "light",
-    "backgroundColor": "#EBC9A6",
-    "navigationBarBackgroundColor": "#EBC9A6",
-    "navigationBarTitleText": "附近求职",
+    "navigationBarBackgroundColor": "#A9DC21",
+    "navigationBarTitleText": "JobList",
     "navigationBarTextStyle": "black"
   },
   "networkTimeout": {
     "request": 10000
   },
   "theme": {
-    "theme-color": "#39f"
+    "theme-color": "#A9DC21"
   }
 }

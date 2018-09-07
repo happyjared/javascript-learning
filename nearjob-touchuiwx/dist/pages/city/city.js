@@ -1,48 +1,48 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-var tagStyle = '\n    font-size: 14px;\n    margin-top: 10px;\n    border-radius: 4px;\n    color: #666;\n    background-color:#fff;\n    border:1px solid #f1f1f1;\n    line-height:35px;\n    text-align:center;\n';
+var cityTagStyle = "\n    font-size: 14px;\n    margin-top: 10px;\n    border-radius: 4px;\n    color: #666;\n    background-color:#fff;\n    border:1px solid #f1f1f1;\n    line-height:35px;\n    text-align:center;\n";
 exports.default = Page({
     data: {
         position: '暂无定位',
-        tagsData: [{
+        cityTagList: [{
             text: '北京',
-            tagStyle: tagStyle
+            tagStyle: cityTagStyle
         }, {
             text: '上海',
-            tagStyle: tagStyle
+            tagStyle: cityTagStyle
         }, {
             text: '广州',
-            tagStyle: tagStyle
+            tagStyle: cityTagStyle
         }, {
             text: '深圳',
-            tagStyle: tagStyle
+            tagStyle: cityTagStyle
         }, {
             text: '杭州',
-            tagStyle: tagStyle
+            tagStyle: cityTagStyle
         }, {
             text: '成都',
-            tagStyle: tagStyle
+            tagStyle: cityTagStyle
         }, {
             text: '郑州',
-            tagStyle: tagStyle
+            tagStyle: cityTagStyle
         }, {
             text: '西安',
-            tagStyle: tagStyle
+            tagStyle: cityTagStyle
         }, {
             text: '南京',
-            tagStyle: tagStyle
+            tagStyle: cityTagStyle
         }, {
             text: '武汉',
-            tagStyle: tagStyle
+            tagStyle: cityTagStyle
         }, {
             text: '长沙',
-            tagStyle: tagStyle
+            tagStyle: cityTagStyle
         }, {
-            text: '武汉',
-            tagStyle: tagStyle
+            text: '厦门',
+            tagStyle: cityTagStyle
         }]
     },
     changeCity: function changeCity(e) {
@@ -50,9 +50,9 @@ exports.default = Page({
         var pages = getCurrentPages();
         var currPage = pages[pages.length - 1]; //当前页面
         var prevPage = pages[pages.length - 2];
-        console.log(this.data.tagsData[index].text);
+        console.log(this.data.cityTagList[index].text);
         prevPage.setData({
-            currentCity: this.data.tagsData[index].text
+            currentCity: this.data.cityTagList[index].text
         });
         wx.navigateBack();
     },
@@ -66,7 +66,7 @@ exports.default = Page({
             },
             success: function success(res) {
                 _this.setData({
-                    position: res.data.result.ad_info.city
+                    position: res.data.result.ad_info.city.replace('市', '')
                 });
             }
         });

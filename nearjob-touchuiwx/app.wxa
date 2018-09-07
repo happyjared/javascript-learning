@@ -7,19 +7,17 @@ import system from './static/utils/system'
 export default {
   config: {
     usingComponents: {},
-    pages: ['pages/home/index', 'pages/city/city','pages/detail/detail'],
+    pages: ['pages/home/index', 'pages/detail/detail', 'pages/city/city'],
     window: {
-      backgroundTextStyle: 'light',
-      backgroundColor: '#EBC9A6',
-      navigationBarBackgroundColor: '#EBC9A6',
-      navigationBarTitleText: '附近求职',
-      navigationBarTextStyle: 'black'
+      navigationBarBackgroundColor: '#A9DC21',
+      navigationBarTitleText: 'JobList',
+      navigationBarTextStyle: 'black',
     },
     networkTimeout: {
       request: 10000
     },
     theme: {
-      'theme-color': '#39f'
+      'theme-color': '#A9DC21'
     }
   },
   globalData: {},
@@ -33,4 +31,7 @@ export default {
 
 <style lang="less">
 @import './static/styles/index.less';
+.global-color{
+  color:'#A9DC21'
+}
 </style>

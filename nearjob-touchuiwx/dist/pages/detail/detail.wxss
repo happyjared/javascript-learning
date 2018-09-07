@@ -23,7 +23,7 @@
   line-height: 100%;
   font-weight: bold;
   font-size: 16px;
-  border-left: 4px solid orange;
+  border-left: 4px solid #A9DC21;
   padding-left: 5px;
 }
 .fixed-view-content {
@@ -31,10 +31,14 @@
   font-weight: bold;
   line-height: 50px;
   text-align: center;
-  color: #333;
-  background-color: orange;
+  color: #fff;
+  background-color: #54d09f;
   z-index: 99;
 }
 .text-color {
   color: #777;
+}
+.small-text-color {
+  color: #777;
+  font-size: 11px;
 }

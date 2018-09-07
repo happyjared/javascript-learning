@@ -8,14 +8,14 @@
                     <view>
                         <view class="title">坐标定位</view>
                         <view class="position">
-                            <ui-icon type="home-map" color="#00ab48"></ui-icon>
-                            <text style="color:#00ab48;font-size:12px;margin-left:4px">{{position}}</text>
+                            <ui-icon type="home-map" color="#A9DC21"></ui-icon>
+                            <text style="color:#A9DC21;font-size:14px;margin-left:4px">{{position}}</text>
                         </view>
                     </view>
                     <view class="top2">
                         <view class="title" style="margin-left:-10px">热门城市</view>
                         <ui-tags 
-                          data="{{tagsData}}" 
+                          data="{{cityTagList}}" 
                           bindchange="changeCity" 
                           fixed-width
                           col-number="4">
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-const tagStyle = `
+const cityTagStyle = `
     font-size: 14px;
     margin-top: 10px;
     border-radius: 4px;
@@ -40,46 +40,46 @@ const tagStyle = `
 `
 export default {
     config: {
-        disableScroll: false
+        "navigationBarTitleText": "选择城市",
     },
     data : {
         position: '暂无定位',
-        tagsData:[{
+        cityTagList:[{
             text: '北京',
-            tagStyle: tagStyle
+            tagStyle: cityTagStyle
         }, {
             text: '上海',
-            tagStyle: tagStyle
+            tagStyle: cityTagStyle
         }, {
             text: '广州',
-            tagStyle: tagStyle
+            tagStyle: cityTagStyle
         }, {
             text: '深圳',
-            tagStyle: tagStyle
+            tagStyle: cityTagStyle
         }, {
             text: '杭州',
-            tagStyle: tagStyle
+            tagStyle: cityTagStyle
         }, {
             text: '成都',
-            tagStyle: tagStyle
+            tagStyle: cityTagStyle
         },{
             text: '郑州',
-            tagStyle: tagStyle
+            tagStyle: cityTagStyle
         },{
             text: '西安',
-            tagStyle: tagStyle
+            tagStyle: cityTagStyle
         }, {
             text: '南京',
-            tagStyle: tagStyle
+            tagStyle: cityTagStyle
         }, {
             text: '武汉',
-            tagStyle: tagStyle
+            tagStyle: cityTagStyle
         }, {
             text: '长沙',
-            tagStyle: tagStyle
+            tagStyle: cityTagStyle
         }, {
-            text: '武汉',
-            tagStyle: tagStyle
+            text: '厦门',
+            tagStyle: cityTagStyle
         }],
     },
     changeCity(e){
@@ -87,9 +87,9 @@ export default {
         var pages = getCurrentPages()
         var currPage = pages[pages.length - 1];   //当前页面
         var prevPage = pages[pages.length - 2];
-        console.log(this.data.tagsData[index].text)
+        console.log(this.data.cityTagList[index].text)
         prevPage.setData({
-            currentCity:this.data.tagsData[index].text
+            currentCity:this.data.cityTagList[index].text
         })
         wx.navigateBack()
     },
@@ -101,7 +101,7 @@ export default {
             },
             success: (res) => {
                 this.setData({
-                    position: res.data.result.ad_info.city
+                    position: res.data.result.ad_info.city.replace('市','')
                 })
             }
         })

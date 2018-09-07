@@ -45,36 +45,36 @@ button {
   margin: 6px 0;
 }
 button[type="primary"] {
-  background-color: #39f;
+  background-color: #A9DC21;
 }
 button[type="primary"][loading] {
-  background-color: #39f;
+  background-color: #A9DC21;
 }
 button[type="primary"].button-hover {
   color: #fff;
-  background-color: #0070e0;
+  background-color: #729516;
   opacity: 0.8;
 }
 button[type="primary"][plain] {
-  border-color: #39f;
-  color: #39f;
+  border-color: #A9DC21;
+  color: #A9DC21;
 }
 button[type="primary"][plain].button-hover {
-  color: #39f;
-  border-color: #39f;
+  color: #A9DC21;
+  border-color: #A9DC21;
   opacity: 0.8;
 }
 button[type="primary"][size="mini"].button-hover {
-  border-color: #39f !important;
+  border-color: #A9DC21 !important;
 }
 button[type="primary"][disabled] {
-  background-color: #85c2ff;
+  background-color: #c5e866;
 }
 button[type="primary"][size="mini"] {
-  border-color: #39f !important;
+  border-color: #A9DC21 !important;
 }
 button[type="primary"][size="mini"].button-hover {
-  border-color: #39f !important;
+  border-color: #A9DC21 !important;
 }
 button[type="success"] {
   background-color: #13ce66;
@@ -941,4 +941,7 @@ button[type="success"][plain] {
 }
 .icon-tread:before {
   content: "\e9bd";
+}
+.global-color {
+  color: '#A9DC21';
 }
