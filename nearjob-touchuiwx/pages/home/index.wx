@@ -54,30 +54,30 @@
       <view slot="content" bindtap="toDeail">
         <ui-row height="80" class="top_tip" border-bottom>
           <ui-col width="80" align="center" vertical-align="middle">
-            <view class="left_icon" style="background-color:{{item.color}}">
-              <ui-icon type="{{ item.icon }}" color="#fff" size="20"></ui-icon>
+            <view class="left_icon" style="background-color:{{colorList[index%3]}}">
+              <ui-icon type="{{ iconList[index%5] }}" color="#fff" size="20"></ui-icon>
             </view>
           </ui-col>
           <ui-col class="text" align="left" vertical-align="middle" space="20">
             <view style="width:100%">
                 <ui-row height="30">
                     <ui-col align="left" vertical-align="middle">
-                    <text>{{ item.title }}</text>
+                    <text>{{ item.jobName }} / {{item.jobSalary}}</text>
                     </ui-col>
                     <ui-col align="right" width="80" vertical-align="middle" space-right="10">
-                        <text style="font-size:11px;color:#666">08-12 12:50</text>
+                        <text style="font-size:11px;color:#666">{{ item.postJobTime }}</text>
                     </ui-col>
                 </ui-row>
-                <view>{{ item.text }}</view>
+                <view>{{ item.jobEducation }} | 经验{{ item.jobExperience }} | {{ item.companyScale }}</view>
                 <ui-row>
                     <ui-col align="left" vertical-align="middle">
                     <view-text style="font-size:10px;color:#9C9FA4;">
-                        广州腾讯研发中心          
-                         <ui-icon type="api-position" size="10"> 0.8公里</ui-icon>
+                        {{ item.companyFullName }}          
+                        <ui-icon type="api-position" size="10"> {{ item.distance }}公里</ui-icon>
                     </view-text>
                     </ui-col>
                     <ui-col align="right" width="80" vertical-align="middle" space-right="10">
-                    <text style="font-size:10px;color:#9C9FA4">数据来源: 拉勾</text>
+                    <text style="font-size:10px;color:#9C9FA4">数据来源: {{ item.sourceFrom==1 ? '拉勾':'BOSS' }}</text>
                     </ui-col>
                 </ui-row>
             </view>
@@ -119,6 +119,8 @@ const sortSelectStyle = `
     align-items: center;
     line-height: 20px;
 `
+
+import date from '../../static/utils/date'
 export default {
     config: {
         "backgroundTextStyle": 'dark',
@@ -195,18 +197,9 @@ export default {
         var _this = this
         wx.request({
             url:'https://mini.mariojd.cn/api/index?jobId=1&cityId=3&size=5&longitude=113.30404&latitude=23.13209&distance=10',
-            success: function(res) {      
-                var resData=res.data
-                var dataList=[]
-                resData.content.forEach((resJob,index) => {                   
-                    var title = resJob.jobName +' / '+resJob.jobSalary
-                    var color = _this.data.colorList[index>=3?index-3:index]
-                    var text = resJob.jobEducation + ' | 经验' + resJob.jobExperience 
-                    var icon = _this.data.iconList[index>=5?index-5:index]
-                    dataList.push({ color: color, title: title, text: text, switcher: 'off', icon: icon})
-                })
+            success: function(res) {
                 _this.setData({
-                    jobDataList: dataList
+                    jobDataList: res.data.content
                 })
             }
         })

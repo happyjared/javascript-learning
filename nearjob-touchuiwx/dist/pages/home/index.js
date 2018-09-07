@@ -1,11 +1,19 @@
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-var sortStyle = "\n    background: #efefef;\n    color: #999;\n    margin:5px 0 5px 10px;\n    font-size: 12px;\n    border-radius: 30px;\n    height: 25px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    line-height: 20px;\n";
 
-var sortSelectStyle = "\n    border: 1px solid #A9DC21;\n    background: #efefef;\n    color: #A9DC21;\n    margin:5px 0 5px 10px;\n    font-size: 12px;\n    border-radius: 30px;\n    height: 25px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    line-height: 20px;\n";
+var _date = require('../../static/utils/date.js');
+
+var _date2 = _interopRequireDefault(_date);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var sortStyle = '\n    background: #efefef;\n    color: #999;\n    margin:5px 0 5px 10px;\n    font-size: 12px;\n    border-radius: 30px;\n    height: 25px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    line-height: 20px;\n';
+
+var sortSelectStyle = '\n    border: 1px solid #A9DC21;\n    background: #efefef;\n    color: #A9DC21;\n    margin:5px 0 5px 10px;\n    font-size: 12px;\n    border-radius: 30px;\n    height: 25px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    line-height: 20px;\n';
+
 exports.default = Page({
     data: {
         width: wx.WIN_WIDTH,
@@ -69,17 +77,8 @@ exports.default = Page({
         wx.request({
             url: 'https://mini.mariojd.cn/api/index?jobId=1&cityId=3&size=5&longitude=113.30404&latitude=23.13209&distance=10',
             success: function success(res) {
-                var resData = res.data;
-                var dataList = [];
-                resData.content.forEach(function (resJob, index) {
-                    var title = resJob.jobName + ' / ' + resJob.jobSalary;
-                    var color = _this.data.colorList[index >= 3 ? index - 3 : index];
-                    var text = resJob.jobEducation + ' | 经验' + resJob.jobExperience;
-                    var icon = _this.data.iconList[index >= 5 ? index - 5 : index];
-                    dataList.push({ color: color, title: title, text: text, switcher: 'off', icon: icon });
-                });
                 _this.setData({
-                    jobDataList: dataList
+                    jobDataList: res.data.content
                 });
             }
         });
@@ -174,13 +173,13 @@ exports.default = Page({
     // 跳转到职位详情页面
     toDeail: function toDeail(e) {
         wx.navigateTo({
-            url: "../detail/detail"
+            url: '../detail/detail'
         });
     },
     // 跳转到城市选择页面
     toCitySelect: function toCitySelect() {
         wx.navigateTo({
-            url: "../city/city"
+            url: '../city/city'
         });
     }
 });

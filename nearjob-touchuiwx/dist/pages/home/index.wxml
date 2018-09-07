@@ -48,8 +48,8 @@
       <view class="top_tip ui-row ui-row-border-bottom" style="height:80px;">
         <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 80px;">
           <view class="ui-col-content align-center valign-middle">
-            <view class="left_icon" style="background-color:{{item.color}}">
-              <span type="{{ item.icon }}" color="#fff" size="20" class="ui-icon icon-{{ item.icon }}" style="color: #fff;font-size: 20px;"></span>
+            <view class="left_icon" style="background-color:{{colorList[index%3]}}">
+              <span type="{{ iconList[index%5] }}" color="#fff" size="20" class="ui-icon icon-{{ iconList[index%5] }}" style="color: #fff;font-size: 20px;"></span>
             </view>
           </view>
         </view>
@@ -59,28 +59,28 @@
               <view class="ui-row" style="height:30px;">
                 <view class="ui-col ui-col-align-left align-left valign-middle" style="">
                   <view class="ui-col-content align-left valign-middle">
-                    <text>{{ item.title }}</text>
+                    <text>{{ item.jobName }} / {{item.jobSalary}}</text>
                   </view>
                 </view>
                 <view class="ui-col ui-col-align-right align-right valign-middle" style="padding-right: 10px;flex:0 0 80px;">
                   <view class="ui-col-content align-right valign-middle">
-                    <text style="font-size:11px;color:#666">08-12 12:50</text>
+                    <text style="font-size:11px;color:#666">{{ item.postJobTime }}</text>
                   </view>
                 </view>
               </view>
-              <view>{{ item.text }}</view>
+              <view>{{ item.jobEducation }} | 经验{{ item.jobExperience }} | {{ item.companyScale }}</view>
               <view class="ui-row" style="">
                 <view class="ui-col ui-col-align-left align-left valign-middle" style="">
                   <view class="ui-col-content align-left valign-middle">
                     <view-text style="font-size:10px;color:#9C9FA4;">
-                      广州腾讯研发中心
-                      <span type="api-position" size="10" class="ui-icon icon-api-position" style="font-size: 10px;"> 0.8公里</span>
+                      {{ item.companyFullName }}
+                      <span type="api-position" size="10" class="ui-icon icon-api-position" style="font-size: 10px;"> {{ item.distance }}公里</span>
                     </view-text>
                   </view>
                 </view>
                 <view class="ui-col ui-col-align-right align-right valign-middle" style="padding-right: 10px;flex:0 0 80px;">
                   <view class="ui-col-content align-right valign-middle">
-                    <text style="font-size:10px;color:#9C9FA4">数据来源: 拉勾</text>
+                    <text style="font-size:10px;color:#9C9FA4">数据来源: {{ item.sourceFrom==1 ? '拉勾':'BOSS' }}</text>
                   </view>
                 </view>
               </view>
