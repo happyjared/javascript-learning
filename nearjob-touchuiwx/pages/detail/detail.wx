@@ -2,39 +2,43 @@
   <view>
     <ui-row height="30" space-top="10">
       <ui-col space-left="15" span="9">
-        <view style="font-size:20px;font-weight:bold;">Python爬虫工程师</view>
+        <view style="font-size:20px;font-weight:bold;">{{item.jobName || '爪哇工程师'}}</view>
       </ui-col>
       <ui-col space-left="20" space-right="10" align="center" vertical-align="bottom">
-        <view style="color:#54d09f">10k-15k</view>
+        <view style="color:#54d09f">{{item.jobSalary || '6.6k-9.9k'}}</view>
       </ui-col>
     </ui-row>
     <ui-row space-top="5">
        <ui-col align="left" vertical-align="middle" space-left="15">
-          <view class="text-color">广州 | 经验3-5年 | 本科</view>
+          <view class="text-color">{{item.city}} | 经验{{item.jobExperience}} | {{item.jobEducation}}</view>
        </ui-col>
     </ui-row>
 
-    <ui-row space-top="20">
-      <ui-col space-left="15">
-        <view class="small-title">技能标签</view>
-      </ui-col>
-    </ui-row>
-    <ui-row space-top="20">
-      <ui-col space-left="15">
-        <ui-tags class="text-color" data="{{labelList}}" fixed-width col-number="4"></ui-tags>
-      </ui-col>
-    </ui-row>
+    <view wx:if="{{labelList.length>0}}">
+      <ui-row space-top="20">
+        <ui-col space-left="15">
+          <view class="small-title">技能标签</view>
+        </ui-col>
+      </ui-row>
+      <ui-row space-top="20">
+        <ui-col space-left="15">
+          <ui-tags class="text-color" data="{{labelList}}" fixed-width col-number="4"></ui-tags>
+        </ui-col>
+      </ui-row>
+    </view>
 
-    <ui-row space-top="20">
+    <view wx:if="{{advantageList.length>0}}">
+      <ui-row space-top="20">
       <ui-col space-left="15">
         <view class="small-title">职位诱惑</view>
       </ui-col>
-    </ui-row>
-    <ui-row space-top="20">
-      <ui-col space-left="15">
-        <ui-tags class="text-color" data="{{tagList}}" fixed-width col-number="4"></ui-tags>
-      </ui-col>
-    </ui-row>
+      </ui-row>
+      <ui-row space-top="20">
+        <ui-col space-left="15">
+          <ui-tags class="text-color" data="{{advantageList}}" fixed-width col-number="4"></ui-tags>
+        </ui-col>
+      </ui-row>
+    </view>
 
     <ui-row space-top="20">
       <ui-col space-left="15">
@@ -45,22 +49,7 @@
       <ui-col space-left="15" space-right="10">
           <ui-summary height="150" animate="{{false}}">
             <text style="font-size:14px;color:#333">
-                1、专科及以上学历。2-3年工作经验，精通PHP5，热爱PHP技术，熟悉面向对象设计，有良好编程习惯；
-                2、熟悉MySQL，熟悉SQL语言，熟练通过索引优化查询效率；
-                3、熟练配置LAMP开发环境；
-                4、熟悉网页前台技术，XHTML，CSS，Javascript；
-                5、熟练掌握AJAX技术；
-                6、熟练掌握SMARTY模板引擎；
-                7、了解PHP框架技术，如：ThinkPHP5；
-                8、有团队合作意识，有工作责任心，吃苦耐劳；
-                9、有大型项目或Java（Spring、IBatis、MINA）开发经验者优先；
-                福利待遇介绍：
-                ◆公司实行五天八小时工作制，提供工作餐；
-                ◆公司配备专车接送上下班，主线为：3#大石地铁站往返公司；
-                ◆年度结束后，公司会为每一位当年在公司服务满一年的员工提供年终奖。
-                ◆节日福利、高温补贴、生育津贴、生日礼物......
-                ◆公司为员工提供五险一金。
-                ◆公司为员工提供舒适的工作环境，及不定期的集体活动，定期的体检，活动内容包括：聚餐、登山、KTV、烧烤活动等、每年一至两次的省内
+                {{item.jobDescription}}
             </text>
           </ui-summary>
       </ui-col>
@@ -77,40 +66,44 @@
       </ui-col>
       <ui-col space-left="15" space-right="15">
           <ui-row height="35">
-            <ui-col class="text-color">广州阿里游戏有限公司</ui-col>
+            <ui-col class="text-color">{{item.companyFullName}}</ui-col>
           </ui-row>
           <ui-row height="15">
-            <ui-col vertical-align="bottom" class="small-text-color">移动互联网 • 游戏 • 天使轮 • 15-50人</ui-col>
+            <ui-col vertical-align="bottom" class="small-text-color">
+              {{companyIndustry}} • {{item.companyFinance}} • {{item.companyScale}}
+            </ui-col>
           </ui-row>
       </ui-col>
     </ui-row>
 
-    <ui-row space-top="20">
-      <ui-col space-left="15">
-        <view class="small-title">地理区域</view>
-      </ui-col>
-    </ui-row>
-    <ui-row space-top="20">
-      <ui-col space-left="15">
-        <ui-tags class="text-color" data="{{positionList}}" fixed-width col-number="3"></ui-tags>
-      </ui-col>
-    </ui-row>
+    <view wx:if="{{positionList.length>0}}">
+      <ui-row space-top="20">
+        <ui-col space-left="15">
+          <view class="small-title">地理区域</view>
+        </ui-col>
+      </ui-row>
+      <ui-row space-top="20">
+        <ui-col space-left="15">
+          <ui-tags class="text-color" data="{{positionList}}" fixed-width col-number="3"></ui-tags>
+        </ui-col>
+      </ui-row>
+    </view>
 
     <ui-row space-top="20">
       <ui-col space-left="15">
         <view class="small-title">工作地址</view>
       </ui-col>
     </ui-row>
-    <ui-row height="40" space-top="20" space-bottom="50" border-bottom>
-      <ui-col space-left="15" span="1">
+    <ui-row height="40" space-top="20" space-bottom="70" border-bottom>
+      <ui-col space-left="9" span="1">
           <ui-icon type="api-position" color="#A9DC21" size="18"></ui-icon>
       </ui-col>
-      <ui-col space-left="5" span="9">
-          <view style="font-size:18px">
-            <text class="text-color">广州市天河区中山大道138号</text>
+      <ui-col span="10">
+          <view style="font-size:16px;.mix-text-overflow();">
+            <text class="text-color">{{item.companyLocation}}</text>
           </view>
       </ui-col>
-      <ui-col space-right="0" align="center" vertical-align="center">
+      <ui-col align="left" vertical-align="center">
           <ui-icon type="arrow-right"></ui-icon>
       </ui-col>
     </ui-row>
@@ -148,37 +141,67 @@ export default {
     "navigationBarTitleText": "职位详情",
   },
   data: {
-    tagList: [
-      {text: '周末双休', tagStyle: tagStyle},
-      {text: '年底双薪', tagStyle: tagStyle},
-      {text: '五险一金', tagStyle: tagStyle},
-      {text: '省内外旅游', tagStyle: tagStyle},
-    ],
-    labelList:[
-      {text: '数据库开发', tagStyle: tagStyle},
-      {text: 'MySQL', tagStyle: tagStyle},
-      {text: 'SQLServer', tagStyle: tagStyle},
-      {text: '数据处理', tagStyle: tagStyle},
-    ],
-    positionList:[
-      {text: '石牌', tagStyle: tagSelectStyle},
-      {text: '岗顶', tagStyle: tagSelectStyle},
-      {text: '龙口', tagStyle: tagSelectStyle}
-    ],
+
   },
   // 复制职位链接
   copyJobLink(){
-    // wx.setClipboardData({
-    //   data: 'url',
-    //   success: function(res) {
-    //     wx.getClipboardData({
-    //       success: function(res) {
-    //         console.log(res.data) 
-    //       }
-    //     })
-    //   }
-    // })
-  }
+    wx.setClipboardData({
+      data: this.data.sourceUrl,
+      success: function(res) {
+        wx.getClipboardData({
+          success: function(res) {
+            console.log(res.data) 
+          }
+        })
+      }
+    })
+  },
+  // 初始化页面数据
+  onLoad(options){
+    var _this=this
+    var jobId=options.jobId
+    var positionId=options.postionId
+    wx.request({
+        url: 'https://mini.mariojd.cn/api/detail?jobId='+jobId+'&positionId='+positionId,
+        success: function(res) {
+          // 职位诱惑
+          var advantageList=[]
+          var jobAdvantageData=res.data.jobAdvantage
+          if (jobAdvantageData){
+            var jobAdvantage=jobAdvantageData.split(',')
+            jobAdvantage.forEach(advantage => {
+                advantageList.push({text: advantage, tagStyle: tagStyle},)
+            });
+          }
+          // 技能标签
+          var labelList=[]
+          var labelData=res.data.jobLabel
+          if (labelData){
+            var jobLabel=JSON.parse(labelData)
+            jobLabel.forEach(label => {
+                labelList.push({text: label, tagStyle: tagStyle},)
+            });
+          }
+          // 位置区域
+          var positionList=[]
+          var postionData=res.data.companyZone
+          if (postionData){
+            var jobPostion=JSON.parse(postionData)
+            jobPostion.forEach(position => {
+                positionList.push({text: position, tagStyle: tagSelectStyle},)
+            });
+          }
+          _this.setData({
+              item: res.data,
+              labelList: labelList,
+              positionList: positionList,
+              advantageList: advantageList,
+              companyIndustry: res.data.companyIndustry.replace(',',' • '),
+              sourceUrl: res.data.sourceUrl
+          })
+        }
+    })
+  },
 }
 </script>
 

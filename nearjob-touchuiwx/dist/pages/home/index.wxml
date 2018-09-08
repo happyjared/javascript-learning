@@ -28,11 +28,11 @@
         <view bindtap="distancePopup">{{currentDistance}}km</view>
         <ui-popup show="{{showDistance}}" _pid="{{_pid}}">
           <view style="margin:25px 10px;">
-            <ui-slider scale-margin="15" width="{{width-20}}" value="{{defaultDistance}}" min="0" max="10" key-scale-line="1" active-color="#A9DC21" slider-weight="4" thumb-style="{{styleOfDistance}}" bindchange="distanceSelected" _pid="{{_pid}}">
+            <ui-slider scale-margin="15" width="{{width-20}}" value="{{currentDistance}}" min="0" max="10" key-scale-line="1" active-color="#A9DC21" slider-weight="4" thumb-style="{{styleOfDistance}}" bindchange="distanceSelected" _pid="{{_pid}}">
             </ui-slider>
           </view>
           <view style="margin-top:20px;padding:10px;padding-bottom:20px;background-color:#fafafa;border-top:1px solid #eee;">
-            <button class="button1" style="background-color:#A9DC21;margin:15px;color:#fff" bindtap="distancePopup">完成</button>
+            <button class="button1" style="background-color:#A9DC21;margin:15px;color:#fff" data-finish="true" bindtap="distancePopup">完成</button>
           </view>
         </ui-popup>
       </view>
@@ -44,7 +44,7 @@
 
   <!-- 职位区域 -->
   <ui-swipe-out height="80" operate-width="80" data-index="{{index}}" can-swipe="{{item.canSwipe}}" value="{{item.switcher}}" wx:for="{{jobDataList}}" bindchange="switchSlideTab" _pid="{{_pid}}">
-    <view slot="content" bindtap="toDeail">
+    <view slot="content" bindtap="toDeail" id="{{item.positionId}}">
       <view class="top_tip ui-row ui-row-border-bottom" style="height:80px;">
         <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 80px;">
           <view class="ui-col-content align-center valign-middle">
@@ -74,7 +74,9 @@
                   <view class="ui-col-content align-left valign-middle">
                     <view-text style="font-size:10px;color:#9C9FA4;">
                       {{ item.companyFullName }}
-                      <span type="api-position" size="10" class="ui-icon icon-api-position" style="font-size: 10px;"> {{ item.distance }}公里</span>
+                      <span wx:if="{{ item.distance }}" type="api-position" size="10" class="ui-icon icon-api-position" style="font-size: 10px;">
+                        {{ item.distance }}公里
+                      </span>
                     </view-text>
                   </view>
                 </view>

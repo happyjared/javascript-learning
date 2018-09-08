@@ -7,7 +7,7 @@
     "ui-swipe-out": "../../packages/touchui-wx-components/ui-swipe-out/dist/index"
   },
   "backgroundTextStyle": "dark",
-  "navigationBarTitleText": "附近好工作",
+  "navigationBarTitleText": "附近好工作plus+",
   "enablePullDownRefresh": true,
   "onReachBottomDistance": 100
 }

@@ -28,7 +28,7 @@
                     <ui-slider 
                             scale-margin="15"
                             width="{{width-20}}"
-                            value="{{defaultDistance}}"
+                            value="{{currentDistance}}"
                             min=0
                             max=10
                             key-scale-line="1"
@@ -39,7 +39,8 @@
                     </ui-slider>
                 </view>
                 <view style="margin-top:20px;padding:10px;padding-bottom:20px;background-color:#fafafa;border-top:1px solid #eee;">
-                    <button class="button1" style="background-color:#A9DC21;margin:15px;color:#fff" bindtap="distancePopup">完成</button>
+                    <button class="button1" style="background-color:#A9DC21;margin:15px;color:#fff" 
+                         data-finish="true" bindtap="distancePopup">完成</button>
                 </view>
             </ui-popup>
         </ui-col>
@@ -51,7 +52,7 @@
     <!-- 职位区域 -->
     <ui-swipe-out height="80" operate-width="80" data-index="{{index}}" can-swipe="{{item.canSwipe}}"
      value="{{item.switcher}}" wx:for="{{jobDataList}}" bindchange="switchSlideTab">
-      <view slot="content" bindtap="toDeail">
+      <view slot="content" bindtap="toDeail" id={{item.positionId}}>
         <ui-row height="80" class="top_tip" border-bottom>
           <ui-col width="80" align="center" vertical-align="middle">
             <view class="left_icon" style="background-color:{{colorList[index%3]}}">
@@ -73,7 +74,9 @@
                     <ui-col align="left" vertical-align="middle">
                     <view-text style="font-size:10px;color:#9C9FA4;">
                         {{ item.companyFullName }}          
-                        <ui-icon type="api-position" size="10"> {{ item.distance }}公里</ui-icon>
+                        <ui-icon wx:if="{{ item.distance }}" type="api-position" size="10"> 
+                            {{ item.distance }}公里
+                        </ui-icon>
                     </view-text>
                     </ui-col>
                     <ui-col align="right" width="80" vertical-align="middle" space-right="10">
@@ -124,7 +127,7 @@ import date from '../../static/utils/date'
 export default {
     config: {
         "backgroundTextStyle": 'dark',
-        "navigationBarTitleText": "附近好工作",
+        "navigationBarTitleText": "附近好工作plus+",
         "enablePullDownRefresh": true,
         "onReachBottomDistance": 100,
     },
@@ -134,17 +137,14 @@ export default {
         poptpTop: wx.DEFAULT_HEADER_HEIGHT-6,
         colorList: ['#FCB300','#FF7360','#39CCC5'],
         iconList : ['api-access','api-network','api-configure','api-media','api-data'],
-        jobDataList: [
-            // { color: '#FCB300', title:'Java开发工程师 / 30k-50k', text: '本科 | 经验3-5年 | 150-500人', switcher: 'off', icon: 'api-access'},
-            // { color: '#FF7360', title:'Java开发工程师 / 30k-50k', text: '本科 | 经验3-5年 | 150-500人', switcher: 'off', icon: 'api-network'},
-            // { color: '#39CCC5', title:'Java开发工程师 / 30k-50k', text: '本科 | 经验3-5年 | 150-500人', switcher: 'off', icon: 'api-configure'},
-            // { color: '#FCB300', title:'Java开发工程师 / 30k-50k', text: '本科 | 经验3-5年 | 150-500人', switcher: 'off', icon: 'api-media'},
-            // { color: '#FF7360', title:'Java开发工程师 / 30k-50k', text: '本科 | 经验3-5年 | 150-500人', switcher: 'off', icon: 'api-data'},
-        ],
         el: 'undefined',
+        // 职位信息数据
+        jobDataList:[],
+        // 城市数据相关
         currentCity: '广州',
+        currentCityId: 3,
         showDistance: false,
-        defaultDistance: 3,
+        // 距离数据相关
         currentDistance: 3,
         styleOfDistance:{
           'background-image': 'url(http://images.uileader.com/20180417/7bec98d5-4efa-424a-b294-e416da6159bd.png)',
@@ -158,14 +158,16 @@ export default {
           'left':'0px',
           'border-radius':'5px'
         },
+        // 职位数据相关
         showJob: false,
         currentJob: 'java',
+        currentJobId: 1,
         jobList: [{
             name: '后端开发',
             children: [
               { name: 'java', value: 1 },
-              { name: 'python', value: 2 },
-              { name: 'php', value: 3 }
+              { name: 'python', value: 3 },
+              { name: 'php', value: 2 }
             ]
         }, {
             name: '移动开发',
@@ -175,6 +177,7 @@ export default {
               { name: 'web前端', value: 6 }
             ]
         }],
+        // 排序数据相关
         sortList: [{
             text: '最新发布',
             tagStyle: sortStyle,
@@ -190,28 +193,67 @@ export default {
             tagStyle: sortStyle,
             tagSelectedStyle: sortSelectStyle,
             checked: false
-        }]
+        }],
+        // 分页数据相关
+        log: 0,
+        lat: 0,
+        currentPage: 0,
+        lastPage: false,
     },
     //初始加载事件
     onLoad(){
+        this.indexRequest()
+        var _this = this
+        wx.getLocation({
+            type: 'gcj02',
+            success: function(res) {
+                console.log('get location success')
+                _this.data.log = res.longitude
+                _this.data.lat = res.latitude
+                _this.reloadIndex()
+            }
+        })
+    },
+    // 重新请求首页数据
+    reloadIndex() {
+        this.data.currentPage = 0,
+        this.data.lastPage = false,
+        this.data.jobDataList.length = 0,
+        this.indexRequest()
+    },
+    // api/index统一请求入口
+    indexRequest() {
+        if (this.data.lastPage){
+            return;
+        }
+        var _url = 'https://mini.mariojd.cn/api/index?jobId='+this.data.currentJobId
+                    +'&cityId='+this.data.currentCityId+'&page='+this.data.currentPage
+        var _log = this.data.log
+        var _lat = this.data.lat
+        if (_log && _lat) {
+            _url += '&longitude='+_log+'&latitude='+_lat+'&distance='+ this.data.currentDistance
+        }
         var _this = this
         wx.request({
-            url:'https://mini.mariojd.cn/api/index?jobId=1&cityId=3&size=5&longitude=113.30404&latitude=23.13209&distance=10',
+            url: _url,
             success: function(res) {
                 _this.setData({
-                    jobDataList: res.data.content
+                    lastPage: res.data.last,
+                    currentPage: res.data.number,
+                    jobDataList: _this.data.jobDataList.concat(res.data.content),         
                 })
             }
         })
     },
     // 下拉刷新事件
     onPullDownRefresh() {
-        console.log("down refresh...")
+        this.indexRequest()
         wx.stopPullDownRefresh()
     },
     //上拉加载事件
     onReachBottom() {
-        console.log("reach refresh...")
+        this.data.currentPage++
+        this.indexRequest()
     },
     // 修改排序规则
     changeSort (e) {
@@ -232,12 +274,13 @@ export default {
         let data = e.detail
         this.setData({
             showJob: !this.data.showJob,
-            currentJob: data[1].name
+            currentJob: data[1].name,
+            currentJobId: data[1].value
         })
+        this.reloadIndex()
     },
     // 职位弹出框
     jobPopup(){
-        console.log('jobPopup')
         this.setData({
             showJob: !this.data.showJob
         })
@@ -250,10 +293,14 @@ export default {
         })
     },
     // 距离弹出框
-    distancePopup(){
+    distancePopup(e){
         this.setData({
             showDistance: !this.data.showDistance
         })
+        if (e.target.dataset.finish === 'true') {
+            // 点击"完成"触发
+            this.reloadIndex()
+        }
     },
     // 不感兴趣
     notInsJob (index) {
@@ -284,7 +331,7 @@ export default {
     // 跳转到职位详情页面
     toDeail: function(e){
         wx.navigateTo({
-            url: `../detail/detail`
+            url: `../detail/detail?jobId=`+this.data.currentJobId+`&postionId=`+e.currentTarget.id
         })
     },
     // 跳转到城市选择页面

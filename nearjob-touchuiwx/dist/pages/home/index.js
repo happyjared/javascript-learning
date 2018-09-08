@@ -21,17 +21,14 @@ exports.default = Page({
         poptpTop: wx.DEFAULT_HEADER_HEIGHT - 6,
         colorList: ['#FCB300', '#FF7360', '#39CCC5'],
         iconList: ['api-access', 'api-network', 'api-configure', 'api-media', 'api-data'],
-        jobDataList: [
-            // { color: '#FCB300', title:'Java开发工程师 / 30k-50k', text: '本科 | 经验3-5年 | 150-500人', switcher: 'off', icon: 'api-access'},
-            // { color: '#FF7360', title:'Java开发工程师 / 30k-50k', text: '本科 | 经验3-5年 | 150-500人', switcher: 'off', icon: 'api-network'},
-            // { color: '#39CCC5', title:'Java开发工程师 / 30k-50k', text: '本科 | 经验3-5年 | 150-500人', switcher: 'off', icon: 'api-configure'},
-            // { color: '#FCB300', title:'Java开发工程师 / 30k-50k', text: '本科 | 经验3-5年 | 150-500人', switcher: 'off', icon: 'api-media'},
-            // { color: '#FF7360', title:'Java开发工程师 / 30k-50k', text: '本科 | 经验3-5年 | 150-500人', switcher: 'off', icon: 'api-data'},
-        ],
         el: 'undefined',
+        // 职位信息数据
+        jobDataList: [],
+        // 城市数据相关
         currentCity: '广州',
+        currentCityId: 3,
         showDistance: false,
-        defaultDistance: 3,
+        // 距离数据相关
         currentDistance: 3,
         styleOfDistance: {
             'background-image': 'url(http://images.uileader.com/20180417/7bec98d5-4efa-424a-b294-e416da6159bd.png)',
@@ -45,15 +42,18 @@ exports.default = Page({
             'left': '0px',
             'border-radius': '5px'
         },
+        // 职位数据相关
         showJob: false,
         currentJob: 'java',
+        currentJobId: 1,
         jobList: [{
             name: '后端开发',
-            children: [{ name: 'java', value: 1 }, { name: 'python', value: 2 }, { name: 'php', value: 3 }]
+            children: [{ name: 'java', value: 1 }, { name: 'python', value: 3 }, { name: 'php', value: 2 }]
         }, {
             name: '移动开发',
             children: [{ name: 'andrioid', value: 4 }, { name: 'ios', value: 5 }, { name: 'web前端', value: 6 }]
         }],
+        // 排序数据相关
         sortList: [{
             text: '最新发布',
             tagStyle: sortStyle,
@@ -69,16 +69,52 @@ exports.default = Page({
             tagStyle: sortStyle,
             tagSelectedStyle: sortSelectStyle,
             checked: false
-        }]
+        }],
+        // 分页数据相关
+        log: 0,
+        lat: 0,
+        currentPage: 0,
+        lastPage: false
     },
     //初始加载事件
     onLoad: function onLoad() {
+        this.indexRequest();
+        var _this = this;
+        wx.getLocation({
+            type: 'gcj02',
+            success: function success(res) {
+                console.log('get location success');
+                _this.data.log = res.longitude;
+                _this.data.lat = res.latitude;
+                _this.reloadIndex();
+            }
+        });
+    },
+
+    // 重新请求首页数据
+    reloadIndex: function reloadIndex() {
+        this.data.currentPage = 0, this.data.lastPage = false, this.data.jobDataList.length = 0, this.indexRequest();
+    },
+
+    // api/index统一请求入口
+    indexRequest: function indexRequest() {
+        if (this.data.lastPage) {
+            return;
+        }
+        var _url = 'https://mini.mariojd.cn/api/index?jobId=' + this.data.currentJobId + '&cityId=' + this.data.currentCityId + '&page=' + this.data.currentPage;
+        var _log = this.data.log;
+        var _lat = this.data.lat;
+        if (_log && _lat) {
+            _url += '&longitude=' + _log + '&latitude=' + _lat + '&distance=' + this.data.currentDistance;
+        }
         var _this = this;
         wx.request({
-            url: 'https://mini.mariojd.cn/api/index?jobId=1&cityId=3&size=5&longitude=113.30404&latitude=23.13209&distance=10',
+            url: _url,
             success: function success(res) {
                 _this.setData({
-                    jobDataList: res.data.content
+                    lastPage: res.data.last,
+                    currentPage: res.data.number,
+                    jobDataList: _this.data.jobDataList.concat(res.data.content)
                 });
             }
         });
@@ -86,13 +122,14 @@ exports.default = Page({
 
     // 下拉刷新事件
     onPullDownRefresh: function onPullDownRefresh() {
-        console.log("down refresh...");
+        this.indexRequest();
         wx.stopPullDownRefresh();
     },
 
     //上拉加载事件
     onReachBottom: function onReachBottom() {
-        console.log("reach refresh...");
+        this.data.currentPage++;
+        this.indexRequest();
     },
 
     // 修改排序规则
@@ -115,13 +152,14 @@ exports.default = Page({
         var data = e.detail;
         this.setData({
             showJob: !this.data.showJob,
-            currentJob: data[1].name
+            currentJob: data[1].name,
+            currentJobId: data[1].value
         });
+        this.reloadIndex();
     },
 
     // 职位弹出框
     jobPopup: function jobPopup() {
-        console.log('jobPopup');
         this.setData({
             showJob: !this.data.showJob
         });
@@ -136,10 +174,14 @@ exports.default = Page({
     },
 
     // 距离弹出框
-    distancePopup: function distancePopup() {
+    distancePopup: function distancePopup(e) {
         this.setData({
             showDistance: !this.data.showDistance
         });
+        if (e.target.dataset.finish === 'true') {
+            // 点击"完成"触发
+            this.reloadIndex();
+        }
     },
 
     // 不感兴趣
@@ -173,7 +215,7 @@ exports.default = Page({
     // 跳转到职位详情页面
     toDeail: function toDeail(e) {
         wx.navigateTo({
-            url: '../detail/detail'
+            url: '../detail/detail?jobId=' + this.data.currentJobId + '&postionId=' + e.currentTarget.id
         });
     },
     // 跳转到城市选择页面
