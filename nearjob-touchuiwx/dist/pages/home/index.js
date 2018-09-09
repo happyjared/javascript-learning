@@ -1,18 +1,18 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _date = require('../../static/utils/date.js');
+var _date = require("../../static/utils/date.js");
 
 var _date2 = _interopRequireDefault(_date);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var sortStyle = '\n    background: #efefef;\n    color: #999;\n    margin:5px 0 5px 10px;\n    font-size: 12px;\n    border-radius: 30px;\n    height: 25px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    line-height: 20px;\n';
+var sortStyle = "\n    background: #efefef;\n    color: #999;\n    margin:5px 0 5px 10px;\n    font-size: 12px;\n    border-radius: 30px;\n    height: 25px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    line-height: 20px;\n";
 
-var sortSelectStyle = '\n    border: 1px solid #A9DC21;\n    background: #efefef;\n    color: #A9DC21;\n    margin:5px 0 5px 10px;\n    font-size: 12px;\n    border-radius: 30px;\n    height: 25px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    line-height: 20px;\n';
+var sortSelectStyle = "\n    border: 1px solid #A9DC21;\n    background: #efefef;\n    color: #A9DC21;\n    margin:5px 0 5px 10px;\n    font-size: 12px;\n    border-radius: 30px;\n    height: 25px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    line-height: 20px;\n";
 
 exports.default = Page({
     data: {
@@ -215,13 +215,13 @@ exports.default = Page({
     // 跳转到职位详情页面
     toDeail: function toDeail(e) {
         wx.navigateTo({
-            url: '../detail/detail?jobId=' + this.data.currentJobId + '&postionId=' + e.currentTarget.id
+            url: "../detail/detail?jobId=" + this.data.currentJobId + "&postionId=" + e.currentTarget.id
         });
     },
     // 跳转到城市选择页面
     toCitySelect: function toCitySelect() {
         wx.navigateTo({
-            url: '../city/city'
+            url: "../city/city"
         });
     }
 });

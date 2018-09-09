@@ -40,7 +40,7 @@ const cityTagStyle = `
 `
 export default {
     config: {
-        "navigationBarTitleText": "选择城市",
+        "navigationBarTitleText": "热门城市",
     },
     data : {
         position: '暂无定位',

@@ -126,8 +126,6 @@ const sortSelectStyle = `
 import date from '../../static/utils/date'
 export default {
     config: {
-        "backgroundTextStyle": 'dark',
-        "navigationBarTitleText": "附近好工作plus+",
         "enablePullDownRefresh": true,
         "onReachBottomDistance": 100,
     },

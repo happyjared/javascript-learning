@@ -10,8 +10,8 @@ export default {
     pages: ['pages/home/index', 'pages/detail/detail', 'pages/city/city'],
     window: {
       navigationBarBackgroundColor: '#A9DC21',
-      navigationBarTitleText: 'JobList',
-      navigationBarTextStyle: 'black',
+      navigationBarTitleText: '附近好工作plus+',
+      navigationBarTextStyle: 'white',
     },
     networkTimeout: {
       request: 10000

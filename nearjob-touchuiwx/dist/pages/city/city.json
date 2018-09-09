@@ -3,5 +3,5 @@
     "ui-index-list": "../../packages/touchui-wx-components/ui-index-list/dist/index",
     "ui-tags": "../../packages/touchui-wx-components/ui-tags/dist/index"
   },
-  "navigationBarTitleText": "选择城市"
+  "navigationBarTitleText": "热门城市"
 }

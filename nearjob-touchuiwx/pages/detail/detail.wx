@@ -94,12 +94,12 @@
         <view class="small-title">工作地址</view>
       </ui-col>
     </ui-row>
-    <ui-row height="40" space-top="20" space-bottom="70" border-bottom>
+    <ui-row height="40" space-top="20" space-bottom="50">
       <ui-col space-left="9" span="1">
           <ui-icon type="api-position" color="#A9DC21" size="18"></ui-icon>
       </ui-col>
       <ui-col span="10">
-          <view style="font-size:16px;.mix-text-overflow();">
+          <view style="font-size:16px;" class="view-text">
             <text class="text-color">{{item.companyLocation}}</text>
           </view>
       </ui-col>
@@ -219,7 +219,7 @@ export default {
     line-height: 50px;
     text-align: center;
     color: #fff;
-    background-color: #54d09f;
+    background-color: #A9DC21;
     z-index: 99;
 }
 .text-color {
@@ -228,5 +228,8 @@ export default {
 .small-text-color {
     color: #777;
     font-size: 11px;
+}
+.view-text {
+  .mix-text-overflow();
 }
 </style>

@@ -127,7 +127,7 @@
       </view>
     </view>
   </view>
-  <view class="ui-row ui-row-border-bottom" style="margin-bottom: 70px;margin-top: 20px;height:40px;">
+  <view class="ui-row" style="margin-bottom: 50px;margin-top: 20px;height:40px;">
     <view class="ui-col ui-col-1" style="flex: 0 0 8.333333333333332%;padding-left: 9px;">
       <view class="ui-col-content">
         <span type="api-position" color="#A9DC21" size="18" class="ui-icon icon-api-position" style="color: #A9DC21;font-size: 18px;"></span>
@@ -135,7 +135,7 @@
     </view>
     <view class="ui-col ui-col-10" style="flex: 0 0 83.33333333333334%;">
       <view class="ui-col-content">
-        <view style="font-size:16px;.mix-text-overflow();">
+        <view style="font-size:16px;" class="view-text">
           <text class="text-color">{{item.companyLocation}}</text>
         </view>
       </view>

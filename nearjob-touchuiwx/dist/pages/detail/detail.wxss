@@ -32,7 +32,7 @@
   line-height: 50px;
   text-align: center;
   color: #fff;
-  background-color: #54d09f;
+  background-color: #A9DC21;
   z-index: 99;
 }
 .text-color {
@@ -41,4 +41,9 @@
 .small-text-color {
   color: #777;
   font-size: 11px;
+}
+.view-text {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
