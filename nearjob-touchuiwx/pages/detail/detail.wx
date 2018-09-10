@@ -60,7 +60,7 @@
     </ui-row>
     <ui-row height="50" space-top="20">
       <ui-col space-left="15" span="2">
-          <image src="http://images.uileader.com/20180313/41448b31-1f65-4c3d-be58-e7d66601d1c0.png" style="width:100%;height:95%"/>
+          <image src="{{item.companyLogo}}" style="width:100%;height:95%"/>
       </ui-col>
       <ui-col space-left="15" space-right="15">
           <ui-row height="35">
