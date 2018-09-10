@@ -63,16 +63,14 @@
   <view class="ui-row" style="">
     <view class="ui-col" style="padding-left: 15px;padding-right: 10px;">
       <view class="ui-col-content">
-        <ui-summary height="150" animate="{{false}}" _pid="{{_pid}}">
-          <text style="font-size:14px;color:#333">
-            {{item.jobDescription}}
-          </text>
-        </ui-summary>
+        <text style="font-size:14px;color:#333">
+          {{item.jobDescription}}
+        </text>
       </view>
     </view>
   </view>
 
-  <view class="ui-row" style="margin-top: 10px;">
+  <view class="ui-row" style="margin-top: 20px;">
     <view class="ui-col" style="padding-left: 15px;">
       <view class="ui-col-content">
         <view class="small-title">公司信息</view>

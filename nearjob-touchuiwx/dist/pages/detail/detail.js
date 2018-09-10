@@ -5,8 +5,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 var tagStyle = "\n  border: 1px solid #f1f2f3;\n  border-radius: 3px;\n  text-align: center;\n  height: 25px;\n  line-height: 24px;\n";
 
-var tagSelectStyle = "\n  background: #54d09f;\n  color: #fff;\n  padding: 0 5px;\n  text-align: center;\n  height: 25px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  line-height: 20px;\n  border-radius: 3px;\n";
-
 exports.default = Page({
   data: {},
   // 复制职位链接
@@ -55,10 +53,12 @@ exports.default = Page({
         if (postionData) {
           var jobPostion = JSON.parse(postionData);
           jobPostion.forEach(function (position) {
-            positionList.push({ text: position, tagStyle: tagSelectStyle });
+            positionList.push({ text: position, tagStyle: tagStyle });
           });
         }
+        // var textLength = res.data.jobDescription.split('\n').length * 14
         _this.setData({
+          // textLength: textLength,
           item: res.data,
           labelList: labelList,
           positionList: positionList,

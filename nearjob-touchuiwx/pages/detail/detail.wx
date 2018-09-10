@@ -47,15 +47,13 @@
     </ui-row>
     <ui-row>
       <ui-col space-left="15" space-right="10">
-          <ui-summary height="150" animate="{{false}}">
-            <text style="font-size:14px;color:#333">
+          <text style="font-size:14px;color:#333">
                 {{item.jobDescription}}
-            </text>
-          </ui-summary>
+          </text>
       </ui-col>
     </ui-row>
 
-    <ui-row space-top="10">
+    <ui-row space-top="20">
       <ui-col space-left="15">
         <view class="small-title">公司信息</view>
       </ui-col>
@@ -123,19 +121,6 @@ const tagStyle = `
   line-height: 24px;
 `
 
-const tagSelectStyle = `
-  background: #54d09f;
-  color: #fff;
-  padding: 0 5px;
-  text-align: center;
-  height: 25px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  line-height: 20px;
-  border-radius: 3px;
-`
-
 export default {  
   config: {
     "navigationBarTitleText": "职位详情",
@@ -188,10 +173,12 @@ export default {
           if (postionData){
             var jobPostion=JSON.parse(postionData)
             jobPostion.forEach(position => {
-                positionList.push({text: position, tagStyle: tagSelectStyle},)
+                positionList.push({text: position, tagStyle: tagStyle},)
             });
           }
+          // var textLength = res.data.jobDescription.split('\n').length * 14
           _this.setData({
+              // textLength: textLength,
               item: res.data,
               labelList: labelList,
               positionList: positionList,

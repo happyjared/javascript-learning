@@ -1,49 +1,134 @@
 <view>
 
-  <!-- 顶部导航区域 -->
-  <view style="color:#666;height:40px;" class="ui-row ui-row-border-bottom">
-    <!-- 城市 -->
-    <view class="ui-col ui-col-border-right ui-col-align-center align-center valign-middle" style="">
-      <view class="ui-col-content align-center valign-middle">
-        <view bindtap="toCitySelect">
-          <text>{{currentCity}}</text>
-          <span type="slide_down" size="8" color="#878787" style="padding-left:4px;color: #878787;font-size: 8px;" class="ui-icon icon-slide_down"></span>
+  <view class="sticky-in-relative-container">
+    <ui-sticky scroll-top="{{ scrollTop }}" top="0" custom-style="{{ customStyle }}" stick-on-tap="stick-on-tap" _pid="{{_pid}}">
+      <view>
+
+        <!-- 顶部导航区域 -->
+        <view style="color:#878787;font-size:14px;height:40px;" class="ui-row ui-row-border-bottom">
+          <!-- 城市 -->
+          <view bindtap="toCitySelect" class="ui-col ui-col-align-center align-center valign-middle" style="">
+            <view class="ui-col-content align-center valign-middle">
+              <view>
+                <text>{{currentCity}}</text>
+                <span type="slide_down" size="10" color="#878787" style="padding-left:8px;color: #878787;font-size: 10px;" class="ui-icon icon-slide_down"></span>
+              </view>
+            </view>
+          </view>
+
+          <!-- 岗位 -->
+          <view bindtap="jobPopup" class="ui-col ui-col-align-center align-center valign-middle" style="">
+            <view class="ui-col-content align-center valign-middle">
+              <view>{{currentJob}}
+                <span type="slide_down" size="10" color="#878787" style="padding-left:8px;color: #878787;font-size: 10px;" class="ui-icon icon-slide_down"></span>
+              </view>
+              <ui-popup cropout show="{{showJob}}" height="300" position="top" width="50%" top="{{ poptpTop }}" mask-style="{{ {backgroundColor:'rgba(0,0,0,0.5)',top:poptpTop+'px'} }}" _pid="{{_pid}}">
+                <ui-cascader show-title="{{false}}" bindselected="jobSelected" data="{{jobList}}" _pid="{{_pid}}"></ui-cascader>
+              </ui-popup>
+            </view>
+          </view>
+
+          <!-- 距离 -->
+          <view bindtap="distancePopup" class="ui-col ui-col-align-center align-center valign-middle" style="">
+            <view class="ui-col-content align-center valign-middle">
+              <view>{{currentDistance}}km
+                <span type="slide_down" size="10" color="#878787" style="padding-left:8px;color: #878787;font-size: 10px;" class="ui-icon icon-slide_down"></span>
+              </view>
+              <ui-popup show="{{showDistance}}" _pid="{{_pid}}">
+                <view style="margin:25px 10px 50px;">
+                  <ui-slider scale-margin="25" width="{{width-20}}" value="{{currentDistance}}" min="0" max="10" key-scale-line="1" active-color="#A9DC21" slider-weight="4" bindchange="distanceSelected" _pid="{{_pid}}">
+                  </ui-slider>
+                </view>
+                <view style="margin-top:10px;padding:0 10px;background-color:#fafafa;border-top:1px solid #eee;">
+                  <button class="button1" style="background-color:#A9DC21;margin:15px;color:#fff" data-finish="true" bindtap="distancePopup">完成</button>
+                </view>
+              </ui-popup>
+            </view>
+          </view>
+
+          <!-- 筛选 -->
+          <view bindtap="sortPopup" class="ui-col ui-col-align-center align-center valign-middle" style="">
+            <view class="ui-col-content align-center valign-middle">
+              <view>
+                <text>筛选</text>
+                <span type="slide_down" size="10" color="#878787" style="padding-left:8px;color: #878787;font-size: 10px;" class="ui-icon icon-slide_down"></span>
+              </view>
+              <ui-popup cropout show="{{ showSort }}" height="300" position="right" top="40" mask-style="{{ { top: '40px' } }}" _pid="{{_pid}}">
+                <view>
+                  <ui-check-list max="1" label-position="left" options="{{ sortKeyList }}" value="{{ sortValueList }}" type="plain" bindchange="changeSort" _pid="{{_pid}}"></ui-check-list>
+                </view>
+              </ui-popup>
+            </view>
+          </view>
         </view>
-      </view>
-    </view>
 
-    <!-- 岗位 -->
-    <view class="ui-col ui-col-border-right ui-col-align-center align-center valign-middle" style="">
-      <view class="ui-col-content align-center valign-middle">
-        <view bindtap="jobPopup">{{currentJob}}</view>
-        <ui-popup show="{{showJob}}" position="top" width="66.6%" top="{{ poptpTop }}" background="#000" mask-style="{{ {backgroundColor:'rgba(255,255,255,0.6)',top:poptpTop+'px'} }}" _pid="{{_pid}}">
-          <ui-cascader show-title="{{false}}" bindselected="jobSelected" data="{{jobList}}" _pid="{{_pid}}"></ui-cascader>
-        </ui-popup>
       </view>
-    </view>
+      <view slot="sticky">
 
-    <!-- 距离 -->
-    <view class="ui-col ui-col-align-center align-center valign-middle" style="">
-      <view class="ui-col-content align-center valign-middle">
-        <view bindtap="distancePopup">{{currentDistance}}km</view>
-        <ui-popup show="{{showDistance}}" _pid="{{_pid}}">
-          <view style="margin:25px 10px;">
-            <ui-slider scale-margin="15" width="{{width-20}}" value="{{currentDistance}}" min="0" max="10" key-scale-line="1" active-color="#A9DC21" slider-weight="4" thumb-style="{{styleOfDistance}}" bindchange="distanceSelected" _pid="{{_pid}}">
-            </ui-slider>
+        <!-- 顶部导航区域 -->
+        <view style="color:#878787;font-size:14px;height:40px;" class="ui-row ui-row-border-bottom">
+          <!-- 城市 -->
+          <view bindtap="toCitySelect" class="ui-col ui-col-align-center align-center valign-middle" style="">
+            <view class="ui-col-content align-center valign-middle">
+              <view>
+                <text>{{currentCity}}</text>
+                <span type="slide_down" size="10" color="#878787" style="padding-left:8px;color: #878787;font-size: 10px;" class="ui-icon icon-slide_down"></span>
+              </view>
+            </view>
           </view>
-          <view style="margin-top:20px;padding:10px;padding-bottom:20px;background-color:#fafafa;border-top:1px solid #eee;">
-            <button class="button1" style="background-color:#A9DC21;margin:15px;color:#fff" data-finish="true" bindtap="distancePopup">完成</button>
+
+          <!-- 岗位 -->
+          <view bindtap="jobPopup" class="ui-col ui-col-align-center align-center valign-middle" style="">
+            <view class="ui-col-content align-center valign-middle">
+              <view>{{currentJob}}
+                <span type="slide_down" size="10" color="#878787" style="padding-left:8px;color: #878787;font-size: 10px;" class="ui-icon icon-slide_down"></span>
+              </view>
+              <ui-popup cropout show="{{showJob}}" height="300" position="top" width="50%" top="{{ poptpTop }}" mask-style="{{ {backgroundColor:'rgba(0,0,0,0.5)',top:poptpTop+'px'} }}" _pid="{{_pid}}">
+                <ui-cascader show-title="{{false}}" bindselected="jobSelected" data="{{jobList}}" _pid="{{_pid}}"></ui-cascader>
+              </ui-popup>
+            </view>
           </view>
-        </ui-popup>
+
+          <!-- 距离 -->
+          <view bindtap="distancePopup" class="ui-col ui-col-align-center align-center valign-middle" style="">
+            <view class="ui-col-content align-center valign-middle">
+              <view>{{currentDistance}}km
+                <span type="slide_down" size="10" color="#878787" style="padding-left:8px;color: #878787;font-size: 10px;" class="ui-icon icon-slide_down"></span>
+              </view>
+              <ui-popup show="{{showDistance}}" _pid="{{_pid}}">
+                <view style="margin:25px 10px;">
+                  <ui-slider scale-margin="15" width="{{width-20}}" value="{{currentDistance}}" min="0" max="10" key-scale-line="1" active-color="#A9DC21" slider-weight="4" thumb-style="{{styleOfDistance}}" bindchange="distanceSelected" _pid="{{_pid}}">
+                  </ui-slider>
+                </view>
+                <view style="margin-top:20px;padding:10px;padding-bottom:20px;background-color:#fafafa;border-top:1px solid #eee;">
+                  <button class="button1" style="background-color:#A9DC21;margin:15px;color:#fff" data-finish="true" bindtap="distancePopup">完成</button>
+                </view>
+              </ui-popup>
+            </view>
+          </view>
+
+          <!-- 筛选 -->
+          <view bindtap="sortPopup" class="ui-col ui-col-align-center align-center valign-middle" style="">
+            <view class="ui-col-content align-center valign-middle">
+              <view>
+                <text>筛选</text>
+                <span type="slide_down" size="10" color="#878787" style="padding-left:8px;color: #878787;font-size: 10px;" class="ui-icon icon-slide_down"></span>
+              </view>
+              <ui-popup cropout show="{{ showSort }}" height="300" position="right" top="40" mask-style="{{ { top: '40px' } }}" _pid="{{_pid}}">
+                <view>
+                  <ui-check-list max="1" label-position="left" options="{{ sortKeyList }}" value="{{ sortValueList }}" type="plain" bindchange="changeSort" _pid="{{_pid}}"></ui-check-list>
+                </view>
+              </ui-popup>
+            </view>
+          </view>
+        </view>
+
       </view>
-    </view>
+    </ui-sticky>
   </view>
 
-  <!-- 排序区域 -->
-  <ui-tags data="{{sortList}}" bindchange="changeSort" fixed-width item-width="{{width/3-10}}" col-number="3" _pid="{{_pid}}"></ui-tags>
-
   <!-- 职位区域 -->
-  <ui-swipe-out height="80" operate-width="80" data-index="{{index}}" can-swipe="{{item.canSwipe}}" value="{{item.switcher}}" wx:for="{{jobDataList}}" bindchange="switchSlideTab" _pid="{{_pid}}">
+  <ui-swipe-out height="80" operate-width="80" can-swipe="{{item.canSwipe}}" value="{{item.switcher}}" wx:for="{{jobDataList}}" data-index="{{index}}" bindchange="switchSlideTab" _pid="{{_pid}}">
     <view slot="content" bindtap="toDeail" id="{{item.positionId}}">
       <view class="top_tip ui-row ui-row-border-bottom" style="height:80px;">
         <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 80px;">
