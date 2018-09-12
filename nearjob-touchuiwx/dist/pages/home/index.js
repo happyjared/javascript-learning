@@ -23,7 +23,6 @@ exports.default = Page({
         height: wx.DEFAULT_CONTENT_HEIGHT,
         poptpTop: wx.DEFAULT_HEADER_HEIGHT - 6,
         colorList: ['#FCB300', '#FF7360', '#39CCC5'],
-        iconList: ['api-access', 'api-network', 'api-configure', 'api-media', 'api-data'],
         el: 'undefined',
         // 职位信息数据
         jobDataList: [],

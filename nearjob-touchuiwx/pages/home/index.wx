@@ -143,10 +143,7 @@
       <view slot="content" bindtap="toDeail" id={{item.positionId}}>
         <ui-row height="80" class="top_tip" border-bottom>
           <ui-col width="80" align="center" vertical-align="middle">
-            <view class="left_icon" style="background-color:{{colorList[index%3]}}">
-                <!-- <ui-icon type="{{ iconList[index%5] }}" color="#fff" size="20"></ui-icon> -->
-                <image style="width:50px;height:50px;border-radius:50%;" src="{{item.companyLogo}}"/>
-            </view>
+            <image class="left_icon" src="{{item.companyLogo}}"/>
           </ui-col>
           <ui-col class="text" align="left" vertical-align="middle" space="20">
             <view style="width:100%">
@@ -203,7 +200,6 @@ export default {
         height: wx.DEFAULT_CONTENT_HEIGHT,
         poptpTop: wx.DEFAULT_HEADER_HEIGHT-6,
         colorList: ['#FCB300','#FF7360','#39CCC5'],
-        iconList : ['api-access','api-network','api-configure','api-media','api-data'],
         el: 'undefined',
         // 职位信息数据
         jobDataList:[],
@@ -419,9 +415,6 @@ export default {
         width: 50px;
         height: 50px;
         border-radius: 50%;
-        background-color:#FCB300; 
-        text-align: center;
-        line-height: 50px;
     }
     .text{
         text{
