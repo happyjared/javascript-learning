@@ -23,7 +23,7 @@
   right: 0px;
   text-align: center;
   width: 30px;
-  color: #A9DC21;
+  color: #000;
   border-radius: 5px;
 }
 .ui-index-list .index-selector-wrap .index-selector-item {

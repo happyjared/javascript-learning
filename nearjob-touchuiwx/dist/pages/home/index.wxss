@@ -19,8 +19,19 @@
 /* 水平垂直居中 */
 /* 超出部分出省略号 */
 /* 多行文本超出部分省略号 */
-.sticky-in-relative-container {
+.nav-container {
   position: relative;
+}
+.distanceView {
+  padding: 0 10px;
+  margin-top: 10px;
+  background-color: #fafafa;
+  border-top: 1px solid #eee;
+}
+.distanceBtn {
+  margin: 15px;
+  color: #fff;
+  background-color: #000;
 }
 .delNotInsJob {
   width: 80px;
@@ -43,7 +54,7 @@
   color: #313338;
 }
 .top_tip .text view {
-  color: #9C9FA4;
+  color: #9c9fa4;
   font-size: 10px;
   white-space: nowrap;
   text-overflow: ellipsis;

@@ -46,7 +46,7 @@
   display: flex;
   background: white;
   font-size: 15px;
-  line-height: 1.0;
+  line-height: 1;
   letter-spacing: 0.4px;
   color: #333333;
   padding: 6px 16rpx;

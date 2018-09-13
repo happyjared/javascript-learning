@@ -5,7 +5,7 @@
     "pages/city/city"
   ],
   "window": {
-    "navigationBarBackgroundColor": "#A9DC21",
+    "navigationBarBackgroundColor": "#000",
     "navigationBarTitleText": "附近好工作plus+",
     "navigationBarTextStyle": "white"
   },
@@ -13,6 +13,6 @@
     "request": 10000
   },
   "theme": {
-    "theme-color": "#A9DC21"
+    "theme-color": "#000"
   }
 }

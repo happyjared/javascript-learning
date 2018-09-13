@@ -1,13 +1,13 @@
-<view>
+<view wx:if="{{item}}">
   <view class="ui-row" style="margin-top: 10px;height:30px;">
-    <view class="ui-col ui-col-9" style="flex: 0 0 75%;padding-left: 15px;">
+    <view class="ui-col ui-col-10" style="flex: 0 0 83.33333333333334%;padding-left: 15px;">
       <view class="ui-col-content">
-        <view style="font-size:20px;font-weight:bold;">{{item.jobName || '爪哇工程师'}}</view>
+        <view style="font-size:18px;">{{item.jobName}}</view>
       </view>
     </view>
-    <view class="ui-col ui-col-align-center align-center valign-bottom" style="padding-left: 20px;padding-right: 10px;">
-      <view class="ui-col-content align-center valign-bottom">
-        <view style="color:#54d09f">{{item.jobSalary || '6.6k-9.9k'}}</view>
+    <view class="ui-col ui-col-align-left align-left valign-bottom" style="">
+      <view class="ui-col-content align-left valign-bottom">
+        <view style="color:#A9DC21;font-weight:bold;padding-bottom:2px">{{item.jobSalary}}</view>
       </view>
     </view>
   </view>
@@ -128,7 +128,7 @@
   <view class="ui-row" style="margin-bottom: 50px;margin-top: 20px;height:40px;">
     <view class="ui-col ui-col-1" style="flex: 0 0 8.333333333333332%;padding-left: 9px;">
       <view class="ui-col-content">
-        <span type="api-position" color="#A9DC21" size="18" class="ui-icon icon-api-position" style="color: #A9DC21;font-size: 18px;"></span>
+        <span type="api-position" color="#000" size="18" class="ui-icon icon-api-position" style="color: #000;font-size: 18px;"></span>
       </view>
     </view>
     <view class="ui-col ui-col-10" style="flex: 0 0 83.33333333333334%;">
@@ -146,6 +146,6 @@
   </view>
 
   <ui-fixed-view bottom="0" left="0" right="0" _pid="{{_pid}}">
-    <view class="fixed-view-content" bindtap="copyJobLink">复制链接</view>
+    <view class="copyJobLink" bindtap="copyJobLink">复制链接</view>
   </ui-fixed-view>
 </view>

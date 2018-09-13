@@ -3,35 +3,37 @@
 </template>
 
 <script>
-import system from './static/utils/system'
+import system from "./static/utils/system";
 export default {
   config: {
     usingComponents: {},
-    pages: ['pages/home/index', 'pages/detail/detail', 'pages/city/city'],
+    pages: ["pages/home/index", "pages/detail/detail", "pages/city/city"],
     window: {
-      navigationBarBackgroundColor: '#A9DC21',
-      navigationBarTitleText: '附近好工作plus+',
-      navigationBarTextStyle: 'white',
+      navigationBarBackgroundColor: "#000",
+      navigationBarTitleText: "附近好工作plus+",
+      navigationBarTextStyle: "white"
     },
     networkTimeout: {
       request: 10000
     },
     theme: {
-      'theme-color': '#A9DC21'
+      "theme-color": "#000"
     }
   },
-  globalData: {},
+  globalData: {
+    cityList: { 北京: 1, 上海: 2, 广州: 3, 深圳: 4, 杭州: 5, 成都: 6 }
+  },
   onLaunch() {
-    system.attachInfo()
+    system.attachInfo();
   },
   onShow() {},
   onHide() {}
-}
+};
 </script>
 
 <style lang="less">
-@import './static/styles/index.less';
-.global-color{
-  color:'#A9DC21'
+@import "./static/styles/index.less";
+.global-color {
+  color: "#A9DC21";
 }
 </style>

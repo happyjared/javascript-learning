@@ -1,12 +1,11 @@
 <template>
   <view>
     
-    <view class="sticky-in-relative-container">
-      <ui-sticky scroll-top="{{ scrollTop }}" top="0" custom-style="{{ customStyle }}" stick-on-tap="stick-on-tap">
-        <view>
-            
+    <view class="nav-container">
+      <ui-sticky scroll-top="{{ scrollTop }}" top="0" custom-style="{{ navStyle }}" stick-on-tap="stick-on-tap">
+        <view>            
             <!-- 顶部导航区域 -->
-            <ui-row border-bottom height="40" style="color:#878787;font-size:14px">
+            <ui-row height="40" border-bottom style="color:#878787;font-size:14px">
                 <!-- 城市 -->
                 <ui-col align="center" vertical-align="middle" bindtap="toCitySelect">
                     <view>
@@ -27,11 +26,11 @@
                 </ui-col>
 
                 <!-- 距离 -->
-                <ui-col align="center" vertical-align="middle" bindtap="distancePopup">
-                    <view>{{currentDistance}}km
+                <ui-col align="center" vertical-align="middle" bindtap="openDistancePopup">
+                    <view>{{currentDistance==0 ? '距离': currentDistance + 'km'}}
                         <ui-icon type="slide_down" size="10" color="#878787" style="padding-left:8px"></ui-icon>
                     </view>
-                    <ui-popup show="{{showDistance}}">
+                    <ui-popup show="{{showDistance}}" bindhide="hideDistancePopup">
                         <view style="margin:25px 10px 50px;">
                             <ui-slider 
                                     scale-margin="25"
@@ -40,14 +39,13 @@
                                     min=0
                                     max=10
                                     key-scale-line="1"
-                                    active-color="#A9DC21"
-                                    slider-weight="4"
+                                    active-color="#000"
+                                    slider-weight="3"
                                     bindchange="distanceSelected">
                             </ui-slider>
                         </view>
-                        <view style="margin-top:10px;padding:0 10px;background-color:#fafafa;border-top:1px solid #eee;">
-                            <button class="button1" style="background-color:#A9DC21;margin:15px;color:#fff" 
-                                data-finish="true" bindtap="distancePopup">完成</button>
+                        <view class="distanceView">
+                            <button class="distanceBtn" bindtap="finishDistancePopup">完成</button>
                         </view>
                     </ui-popup>
                 </ui-col>
@@ -65,13 +63,11 @@
                         </view>
                     </ui-popup>
                 </ui-col>
-            </ui-row>
-
+            </ui-row>           
         </view>
         <view slot="sticky">
-          
             <!-- 顶部导航区域 -->
-            <ui-row border-bottom height="40" style="color:#878787;font-size:14px">
+            <ui-row height="40" border-bottom style="color:#878787;font-size:14px">
                 <!-- 城市 -->
                 <ui-col align="center" vertical-align="middle" bindtap="toCitySelect">
                     <view>
@@ -92,28 +88,26 @@
                 </ui-col>
 
                 <!-- 距离 -->
-                <ui-col align="center" vertical-align="middle" bindtap="distancePopup">
-                    <view>{{currentDistance}}km
+                <ui-col align="center" vertical-align="middle" bindtap="openDistancePopup">
+                    <view>{{currentDistance==0 ? '距离': currentDistance + 'km'}}
                         <ui-icon type="slide_down" size="10" color="#878787" style="padding-left:8px"></ui-icon>
                     </view>
-                    <ui-popup show="{{showDistance}}">
-                        <view style="margin:25px 10px;">
+                    <ui-popup show="{{showDistance}}" bindhide="hideDistancePopup">
+                        <view style="margin:25px 10px 50px;">
                             <ui-slider 
-                                    scale-margin="15"
+                                    scale-margin="25"
                                     width="{{width-20}}"
                                     value="{{currentDistance}}"
                                     min=0
                                     max=10
                                     key-scale-line="1"
-                                    active-color="#A9DC21"
-                                    slider-weight="4"
-                                    thumb-style="{{styleOfDistance}}"
+                                    active-color="#000"
+                                    slider-weight="3"
                                     bindchange="distanceSelected">
                             </ui-slider>
                         </view>
-                        <view style="margin-top:20px;padding:10px;padding-bottom:20px;background-color:#fafafa;border-top:1px solid #eee;">
-                            <button class="button1" style="background-color:#A9DC21;margin:15px;color:#fff" 
-                                data-finish="true" bindtap="distancePopup">完成</button>
+                        <view class="distanceView">
+                            <button class="distanceBtn" bindtap="finishDistancePopup">完成</button>
                         </view>
                     </ui-popup>
                 </ui-col>
@@ -131,8 +125,7 @@
                         </view>
                     </ui-popup>
                 </ui-col>
-            </ui-row>
-
+            </ui-row>   
         </view>
       </ui-sticky>
     </view>
@@ -182,250 +175,342 @@
 </template>
 
 <script>
-import date from '../../static/utils/date'
+var app = getApp();
+import date from "../../static/utils/date";
 export default {
-    config: {
-        "enablePullDownRefresh": true,
-        "onReachBottomDistance": 100,
+  config: {
+    enablePullDownRefresh: true,
+    onReachBottomDistance: 100
+  },
+  data: {
+    scrollTop: 0,
+    navStyle: {
+      "background-color": "#fff",
+      "box-shadow": "0 2px 2px #dfdfdf"
     },
-    data :{
-        scrollTop: 0,
-        customStyle:{
-            'background-color':'#fff',
-            'height': '46px',
-            'line-height': '46px'
-        },
-
-        width:wx.WIN_WIDTH,
-        height: wx.DEFAULT_CONTENT_HEIGHT,
-        poptpTop: wx.DEFAULT_HEADER_HEIGHT-6,
-        colorList: ['#FCB300','#FF7360','#39CCC5'],
-        el: 'undefined',
-        // 职位信息数据
-        jobDataList:[],
-        // 城市数据相关
-        currentCity: '广州',
-        currentCityId: 3,
-        showDistance: false,
-        // 距离数据相关
-        currentDistance: 3,
-        // 职位数据相关
-        showJob: false,
-        currentJob: 'Java',
-        currentJobId: 1,
-        jobList: [{
-            name: '后端开发',
-            children: [
-              { name: 'Java', value: 1 },
-              { name: 'Python', value: 3 },
-              { name: 'PHP', value: 2 }
-            ]
-        }, {
-            name: '移动开发',
-            children: [
-              { name: 'Andrioid', value: 4 },
-              { name: 'IOS', value: 5 },
-              { name: 'Web前端', value: 6 }
-            ]
-        }],
-        // 排序数据相关
-        showSort: false,
-        currentSort: '离我最近',
-        sortKeyList: ['最新发布','离我最近'],
-        sortValueList: [1, 2],
-        // 分页数据相关
-        log: 0,
-        lat: 0,
-        currentPage: 0,
-        lastPage: false,
-    },
-    onPageScroll (e) {
-        console.log(e)
-        this.setData({
-            scrollTop: e.scrollTop
-        })
-    },
-    //初始加载事件
-    onLoad(){
-        this.indexRequest()
-        var _this = this
-        wx.getLocation({
-            type: 'gcj02',
-            success: function(res) {
-                console.log('get location success')
-                _this.data.log = res.longitude
-                _this.data.lat = res.latitude
-                _this.reloadIndex()
-            }
-        })
-    },
-    // 重新请求首页数据
-    reloadIndex() {
-        this.data.currentPage = 0,
-        this.data.lastPage = false,
-        this.data.jobDataList.length = 0,
-        this.indexRequest()
-    },
-    // api/index统一请求入口
-    indexRequest() {
-        if (this.data.lastPage){
-            return;
+    width: wx.WIN_WIDTH,
+    height: wx.DEFAULT_CONTENT_HEIGHT,
+    poptpTop: wx.DEFAULT_HEADER_HEIGHT - 6,
+    colorList: ["#FCB300", "#FF7360", "#39CCC5"],
+    el: "undefined",
+    // 职位信息数据
+    jobDataList: [],
+    // 城市数据相关
+    cityList: { 北京: 1, 上海: 2, 广州: 3, 深圳: 4, 杭州: 5, 成都: 6 },
+    currentCity: "城市",
+    currentCityId: 0,
+    showDistance: false,
+    // 距离数据相关
+    currentDistance: 3,
+    // 职位数据相关
+    showJob: false,
+    currentJob: "Java",
+    currentJobId: 1,
+    jobList: [
+      {
+        name: "后端开发",
+        children: [
+          { name: "Java", value: 1 },
+          { name: "Python", value: 3 },
+          { name: "PHP", value: 2 }
+        ]
+      },
+      {
+        name: "移动开发",
+        children: [
+          { name: "Andrioid", value: 4 },
+          { name: "IOS", value: 5 },
+          { name: "Web前端", value: 6 }
+        ]
+      }
+    ],
+    // 排序数据相关
+    showSort: false,
+    currentSort: "离我最近",
+    sortKeyList: ["最新发布", "离我最近"],
+    sortValueList: [1, 2],
+    // 分页数据相关
+    log: 0,
+    lat: 0,
+    currentPage: 0,
+    lastPage: false
+  },
+  // 页面下滑事件
+  onPageScroll(e) {
+    // console.log(e)
+    this.setData({
+      scrollTop: e.scrollTop
+    });
+  },
+  // 获得位置ip等信息
+  getPosition() {
+    var _this = this;
+    wx.request({
+      url: "https://apis.map.qq.com/ws/location/v1/ip",
+      data: { key: "RHGBZ-S2LAU-5MRV7-4QPTZ-JI25K-HVBDV" },
+      success: res => {
+        console.log("get position success", res);
+        var city = res.data.result.ad_info.city;
+        var cityList = app.globalData.cityList;
+        for (var cityName in cityList) {
+          if (city.indexOf(cityName) != -1) {
+            _this.setData({
+              currentCity: cityName,
+              currentCityId: cityList[cityName]
+            });
+          }
         }
-        var _url = 'https://mini.mariojd.cn/api/index?jobId='+this.data.currentJobId
-                    +'&cityId='+this.data.currentCityId+'&page='+this.data.currentPage
-        var _log = this.data.log
-        var _lat = this.data.lat
-        if (_log && _lat) {
-            _url += '&longitude='+_log+'&latitude='+_lat+'&distance='+ this.data.currentDistance
+      }
+    });
+  },
+  //初始加载事件
+  onLoad() {
+    this.indexRequest();
+    var _this = this;
+    wx.getLocation({
+      type: "gcj02",
+      success: function(res) {
+        console.log("get location success", res);
+        _this.data.log = res.longitude;
+        _this.data.lat = res.latitude;
+        _this.reloadIndex();
+      }
+    });
+    this.getPosition();
+  },
+  // 重新请求首页数据
+  reloadIndex() {
+    (this.data.currentPage = 0),
+      (this.data.lastPage = false),
+      (this.data.jobDataList.length = 0),
+      this.indexRequest();
+  },
+  // api/index统一请求入口
+  indexRequest(pullDown) {
+    wx.showLoading({
+      mask: true,
+      title: "加载中•••"
+    });
+    if (this.data.lastPage) {
+      if (pullDown) {
+        // 下拉刷新
+        setTimeout(function() {
+          wx.hideLoading();
+        }, 1000);
+      } else {
+        // 上拉加载
+        wx.hideLoading();
+        wx.showToast({
+          title: "到底了",
+          icon: "loading",
+          duration: 800,
+          mask: true
+        });
+      }
+      return;
+    }
+    var _url =
+      "https://mini.mariojd.cn/api/index?jobId=" +
+      this.data.currentJobId +
+      "&page=" +
+      this.data.currentPage;
+    var cityId = this.data.currentCityId;
+    if (cityId != 0) {
+      _url += "&cityId=" + cityId;
+    }
+    var _log = this.data.log;
+    var _lat = this.data.lat;
+    var _distance = this.data.currentDistance;
+    if (_log && _lat && _distance) {
+      // 按距离升序
+      _url +=
+        "&longitude=" + _log + "&latitude=" + _lat + "&distance=" + _distance;
+    } else {
+      // 按时间倒序
+      _url += "&sort=postJobTime,desc";
+    }
+    var _this = this;
+    wx.request({
+      url: _url,
+      success: function(res) {
+        _this.setData({
+          lastPage: res.data.last,
+          currentPage: res.data.number,
+          jobDataList: _this.data.jobDataList.concat(res.data.content)
+        });
+      },
+      fail: function() {
+        if (!pullDown) {
+          _this.data.currentPage++;
         }
-        var _this = this
-        wx.request({
-            url: _url,
-            success: function(res) {
-                _this.setData({
-                    lastPage: res.data.last,
-                    currentPage: res.data.number,
-                    jobDataList: _this.data.jobDataList.concat(res.data.content),         
-                })
-            }
-        })
-    },
-    // 下拉刷新事件
-    onPullDownRefresh() {
-        this.indexRequest()
-        wx.stopPullDownRefresh()
-    },
-    //上拉加载事件
-    onReachBottom() {
-        this.data.currentPage++
-        this.indexRequest()
-    },
-    // 排序弹出框
-    sortPopup (){
-        this.setData({
-            showJob: false,
-            showSort: !this.data.showSort
-        })
-    },
-    // 选择排序
-    changeSort (e) {
-        console.log(e)
-    },
-    // 职位弹出框
-    jobPopup() {
-        this.setData({
-            showSort: false,
-            showJob: !this.data.showJob
-        })
-    },
-    // 选择职位
-    jobSelected(e) {
-        let data = e.detail
-        if ( data.length > 1 ) {
-            this.setData({
-                showJob: !this.data.showJob,
-                currentJob: data[1].name,
-                currentJobId: data[1].value
-            })
-            this.reloadIndex()
+      },
+      complete: function() {
+        wx.hideLoading();
+      }
+    });
+  },
+  // 下拉刷新事件
+  onPullDownRefresh() {
+    this.indexRequest(true);
+    wx.stopPullDownRefresh();
+  },
+  //上拉加载事件
+  onReachBottom() {
+    this.data.currentPage++;
+    this.indexRequest(false);
+  },
+  // 排序弹出框
+  sortPopup() {
+    this.setData({
+      showJob: false,
+      showSort: !this.data.showSort
+    });
+  },
+  // 选择排序
+  changeSort(e) {
+    console.log(e);
+  },
+  // 职位弹出框
+  jobPopup() {
+    this.setData({
+      showSort: false,
+      showJob: !this.data.showJob
+    });
+  },
+  // 选择职位
+  jobSelected(e) {
+    let data = e.detail;
+    if (data.length > 1) {
+      this.setData({
+        showJob: !this.data.showJob,
+        currentJob: data[1].name,
+        currentJobId: data[1].value
+      });
+      this.reloadIndex();
+    }
+  },
+  // 选择距离
+  distanceSelected(e) {
+    let selectDistance = e.detail.value;
+    this.setData({
+        currentDistance: selectDistance
+    });
+  },
+  // 打开距离弹出框
+  openDistancePopup() {
+    this.setData({
+      pastDistance: this.data.currentDistance,
+      showJob: false,
+      showSort: false,
+      showDistance: !this.data.showDistance
+    });
+  },
+  // 隐藏距离弹出框
+  hideDistancePopup() {
+    this.setData({
+      // 还原距离信息
+      currentDistance: this.data.pastDistance
+    });
+  },
+  // 完成距离选择
+  finishDistancePopup() {
+    if(this.data.pastDistance != this.data.currentDistance){
+        // 距离发生变化时触发
+        this.reloadIndex();
+    }
+  },
+  // 不感兴趣
+  notInsJob(index) {
+    var index = index.target.dataset.idx;
+    console.log(index);
+    this.data.jobDataList.splice(index, 1);
+    this.setData({
+      jobDataList: this.data.jobDataList
+    });
+    this.setData({
+      el: "undefined"
+    });
+  },
+  // 向右滑动标签
+  switchSlideTab(res) {
+    if (res.detail === "on") {
+      let index = res.currentTarget.dataset.index;
+      if (this.data.el !== index) {
+        if (this.data.el !== "undefined") {
+          this.data.jobDataList[this.data.el].switcher = "off";
         }
-    },
-    // 选择距离
-    distanceSelected(e) {
-        let data = e.detail
+        this.data.jobDataList[index].switcher = "on";
         this.setData({
-            currentDistance: data.value
-        })
-    },
-    // 距离弹出框
-    distancePopup(e){
-        this.setData({
-            showJob: false,
-            showSort: false,
-            showDistance: !this.data.showDistance
-        })
-        if (e.target.dataset.finish === 'true') {
-            // 点击"完成"触发
-            this.reloadIndex()
-        }
-    },
-    // 不感兴趣
-    notInsJob (index) {
-        var index = index.target.dataset.idx
-        console.log(index)
-        this.data.jobDataList.splice(index,1)
-        this.setData({
-            jobDataList:this.data.jobDataList
-        })
-        this.setData({
-            el:'undefined'
-        })
-    },
-    // 向右滑动标签
-    switchSlideTab (res) {
-        if (res.detail === 'on') {
-            let index = res.currentTarget.dataset.index
-            if(this.data.el !== index){
-                if (this.data.el !== 'undefined') {
-                    this.data.jobDataList[this.data.el].switcher = 'off'
-                }
-                this.data.jobDataList[index].switcher = 'on'
-                this.setData({
-                    jobDataList:this.data.jobDataList
-                })
-                this.data.el = index  
-            }
-        }
-    },
-    // 跳转到职位详情页面
-    toDeail: function(e){
-        wx.navigateTo({
-            url: `../detail/detail?jobId=`+this.data.currentJobId+`&postionId=`+e.currentTarget.id
-        })
-    },
-    // 跳转到城市选择页面
-    toCitySelect () {
-         this.setData({
-            showJob: false,
-            showSort: false
-        })
-        wx.navigateTo({
-            url: `../city/city`
-        })
-    },
-}
+          jobDataList: this.data.jobDataList
+        });
+        this.data.el = index;
+      }
+    }
+  },
+  // 跳转到职位详情页面
+  toDeail: function(e) {
+    wx.navigateTo({
+      url:
+        `../detail/detail?jobId=` +
+        this.data.currentJobId +
+        `&postionId=` +
+        e.currentTarget.id
+    });
+  },
+  // 跳转到城市选择页面
+  toCitySelect() {
+    this.setData({
+      showJob: false,
+      showSort: false
+    });
+    wx.navigateTo({
+      url: `../city/city`
+    });
+  }
+};
 </script>
 
 <style lang="less">
-.sticky-in-relative-container {
-    position: relative;
+.nav-container {
+  position: relative;
+}
+.distanceView {
+  padding: 0 10px;
+  margin-top: 10px;
+  background-color: #fafafa;
+  border-top: 1px solid #eee;
+}
+.distanceBtn {
+  margin: 15px;
+  color: #fff;
+  background-color: #000;
 }
 
 .delNotInsJob {
-    width: 80px;
-    text-align: center;
-    line-height: 80px;
-    font-size: 14px;
-    color: #fff;
-    background: #dfdfdf;
+  width: 80px;
+  text-align: center;
+  line-height: 80px;
+  font-size: 14px;
+  color: #fff;
+  background: #dfdfdf;
 }
-.top_tip{
-    background-color: #fff;
-    .left_icon{
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
+.top_tip {
+  background-color: #fff;
+  .left_icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+  .text {
+    text {
+      font-size: 12px;
+      color: #313338;
     }
-    .text{
-        text{
-            font-size: 12px;
-            color: #313338;
-        }
-        view{
-            color: #9C9FA4;
-            font-size: 10px;
-            .mix-text-overflow();
-        }
+    view {
+      color: #9c9fa4;
+      font-size: 10px;
+      .mix-text-overflow();
     }
+  }
 }
 </style>

@@ -37,114 +37,140 @@ const cityTagStyle = `
     border:1px solid #f1f1f1;
     line-height:35px;
     text-align:center;
-`
+`;
 export default {
-    config: {
-        "navigationBarTitleText": "热门城市",
-    },
-    data : {
-        position: '暂无定位',
-        cityTagList:[{
-            text: '北京',
-            tagStyle: cityTagStyle
-        }, {
-            text: '上海',
-            tagStyle: cityTagStyle
-        }, {
-            text: '广州',
-            tagStyle: cityTagStyle
-        }, {
-            text: '深圳',
-            tagStyle: cityTagStyle
-        }, {
-            text: '杭州',
-            tagStyle: cityTagStyle
-        }, {
-            text: '成都',
-            tagStyle: cityTagStyle
-        },{
-            text: '郑州',
-            tagStyle: cityTagStyle
-        },{
-            text: '西安',
-            tagStyle: cityTagStyle
-        }, {
-            text: '南京',
-            tagStyle: cityTagStyle
-        }, {
-            text: '武汉',
-            tagStyle: cityTagStyle
-        }, {
-            text: '长沙',
-            tagStyle: cityTagStyle
-        }, {
-            text: '厦门',
-            tagStyle: cityTagStyle
-        }],
-    },
-    changeCity(e){
-        let index = e.detail.index
-        var pages = getCurrentPages()
-        var currPage = pages[pages.length - 1];   //当前页面
-        var prevPage = pages[pages.length - 2];
-        console.log(this.data.cityTagList[index].text)
-        prevPage.setData({
-            currentCity:this.data.cityTagList[index].text
-        })
-        wx.navigateBack()
-    },
-    getPosition(){
-        wx.request({
-            url: 'https://apis.map.qq.com/ws/location/v1/ip', 
-            data: {
-                key: 'RHGBZ-S2LAU-5MRV7-4QPTZ-JI25K-HVBDV'
-            },
-            success: (res) => {
-                this.setData({
-                    position: res.data.result.ad_info.city.replace('市','')
-                })
-            }
-        })
-    },
-    onLoad(options){
-        this.getPosition()
-    },
-}
+  config: {
+    navigationBarTitleText: "热门城市"
+  },
+  data: {
+    position: "暂无定位",
+    cityTagList: [
+      {
+        id: 1,
+        text: "北京",
+        tagStyle: cityTagStyle
+      },
+      {
+        id: 2,
+        text: "上海",
+        tagStyle: cityTagStyle
+      },
+      {
+        id: 3,
+        text: "广州",
+        tagStyle: cityTagStyle
+      },
+      {
+        id: 4,
+        text: "深圳",
+        tagStyle: cityTagStyle
+      },
+      {
+        id: 5,
+        text: "杭州",
+        tagStyle: cityTagStyle
+      },
+      {
+        id: 6,
+        text: "成都",
+        tagStyle: cityTagStyle
+      },
+      {
+        id: 0,
+        text: "郑州",
+        tagStyle: cityTagStyle
+      },
+      {
+        id: 0,
+        text: "西安",
+        tagStyle: cityTagStyle
+      },
+      {
+        id: 0,
+        text: "南京",
+        tagStyle: cityTagStyle
+      },
+      {
+        id: 0,
+        text: "武汉",
+        tagStyle: cityTagStyle
+      },
+      {
+        id: 0,
+        text: "长沙",
+        tagStyle: cityTagStyle
+      },
+      {
+        id: 0,
+        text: "厦门",
+        tagStyle: cityTagStyle
+      }
+    ]
+  },
+  changeCity(e) {
+    let index = e.detail.index;
+    var pages = getCurrentPages();
+    var currPage = pages[pages.length - 1]; //当前页面
+    var prevPage = pages[pages.length - 2]; //上一页面
+    // console.log(this.data.cityTagList[index].text)
+    prevPage.setData({
+      currentCity: this.data.cityTagList[index].text,
+      currentCityId: this.data.cityTagList[index].id,
+      currentDistance: 0
+    });
+    prevPage.reloadIndex();
+    wx.navigateBack();
+  },
+  getPosition() {
+    wx.request({
+      url: "https://apis.map.qq.com/ws/location/v1/ip",
+      data: { key: "RHGBZ-S2LAU-5MRV7-4QPTZ-JI25K-HVBDV" },
+      success: res => {
+        this.setData({
+          position: res.data.result.ad_info.city.replace("市", "")
+        });
+      }
+    });
+  },
+  onLoad(options) {
+    this.getPosition();
+  }
+};
 </script>
 
 <style lang="less">
-.top_box{
-    height:310px;
-    background-color:#f7f7f7;
-    padding-bottom:20px;
-    border-bottom: 1px solid #ece3e3;
-    .position{
-        background-color: #fff;
-        padding:5px 15px;
-        display: inline-block;
-        margin:0 10px;
-        border-radius:3px;
-        border:1px solid #f1f1f1;
-    }
-    .title{
-        font-size:12px;
-        color:#999;
-        padding:10px 10px 0;
-        margin:0 0 10px 0;
-    }
-    .top2{
-        margin:0 10px;
-    }
-} 
+.top_box {
+  height: 310px;
+  background-color: #f7f7f7;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #ece3e3;
+  .position {
+    background-color: #fff;
+    padding: 5px 15px;
+    display: inline-block;
+    margin: 0 10px;
+    border-radius: 3px;
+    border: 1px solid #f1f1f1;
+  }
+  .title {
+    font-size: 12px;
+    color: #999;
+    padding: 10px 10px 0;
+    margin: 0 0 10px 0;
+  }
+  .top2 {
+    margin: 0 10px;
+  }
+}
 .now-city {
-    display: flex;
-    background: white;
-    font-size: 15px;
-    line-height: 1.0;
-    letter-spacing: 0.4px;
-    color: #333333;
-    padding: 6px 16rpx;
-    border: solid 1px #dbdbdb;
-    margin-top: 9px;
+  display: flex;
+  background: white;
+  font-size: 15px;
+  line-height: 1;
+  letter-spacing: 0.4px;
+  color: #333333;
+  padding: 6px 16rpx;
+  border: solid 1px #dbdbdb;
+  margin-top: 9px;
 }
 </style>

@@ -23,17 +23,21 @@ exports.default = Page({
 
   // 初始化页面数据
   onLoad: function onLoad(options) {
+    wx.showLoading({
+      mask: true,
+      title: "跳转中•••"
+    });
     var _this = this;
     var jobId = options.jobId;
     var positionId = options.postionId;
     wx.request({
-      url: 'https://mini.mariojd.cn/api/detail?jobId=' + jobId + '&positionId=' + positionId,
+      url: "https://mini.mariojd.cn/api/detail?jobId=" + jobId + "&positionId=" + positionId,
       success: function success(res) {
         // 职位诱惑
         var advantageList = [];
         var jobAdvantageData = res.data.jobAdvantage;
         if (jobAdvantageData) {
-          var jobAdvantage = jobAdvantageData.split(',');
+          var jobAdvantage = jobAdvantageData.split(",");
           jobAdvantage.forEach(function (advantage) {
             advantageList.push({ text: advantage, tagStyle: tagStyle });
           });
@@ -63,9 +67,12 @@ exports.default = Page({
           labelList: labelList,
           positionList: positionList,
           advantageList: advantageList,
-          companyIndustry: res.data.companyIndustry.replace(',', ' • '),
+          companyIndustry: res.data.companyIndustry.replace(",", " • "),
           sourceUrl: res.data.sourceUrl
         });
+      },
+      complete: function complete() {
+        wx.hideLoading();
       }
     });
   }

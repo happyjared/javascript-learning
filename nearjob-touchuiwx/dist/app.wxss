@@ -45,36 +45,36 @@ button {
   margin: 6px 0;
 }
 button[type="primary"] {
-  background-color: #A9DC21;
+  background-color: #000;
 }
 button[type="primary"][loading] {
-  background-color: #A9DC21;
+  background-color: #000;
 }
 button[type="primary"].button-hover {
   color: #fff;
-  background-color: #729516;
+  background-color: #000000;
   opacity: 0.8;
 }
 button[type="primary"][plain] {
-  border-color: #A9DC21;
-  color: #A9DC21;
+  border-color: #000;
+  color: #000;
 }
 button[type="primary"][plain].button-hover {
-  color: #A9DC21;
-  border-color: #A9DC21;
+  color: #000;
+  border-color: #000;
   opacity: 0.8;
 }
 button[type="primary"][size="mini"].button-hover {
-  border-color: #A9DC21 !important;
+  border-color: #000 !important;
 }
 button[type="primary"][disabled] {
-  background-color: #c5e866;
+  background-color: #292929;
 }
 button[type="primary"][size="mini"] {
-  border-color: #A9DC21 !important;
+  border-color: #000 !important;
 }
 button[type="primary"][size="mini"].button-hover {
-  border-color: #A9DC21 !important;
+  border-color: #000 !important;
 }
 button[type="success"] {
   background-color: #13ce66;
@@ -943,5 +943,5 @@ button[type="success"][plain] {
   content: "\e9bd";
 }
 .global-color {
-  color: '#A9DC21';
+  color: "#A9DC21";
 }
