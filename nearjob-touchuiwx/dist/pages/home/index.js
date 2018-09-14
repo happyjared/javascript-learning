@@ -14,14 +14,12 @@ var app = getApp();
 exports.default = Page({
   data: {
     scrollTop: 0,
+    width: wx.WIN_WIDTH,
+    navHeight: 40,
     navStyle: {
       "background-color": "#fff",
       "box-shadow": "0 2px 2px #dfdfdf"
     },
-    width: wx.WIN_WIDTH,
-    height: wx.DEFAULT_CONTENT_HEIGHT,
-    poptpTop: wx.DEFAULT_HEADER_HEIGHT - 6,
-    colorList: ["#FCB300", "#FF7360", "#39CCC5"],
     el: "undefined",
     // 职位信息数据
     jobDataList: [],
@@ -29,9 +27,10 @@ exports.default = Page({
     cityList: { 北京: 1, 上海: 2, 广州: 3, 深圳: 4, 杭州: 5, 成都: 6 },
     currentCity: "城市",
     currentCityId: 0,
+    positionCityId: 0,
     showDistance: false,
     // 距离数据相关
-    currentDistance: 3,
+    currentDistance: 0,
     // 职位数据相关
     showJob: false,
     currentJob: "Java",
@@ -45,20 +44,45 @@ exports.default = Page({
     }],
     // 排序数据相关
     showSort: false,
-    currentSort: "离我最近",
     sortKeyList: ["最新发布", "离我最近"],
-    sortValueList: [1, 2],
+    sortSelectedValue: ['最新发布'],
     // 分页数据相关
     log: 0,
     lat: 0,
     currentPage: 0,
     lastPage: false
   },
-  // 页面下滑事件
-  onPageScroll: function onPageScroll(e) {
-    // console.log(e)
-    this.setData({
-      scrollTop: e.scrollTop
+  //初始加载事件
+  onLoad: function onLoad() {
+    this.getPosition();
+    this.getLocation();
+    this.apiIndex();
+  },
+
+  // 授权地理位置
+  getLocation: function getLocation() {
+    var _this = this;
+    wx.getLocation({
+      type: "gcj02",
+      success: function success(res) {
+        console.log("get location success", res);
+        _this.data.lat = res.latitude;
+        _this.data.log = res.longitude;
+        if (_this.data.positionCityId != 0) {
+          _this.setData({
+            currentDistance: 3,
+            sortSelectedValue: ['离我最近']
+          });
+        }
+        _this.reloadIndex();
+      },
+      fail: function fail() {
+        wx.showModal({
+          title: "功能限制",
+          content: "地理位置授权失败",
+          showCancel: false
+        });
+      }
     });
   },
 
@@ -76,7 +100,8 @@ exports.default = Page({
           if (city.indexOf(cityName) != -1) {
             _this.setData({
               currentCity: cityName,
-              currentCityId: cityList[cityName]
+              currentCityId: cityList[cityName],
+              positionCityId: cityList[cityName]
             });
           }
         }
@@ -84,29 +109,13 @@ exports.default = Page({
     });
   },
 
-  //初始加载事件
-  onLoad: function onLoad() {
-    this.indexRequest();
-    var _this = this;
-    wx.getLocation({
-      type: "gcj02",
-      success: function success(res) {
-        console.log("get location success", res);
-        _this.data.log = res.longitude;
-        _this.data.lat = res.latitude;
-        _this.reloadIndex();
-      }
-    });
-    this.getPosition();
-  },
-
   // 重新请求首页数据
   reloadIndex: function reloadIndex() {
-    this.data.currentPage = 0, this.data.lastPage = false, this.data.jobDataList.length = 0, this.indexRequest();
+    this.data.currentPage = 0, this.data.lastPage = false, this.data.jobDataList.length = 0, this.apiIndex();
   },
 
   // api/index统一请求入口
-  indexRequest: function indexRequest(pullDown) {
+  apiIndex: function apiIndex(pullDown) {
     wx.showLoading({
       mask: true,
       title: "加载中•••"
@@ -129,7 +138,8 @@ exports.default = Page({
       }
       return;
     }
-    var _url = "https://mini.mariojd.cn/api/index?jobId=" + this.data.currentJobId + "&page=" + this.data.currentPage;
+    var _page = this.data.currentPage;
+    var _url = "https://mini.mariojd.cn/api/index?jobId=" + this.data.currentJobId + "&page=" + _page;
     var cityId = this.data.currentCityId;
     if (cityId != 0) {
       _url += "&cityId=" + cityId;
@@ -137,10 +147,12 @@ exports.default = Page({
     var _log = this.data.log;
     var _lat = this.data.lat;
     var _distance = this.data.currentDistance;
-    if (_log && _lat && _distance) {
+    if (_log && _distance && _lat && cityId == this.data.positionCityId) {
       // 按距离升序
       _url += "&longitude=" + _log + "&latitude=" + _lat + "&distance=" + _distance;
-    } else {
+    }
+    console.log(this.data.sortSelectedValue == '最新发布');
+    if (this.data.sortSelectedValue == '最新发布') {
       // 按时间倒序
       _url += "&sort=postJobTime,desc";
     }
@@ -153,10 +165,16 @@ exports.default = Page({
           currentPage: res.data.number,
           jobDataList: _this.data.jobDataList.concat(res.data.content)
         });
+        if (_this.data.scrollTop > 0 && _page == 0) {
+          wx.pageScrollTo({
+            scrollTop: 0,
+            duration: 450
+          });
+        }
       },
       fail: function fail() {
         if (!pullDown) {
-          _this.data.currentPage++;
+          _this.data.currentPage--;
         }
       },
       complete: function complete() {
@@ -167,38 +185,45 @@ exports.default = Page({
 
   // 下拉刷新事件
   onPullDownRefresh: function onPullDownRefresh() {
-    this.indexRequest(true);
+    this.apiIndex(true);
     wx.stopPullDownRefresh();
   },
 
-  //上拉加载事件
+  //  上拉加载事件
   onReachBottom: function onReachBottom() {
     this.data.currentPage++;
-    this.indexRequest(false);
+    this.apiIndex(false);
   },
 
-  // 排序弹出框
-  sortPopup: function sortPopup() {
+  // 页面下滑事件
+  onPageScroll: function onPageScroll(e) {
+    // console.log(e)
     this.setData({
-      showJob: false,
-      showSort: !this.data.showSort
+      scrollTop: e.scrollTop
     });
   },
 
-  // 选择排序
-  changeSort: function changeSort(e) {
-    console.log(e);
+  // 1->跳转到城市选择页面
+  toCitySelect: function toCitySelect() {
+    this.setData({
+      showJob: false,
+      showSort: false
+    });
+    wx.navigateTo({
+      url: "../city/city"
+    });
   },
 
-  // 职位弹出框
+  // 2->职位弹出框
   jobPopup: function jobPopup() {
+    // console.log('jobPopup');
     this.setData({
       showSort: false,
       showJob: !this.data.showJob
     });
   },
 
-  // 选择职位
+  // 2->选择职位
   jobSelected: function jobSelected(e) {
     var data = e.detail;
     if (data.length > 1) {
@@ -211,7 +236,21 @@ exports.default = Page({
     }
   },
 
-  // 选择距离
+  // 3->距离弹出框
+  openDistancePopup: function openDistancePopup() {
+    if (this.data.currentDistance == 0) {
+      this.getLocation();
+    } else {
+      this.setData({
+        pastDistance: this.data.currentDistance,
+        showJob: false,
+        showSort: false,
+        showDistance: true
+      });
+    }
+  },
+
+  // 3->滑动更改距离
   distanceSelected: function distanceSelected(e) {
     var selectDistance = e.detail.value;
     this.setData({
@@ -219,17 +258,7 @@ exports.default = Page({
     });
   },
 
-  // 打开距离弹出框
-  openDistancePopup: function openDistancePopup() {
-    this.setData({
-      pastDistance: this.data.currentDistance,
-      showJob: false,
-      showSort: false,
-      showDistance: !this.data.showDistance
-    });
-  },
-
-  // 隐藏距离弹出框
+  // 3->隐藏距离弹出框
   hideDistancePopup: function hideDistancePopup() {
     this.setData({
       // 还原距离信息
@@ -237,28 +266,37 @@ exports.default = Page({
     });
   },
 
-  // 完成距离选择
+  // 3->完成选择距离
   finishDistancePopup: function finishDistancePopup() {
-    if (this.data.pastDistance != this.data.currentDistance) {
+    var currentDistance = this.data.currentDistance;
+    if (this.data.pastDistance != currentDistance) {
       // 距离发生变化时触发
       this.reloadIndex();
     }
-  },
-
-  // 不感兴趣
-  notInsJob: function notInsJob(index) {
-    var index = index.target.dataset.idx;
-    console.log(index);
-    this.data.jobDataList.splice(index, 1);
     this.setData({
-      jobDataList: this.data.jobDataList
-    });
-    this.setData({
-      el: "undefined"
+      showDistance: false,
+      pastDistance: currentDistance
     });
   },
 
-  // 向右滑动标签
+  // 4->排序弹出框
+  sortPopup: function sortPopup() {
+    this.setData({
+      showJob: false,
+      showSort: !this.data.showSort
+    });
+  },
+
+  // 4->选择排序
+  changeSort: function changeSort(e) {
+    this.setData({
+      showSort: false,
+      sortSelectedValue: e.detail.value
+    });
+    this.reloadIndex();
+  },
+
+  // 向右滑动职位标签
   switchSlideTab: function switchSlideTab(res) {
     if (res.detail === "on") {
       var index = res.currentTarget.dataset.index;
@@ -275,20 +313,23 @@ exports.default = Page({
     }
   },
 
+  // 不感兴趣该职位
+  notInsJob: function notInsJob(index) {
+    var index = index.target.dataset.idx;
+    console.log(index);
+    this.data.jobDataList.splice(index, 1);
+    this.setData({
+      jobDataList: this.data.jobDataList
+    });
+    this.setData({
+      el: "undefined"
+    });
+  },
+
   // 跳转到职位详情页面
   toDeail: function toDeail(e) {
     wx.navigateTo({
       url: "../detail/detail?jobId=" + this.data.currentJobId + "&postionId=" + e.currentTarget.id
-    });
-  },
-  // 跳转到城市选择页面
-  toCitySelect: function toCitySelect() {
-    this.setData({
-      showJob: false,
-      showSort: false
-    });
-    wx.navigateTo({
-      url: "../city/city"
     });
   }
 });

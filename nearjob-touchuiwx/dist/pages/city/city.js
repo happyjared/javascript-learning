@@ -57,6 +57,9 @@ exports.default = Page({
       tagStyle: cityTagStyle
     }]
   },
+  backPrePage: function backPrePage() {
+    wx.navigateBack();
+  },
   changeCity: function changeCity(e) {
     var index = e.detail.index;
     var pages = getCurrentPages();

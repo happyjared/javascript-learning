@@ -7,9 +7,9 @@
                 <view class="top_box">
                     <view>
                         <view class="title">坐标定位</view>
-                        <view class="position">
-                            <ui-icon type="home-map" color="#A9DC21"></ui-icon>
-                            <text style="color:#A9DC21;font-size:14px;margin-left:4px">{{position}}</text>
+                        <view class="position" bindtap="backPrePage">
+                            <ui-icon type="home-map" color="#000"></ui-icon>
+                            <text style="color:#000;font-size:14px;margin-left:4px">{{position}}</text>
                         </view>
                     </view>
                     <view class="top2">
@@ -106,6 +106,9 @@ export default {
         tagStyle: cityTagStyle
       }
     ]
+  },
+  backPrePage() {
+    wx.navigateBack();
   },
   changeCity(e) {
     let index = e.detail.index;

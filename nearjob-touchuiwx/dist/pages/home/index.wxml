@@ -1,10 +1,9 @@
 <view>
-
   <view class="nav-container">
     <ui-sticky scroll-top="{{ scrollTop }}" top="0" custom-style="{{ navStyle }}" stick-on-tap="stick-on-tap" _pid="{{_pid}}">
       <view>
         <!-- 顶部导航区域 -->
-        <view style="color:#878787;font-size:14px;height:40px;" class="ui-row ui-row-border-bottom">
+        <view style="color:#878787;font-size:14px;height:{{navHeight}}px;" class="ui-row ui-row-border-bottom">
           <!-- 城市 -->
           <view bindtap="toCitySelect" class="ui-col ui-col-align-center align-center valign-middle" style="">
             <view class="ui-col-content align-center valign-middle">
@@ -21,11 +20,11 @@
               <view>{{currentJob}}
                 <span type="slide_down" size="10" color="#878787" style="padding-left:8px;color: #878787;font-size: 10px;" class="ui-icon icon-slide_down"></span>
               </view>
-              <ui-popup cropout show="{{showJob}}" height="300" position="top" width="50%" top="{{ poptpTop }}" mask-style="{{ {backgroundColor:'rgba(0,0,0,0.5)',top:poptpTop+'px'} }}" _pid="{{_pid}}">
-                <ui-cascader show-title="{{false}}" bindselected="jobSelected" data="{{jobList}}" _pid="{{_pid}}"></ui-cascader>
-              </ui-popup>
             </view>
           </view>
+          <ui-popup cropout show="{{showJob}}" position="top" top="{{navHeight}}" mask-style="{{{backgroundColor:'rgba(0,0,0,0.5)',top: navHeight+'px'} }}" _pid="{{_pid}}">
+            <ui-cascader height="180" bindselected="jobSelected" data="{{jobList}}" _pid="{{_pid}}"></ui-cascader>
+          </ui-popup>
 
           <!-- 距离 -->
           <view bindtap="openDistancePopup" class="ui-col ui-col-align-center align-center valign-middle" style="">
@@ -33,37 +32,37 @@
               <view>{{currentDistance==0 ? '距离': currentDistance + 'km'}}
                 <span type="slide_down" size="10" color="#878787" style="padding-left:8px;color: #878787;font-size: 10px;" class="ui-icon icon-slide_down"></span>
               </view>
-              <ui-popup show="{{showDistance}}" bindhide="hideDistancePopup" _pid="{{_pid}}">
-                <view style="margin:25px 10px 50px;">
-                  <ui-slider scale-margin="25" width="{{width-20}}" value="{{currentDistance}}" min="0" max="10" key-scale-line="1" active-color="#000" slider-weight="3" bindchange="distanceSelected" _pid="{{_pid}}">
-                  </ui-slider>
-                </view>
-                <view class="distanceView">
-                  <button class="distanceBtn" bindtap="finishDistancePopup">完成</button>
-                </view>
-              </ui-popup>
             </view>
           </view>
+          <ui-popup show="{{showDistance}}" bindhide="hideDistancePopup" _pid="{{_pid}}">
+            <view style="margin:25px 10px 50px;">
+              <ui-slider scale-margin="25" width="{{width-20}}" value="{{currentDistance}}" min="0" max="10" key-scale-line="1" active-color="#000" slider-weight="3" bindchange="distanceSelected" _pid="{{_pid}}">
+              </ui-slider>
+            </view>
+            <view class="distanceView">
+              <button class="distanceBtn" bindtap="finishDistancePopup">完成</button>
+            </view>
+          </ui-popup>
 
           <!-- 筛选 -->
           <view bindtap="sortPopup" class="ui-col ui-col-align-center align-center valign-middle" style="">
             <view class="ui-col-content align-center valign-middle">
               <view>
-                <text>筛选</text>
+                <text>{{sortSelectedValue}}</text>
                 <span type="slide_down" size="10" color="#878787" style="padding-left:8px;color: #878787;font-size: 10px;" class="ui-icon icon-slide_down"></span>
               </view>
-              <ui-popup cropout show="{{ showSort }}" height="300" position="right" top="40" mask-style="{{ { top: '40px' } }}" _pid="{{_pid}}">
-                <view>
-                  <ui-check-list max="1" label-position="left" options="{{ sortKeyList }}" value="{{ sortValueList }}" type="plain" bindchange="changeSort" _pid="{{_pid}}"></ui-check-list>
-                </view>
-              </ui-popup>
             </view>
           </view>
+          <ui-popup cropout show="{{ showSort }}" position="top" top="{{navHeight}}" mask-style="{{ { top: navHeight+'px' } }}" _pid="{{_pid}}">
+            <view style="margin-left:-8px">
+              <ui-check-list max="1" options="{{ sortKeyList }}" value="{{ sortSelectedValue }}" type="plain" bindchange="changeSort" label-position="left" _pid="{{_pid}}"></ui-check-list>
+            </view>
+          </ui-popup>
         </view>
       </view>
       <view slot="sticky">
         <!-- 顶部导航区域 -->
-        <view style="color:#878787;font-size:14px;height:40px;" class="ui-row ui-row-border-bottom">
+        <view style="color:#878787;font-size:14px;height:{{navHeight}}px;" class="ui-row ui-row-border-bottom">
           <!-- 城市 -->
           <view bindtap="toCitySelect" class="ui-col ui-col-align-center align-center valign-middle" style="">
             <view class="ui-col-content align-center valign-middle">
@@ -80,9 +79,6 @@
               <view>{{currentJob}}
                 <span type="slide_down" size="10" color="#878787" style="padding-left:8px;color: #878787;font-size: 10px;" class="ui-icon icon-slide_down"></span>
               </view>
-              <ui-popup cropout show="{{showJob}}" height="300" position="top" width="50%" top="{{ poptpTop }}" mask-style="{{ {backgroundColor:'rgba(0,0,0,0.5)',top:poptpTop+'px'} }}" _pid="{{_pid}}">
-                <ui-cascader show-title="{{false}}" bindselected="jobSelected" data="{{jobList}}" _pid="{{_pid}}"></ui-cascader>
-              </ui-popup>
             </view>
           </view>
 
@@ -92,15 +88,6 @@
               <view>{{currentDistance==0 ? '距离': currentDistance + 'km'}}
                 <span type="slide_down" size="10" color="#878787" style="padding-left:8px;color: #878787;font-size: 10px;" class="ui-icon icon-slide_down"></span>
               </view>
-              <ui-popup show="{{showDistance}}" bindhide="hideDistancePopup" _pid="{{_pid}}">
-                <view style="margin:25px 10px 50px;">
-                  <ui-slider scale-margin="25" width="{{width-20}}" value="{{currentDistance}}" min="0" max="10" key-scale-line="1" active-color="#000" slider-weight="3" bindchange="distanceSelected" _pid="{{_pid}}">
-                  </ui-slider>
-                </view>
-                <view class="distanceView">
-                  <button class="distanceBtn" bindtap="finishDistancePopup">完成</button>
-                </view>
-              </ui-popup>
             </view>
           </view>
 
@@ -108,14 +95,9 @@
           <view bindtap="sortPopup" class="ui-col ui-col-align-center align-center valign-middle" style="">
             <view class="ui-col-content align-center valign-middle">
               <view>
-                <text>筛选</text>
+                <text>{{sortSelectedValue}}</text>
                 <span type="slide_down" size="10" color="#878787" style="padding-left:8px;color: #878787;font-size: 10px;" class="ui-icon icon-slide_down"></span>
               </view>
-              <ui-popup cropout show="{{ showSort }}" height="300" position="right" top="40" mask-style="{{ { top: '40px' } }}" _pid="{{_pid}}">
-                <view>
-                  <ui-check-list max="1" label-position="left" options="{{ sortKeyList }}" value="{{ sortValueList }}" type="plain" bindchange="changeSort" _pid="{{_pid}}"></ui-check-list>
-                </view>
-              </ui-popup>
             </view>
           </view>
         </view>

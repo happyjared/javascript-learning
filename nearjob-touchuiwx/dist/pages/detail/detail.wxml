@@ -7,7 +7,7 @@
     </view>
     <view class="ui-col ui-col-align-left align-left valign-bottom" style="">
       <view class="ui-col-content align-left valign-bottom">
-        <view style="color:#A9DC21;font-weight:bold;padding-bottom:2px">{{item.jobSalary}}</view>
+        <view style="color:#000;font-weight:bold;padding-bottom:3px">{{item.jobSalary}}</view>
       </view>
     </view>
   </view>
@@ -80,7 +80,7 @@
   <view class="ui-row" style="margin-top: 20px;height:50px;">
     <view class="ui-col ui-col-2" style="flex: 0 0 16.666666666666664%;padding-left: 15px;">
       <view class="ui-col-content">
-        <image src="{{item.companyLogo}}" style="width:100%;height:95%" />
+        <image src="{{item.companyLogo}}" style="width:100%;height:95%;border:2px solid #f1f1f3" />
       </view>
     </view>
     <view class="ui-col" style="padding-left: 15px;padding-right: 15px;">
@@ -125,27 +125,27 @@
       </view>
     </view>
   </view>
-  <view class="ui-row" style="margin-bottom: 50px;margin-top: 20px;height:40px;">
+  <view class="ui-row" style="margin-bottom: 70px;margin-top: 20px;height:20px;">
     <view class="ui-col ui-col-1" style="flex: 0 0 8.333333333333332%;padding-left: 9px;">
       <view class="ui-col-content">
-        <span type="api-position" color="#000" size="18" class="ui-icon icon-api-position" style="color: #000;font-size: 18px;"></span>
+        <span type="api-position" color="#000" class="ui-icon icon-api-position" style="color: #000;font-size: 16px;"></span>
       </view>
     </view>
     <view class="ui-col ui-col-10" style="flex: 0 0 83.33333333333334%;">
       <view class="ui-col-content">
-        <view style="font-size:16px;" class="view-text">
+        <view style="font-size:15px;" class="view-text">
           <text class="text-color">{{item.companyLocation}}</text>
         </view>
       </view>
     </view>
-    <view class="ui-col ui-col-align-left align-left valign-center" style="">
-      <view class="ui-col-content align-left valign-center">
+    <view class="ui-col ui-col-align-left align-left valign-top" style="">
+      <view class="ui-col-content align-left valign-top">
         <span type="arrow-right" class="ui-icon icon-arrow-right" style="font-size: 16px;"></span>
       </view>
     </view>
   </view>
 
   <ui-fixed-view bottom="0" left="0" right="0" _pid="{{_pid}}">
-    <view class="copyJobLink" bindtap="copyJobLink">复制链接</view>
+    <view class="copyJobLink" bindtap="copyJobLink">复制原文链接(用浏览器打开)</view>
   </ui-fixed-view>
 </view>

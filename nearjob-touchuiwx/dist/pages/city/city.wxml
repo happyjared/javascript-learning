@@ -4,9 +4,9 @@
       <view class="top_box">
         <view>
           <view class="title">坐标定位</view>
-          <view class="position">
-            <span type="home-map" color="#A9DC21" class="ui-icon icon-home-map" style="color: #A9DC21;font-size: 16px;"></span>
-            <text style="color:#A9DC21;font-size:14px;margin-left:4px">{{position}}</text>
+          <view class="position" bindtap="backPrePage">
+            <span type="home-map" color="#000" class="ui-icon icon-home-map" style="color: #000;font-size: 16px;"></span>
+            <text style="color:#000;font-size:14px;margin-left:4px">{{position}}</text>
           </view>
         </view>
         <view class="top2">
