@@ -1,4 +1,12 @@
 <view>
+
+  <!-- 搜索区域 -->
+  <view>
+    <van-search placeholder="搜索关键词" maxlength="100" bind:change="keywordChange" bind:search="searchKeyword" _pid="{{_pid}}">
+    </van-search>
+  </view>
+
+  <!-- 导航区域 -->
   <view class="nav-container">
     <ui-sticky scroll-top="{{ scrollTop }}" top="0" custom-style="{{ navStyle }}" stick-on-tap="stick-on-tap" _pid="{{_pid}}">
       <view>
@@ -156,5 +164,8 @@
       <view class="delNotInsJob" data-idx="{{index}}" bindtap="notInsJob">不感兴趣</view>
     </view>
   </ui-swipe-out>
+
+  <!-- 无数据区域 -->
+  <view hidden="{{hiddenImage}}" class="emptyImage" style="width:{{width}}px;height:{{height}}px;"></view>
 
 </view>

@@ -15,6 +15,7 @@ exports.default = Page({
   data: {
     scrollTop: 0,
     width: wx.WIN_WIDTH,
+    height: wx.WIN_HEIGHT,
     navHeight: 40,
     navStyle: {
       "background-color": "#fff",
@@ -45,7 +46,9 @@ exports.default = Page({
     // 排序数据相关
     showSort: false,
     sortKeyList: ["最新发布", "离我最近"],
-    sortSelectedValue: ['最新发布'],
+    sortSelectedValue: ["最新发布"],
+    // 请求无数据相关
+    hiddenImage: true,
     // 分页数据相关
     log: 0,
     lat: 0,
@@ -71,7 +74,7 @@ exports.default = Page({
         if (_this.data.positionCityId != 0) {
           _this.setData({
             currentDistance: 3,
-            sortSelectedValue: ['离我最近']
+            sortSelectedValue: ["离我最近"]
           });
         }
         _this.reloadIndex();
@@ -151,10 +154,14 @@ exports.default = Page({
       // 按距离升序
       _url += "&longitude=" + _log + "&latitude=" + _lat + "&distance=" + _distance;
     }
-    console.log(this.data.sortSelectedValue == '最新发布');
-    if (this.data.sortSelectedValue == '最新发布') {
+    console.log(this.data.sortSelectedValue == "最新发布");
+    if (this.data.sortSelectedValue == "最新发布") {
       // 按时间倒序
       _url += "&sort=postJobTime,desc";
+    }
+    var keyword = this.data.keyword;
+    if (typeof keyword != 'undefined' && keyword.length > 0) {
+      _url += "&keyword=" + keyword;
     }
     var _this = this;
     wx.request({
@@ -171,6 +178,15 @@ exports.default = Page({
             duration: 450
           });
         }
+        if (res.totalElements == 0) {
+          _this.setData({
+            hiddenImage: false
+          });
+        } else {
+          _this.setData({
+            hiddenImage: true
+          });
+        }
       },
       fail: function fail() {
         if (!pullDown) {
@@ -181,6 +197,20 @@ exports.default = Page({
         wx.hideLoading();
       }
     });
+  },
+
+  // 关键字变化事件
+  keywordChange: function keywordChange(e) {
+    this.setData({
+      keyword: e.detail
+    });
+  },
+
+  // 搜索关键字事件
+  searchKeyword: function searchKeyword(e) {
+    if (this.data.keyword.length > 0) {
+      this.reloadIndex();
+    }
   },
 
   // 下拉刷新事件

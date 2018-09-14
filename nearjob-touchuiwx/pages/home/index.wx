@@ -1,6 +1,14 @@
 <template>
 
   <view>
+
+    <!-- 搜索区域 -->
+    <view>
+      <van-search placeholder="搜索关键词" maxlength="100" 
+          bind:change="keywordChange" bind:search="searchKeyword"/>
+    </view>
+
+    <!-- 导航区域 -->
     <view class="nav-container">
       <ui-sticky scroll-top="{{ scrollTop }}" top="0" custom-style="{{ navStyle }}" stick-on-tap="stick-on-tap">
         <view>     
@@ -141,6 +149,9 @@
       </view>
     </ui-swipe-out>
 
+    <!-- 无数据区域 -->
+    <view hidden="{{hiddenImage}}" class="emptyImage" style="width:{{width}}px;height:{{height}}px;"></view>
+
   </view>
 
 </template>
@@ -151,7 +162,7 @@ import date from "../../static/utils/date";
 export default {
   config: {
     usingComponents: {
-      "van-search": "../../vantui/search/index",
+      "van-search": "../../vantui/search/index"
     },
     enablePullDownRefresh: true,
     onReachBottomDistance: 100
@@ -159,6 +170,7 @@ export default {
   data: {
     scrollTop: 0,
     width: wx.WIN_WIDTH,
+    height: wx.WIN_HEIGHT,
     navHeight: 40,
     navStyle: {
       "background-color": "#fff",
@@ -200,7 +212,9 @@ export default {
     // 排序数据相关
     showSort: false,
     sortKeyList: ["最新发布", "离我最近"],
-    sortSelectedValue: ['最新发布'],
+    sortSelectedValue: ["最新发布"],
+    // 请求无数据相关
+    hiddenImage: true,
     // 分页数据相关
     log: 0,
     lat: 0,
@@ -222,11 +236,11 @@ export default {
         console.log("get location success", res);
         _this.data.lat = res.latitude;
         _this.data.log = res.longitude;
-        if(_this.data.positionCityId != 0) {
+        if (_this.data.positionCityId != 0) {
           _this.setData({
             currentDistance: 3,
-            sortSelectedValue: ['离我最近']
-          })
+            sortSelectedValue: ["离我最近"]
+          });
         }
         _this.reloadIndex();
       },
@@ -234,9 +248,9 @@ export default {
         wx.showModal({
           title: "功能限制",
           content: "地理位置授权失败",
-          showCancel: false,
+          showCancel: false
         });
-      },
+      }
     });
   },
   // 获得位置ip等信息
@@ -254,7 +268,7 @@ export default {
             _this.setData({
               currentCity: cityName,
               currentCityId: cityList[cityName],
-              positionCityId: cityList[cityName],
+              positionCityId: cityList[cityName]
             });
           }
         }
@@ -263,10 +277,10 @@ export default {
   },
   // 重新请求首页数据
   reloadIndex() {
-    this.data.currentPage = 0,
-    this.data.lastPage = false,
-    this.data.jobDataList.length = 0,
-    this.apiIndex();
+    (this.data.currentPage = 0),
+      (this.data.lastPage = false),
+      (this.data.jobDataList.length = 0),
+      this.apiIndex();
   },
   // api/index统一请求入口
   apiIndex(pullDown) {
@@ -292,25 +306,34 @@ export default {
       }
       return;
     }
-    var _page = this.data.currentPage
-    var _url = "https://mini.mariojd.cn/api/index?jobId="+this.data.currentJobId +"&page="+_page
-    var cityId = this.data.currentCityId
+    var _page = this.data.currentPage;
+    var _url =
+      "https://mini.mariojd.cn/api/index?jobId=" +
+      this.data.currentJobId +
+      "&page=" +
+      _page;
+    var cityId = this.data.currentCityId;
     if (cityId != 0) {
-      _url += "&cityId=" + cityId
+      _url += "&cityId=" + cityId;
     }
-    var _log = this.data.log
-    var _lat = this.data.lat
-    var _distance = this.data.currentDistance
+    var _log = this.data.log;
+    var _lat = this.data.lat;
+    var _distance = this.data.currentDistance;
     if (_log && _distance && _lat && cityId == this.data.positionCityId) {
       // 按距离升序
-      _url += "&longitude=" + _log + "&latitude=" + _lat + "&distance=" + _distance;
+      _url +=
+        "&longitude=" + _log + "&latitude=" + _lat + "&distance=" + _distance;
     }
-    console.log(this.data.sortSelectedValue == '最新发布')
-    if (this.data.sortSelectedValue == '最新发布') {
+    console.log(this.data.sortSelectedValue == "最新发布");
+    if (this.data.sortSelectedValue == "最新发布") {
       // 按时间倒序
-      _url += "&sort=postJobTime,desc"
+      _url += "&sort=postJobTime,desc";
     }
-    var _this = this
+    var keyword = this.data.keyword
+    if (typeof keyword != 'undefined' && keyword.length > 0 ){
+      _url += "&keyword=" + keyword
+    }
+    var _this = this;
     wx.request({
       url: _url,
       success: function(res) {
@@ -323,18 +346,39 @@ export default {
           wx.pageScrollTo({
             scrollTop: 0,
             duration: 450
+          });
+        }
+        if (res.totalElements == 0 ){
+          _this.setData({
+            hiddenImage: false
           })
-        } 
+        }else{
+          _this.setData({
+            hiddenImage: true
+          })
+        }
       },
       fail: function() {
         if (!pullDown) {
-          _this.data.currentPage--
+          _this.data.currentPage--;
         }
       },
       complete: function() {
         wx.hideLoading();
       }
     });
+  },
+  // 关键字变化事件
+  keywordChange(e) {
+    this.setData({
+      keyword: e.detail
+    })
+  },
+  // 搜索关键字事件
+  searchKeyword(e) {
+    if (this.data.keyword.length > 0) {
+      this.reloadIndex()
+    }
   },
   // 下拉刷新事件
   onPullDownRefresh() {
@@ -385,9 +429,9 @@ export default {
   },
   // 3->距离弹出框
   openDistancePopup() {
-    if(this.data.currentDistance == 0) {
-      this.getLocation()
-    }else{
+    if (this.data.currentDistance == 0) {
+      this.getLocation();
+    } else {
       this.setData({
         pastDistance: this.data.currentDistance,
         showJob: false,
@@ -400,7 +444,7 @@ export default {
   distanceSelected(e) {
     let selectDistance = e.detail.value;
     this.setData({
-        currentDistance: selectDistance
+      currentDistance: selectDistance
     });
   },
   // 3->隐藏距离弹出框
@@ -412,15 +456,15 @@ export default {
   },
   // 3->完成选择距离
   finishDistancePopup() {
-    var currentDistance = this.data.currentDistance
-    if(this.data.pastDistance != currentDistance){
-        // 距离发生变化时触发
-        this.reloadIndex();
+    var currentDistance = this.data.currentDistance;
+    if (this.data.pastDistance != currentDistance) {
+      // 距离发生变化时触发
+      this.reloadIndex();
     }
     this.setData({
-      showDistance:false,
+      showDistance: false,
       pastDistance: currentDistance
-    })
+    });
   },
   // 4->排序弹出框
   sortPopup() {
@@ -474,7 +518,7 @@ export default {
         `&postionId=` +
         e.currentTarget.id
     });
-  },
+  }
 };
 </script>
 
@@ -520,5 +564,11 @@ export default {
       .mix-text-overflow();
     }
   }
+}
+.emptyImage {
+  position:relative;
+  background-size:100% 100%;
+  -moz-background-size:100% 100%;
+  background-image:url('http://bpic.588ku.com/element_pic/17/02/28/8e959816807d2a8b3796c76270ace890.jpg');
 }
 </style>
