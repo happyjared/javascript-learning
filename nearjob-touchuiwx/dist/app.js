@@ -12,6 +12,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = App({
   globalData: {
+    mapIpUrl: "https://apis.map.qq.com/ws/location/v1/ip",
+    mapKey: "R2QBZ-VOKCO-SMOWI-SV4P3-DCXD7-SKB4L",
     cityList: { 北京: 1, 上海: 2, 广州: 3, 深圳: 4, 杭州: 5, 成都: 6 }
   },
   onLaunch: function onLaunch() {

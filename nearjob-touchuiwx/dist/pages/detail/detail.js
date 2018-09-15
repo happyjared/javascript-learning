@@ -3,10 +3,14 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+var app = getApp();
 var tagStyle = "\n  border: 1px solid #f1f2f3;\n  border-radius: 3px;\n  text-align: center;\n  height: 25px;\n  line-height: 24px;\n";
 
 exports.default = Page({
-  data: {},
+  data: {
+    pageTop: true,
+    mapKey: app.globalData.mapKey
+  },
   // 复制职位链接
   copyJobLink: function copyJobLink() {
     wx.setClipboardData({
@@ -15,6 +19,11 @@ exports.default = Page({
         wx.getClipboardData({
           success: function success(res) {
             console.log(res.data);
+            wx.showToast({
+              mask: true,
+              icon: "success",
+              title: "链接复制成功"
+            });
           }
         });
       }
@@ -33,47 +42,65 @@ exports.default = Page({
     wx.request({
       url: "https://mini.mariojd.cn/api/detail?jobId=" + jobId + "&positionId=" + positionId,
       success: function success(res) {
+        var data = res.data;
         // 职位诱惑
         var advantageList = [];
-        var jobAdvantageData = res.data.jobAdvantage;
+        var jobAdvantageData = data.jobAdvantage;
         if (jobAdvantageData) {
-          var jobAdvantage = jobAdvantageData.split(",");
+          if (jobAdvantageData.indexOf(",") != -1) {
+            var jobAdvantage = jobAdvantageData.split(",");
+          } else if (jobAdvantageData.indexOf("，") != -1) {
+            var jobAdvantage = jobAdvantageData.split("，");
+          } else {
+            var jobAdvantage = jobAdvantageData.split(" ");
+          }
           jobAdvantage.forEach(function (advantage) {
-            advantageList.push({ text: advantage, tagStyle: tagStyle });
+            advantageList.push({ text: advantage.substr(0, 5), tagStyle: tagStyle });
           });
         }
         // 技能标签
         var labelList = [];
-        var labelData = res.data.jobLabel;
+        var labelData = data.jobLabel;
         if (labelData) {
           var jobLabel = JSON.parse(labelData);
           jobLabel.forEach(function (label) {
-            labelList.push({ text: label, tagStyle: tagStyle });
+            labelList.push({ text: label.substr(0, 6), tagStyle: tagStyle });
           });
         }
         // 位置区域
         var positionList = [];
-        var postionData = res.data.companyZone;
+        var postionData = data.companyZone;
         if (postionData) {
           var jobPostion = JSON.parse(postionData);
           jobPostion.forEach(function (position) {
-            positionList.push({ text: position, tagStyle: tagStyle });
+            positionList.push({ text: position.substr(0, 5), tagStyle: tagStyle });
           });
         }
-        // var textLength = res.data.jobDescription.split('\n').length * 14
         _this.setData({
-          // textLength: textLength,
-          item: res.data,
+          item: data,
           labelList: labelList,
           positionList: positionList,
           advantageList: advantageList,
-          companyIndustry: res.data.companyIndustry.replace(",", " • "),
-          sourceUrl: res.data.sourceUrl
+          companyIndustry: data.companyIndustry.replace(",", " • "),
+          sourceUrl: data.sourceUrl,
+          locationMarkers: [{
+            id: data.positionId,
+            title: data.companyShortName,
+            latitude: data.companyLatitude,
+            longitude: data.companyLongitude
+          }]
         });
       },
       complete: function complete() {
         wx.hideLoading();
       }
+    });
+  },
+
+  // 页面滚动事件
+  onPageScroll: function onPageScroll(e) {
+    this.setData({
+      pageTop: e.scrollTop < wx.WIN_HEIGHT / 5
     });
   }
 });

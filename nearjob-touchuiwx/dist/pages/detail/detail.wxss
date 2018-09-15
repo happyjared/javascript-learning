@@ -33,7 +33,7 @@
   text-align: center;
   color: #fff;
   background-color: #000;
-  z-index: 99;
+  z-index: 99999;
 }
 .text-color {
   color: #777;

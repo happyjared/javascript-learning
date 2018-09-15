@@ -3,10 +3,10 @@
   style="background: {{ background }}"
 >
   <view class="van-search__field">
+    <!-- left-icon="search"  -->
     <van-field
       clearable
       type="search"
-      left-icon="search"
       border="{{ false }}"
       confirm-type="search"
       value="{{ currentValue }}"
@@ -14,7 +14,7 @@
       readonly="{{ readony }}"
       maxlength="{{ maxlength }}"
       placeholder="{{ placeholder }}"
-      custom-style="padding: 3px 10px"
+      custom-style="padding:3px 12px;height:30px;"
       bind:blur="onBlur"
       bind:focus="onFocus"
       bind:change="onChange"

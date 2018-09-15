@@ -80,11 +80,13 @@ exports.default = Page({
         _this.reloadIndex();
       },
       fail: function fail() {
-        wx.showModal({
-          title: "功能限制",
-          content: "地理位置授权失败",
-          showCancel: false
-        });
+        if (!_this.data.log) {
+          wx.showModal({
+            title: "功能限制",
+            content: "地理位置授权失败",
+            showCancel: false
+          });
+        }
       }
     });
   },
@@ -93,8 +95,8 @@ exports.default = Page({
   getPosition: function getPosition() {
     var _this = this;
     wx.request({
-      url: "https://apis.map.qq.com/ws/location/v1/ip",
-      data: { key: "RHGBZ-S2LAU-5MRV7-4QPTZ-JI25K-HVBDV" },
+      url: app.globalData.mapIpUrl,
+      data: { key: app.globalData.mapKey },
       success: function success(res) {
         console.log("get position success", res);
         var city = res.data.result.ad_info.city;
@@ -108,6 +110,11 @@ exports.default = Page({
             });
           }
         }
+        var location = res.data.result.location;
+        _this.setData({
+          positionLat: location.lat,
+          positionLog: location.lng
+        });
       }
     });
   },
@@ -167,24 +174,17 @@ exports.default = Page({
     wx.request({
       url: _url,
       success: function success(res) {
+        var data = res.data;
         _this.setData({
-          lastPage: res.data.last,
-          currentPage: res.data.number,
-          jobDataList: _this.data.jobDataList.concat(res.data.content)
+          totalElements: data.totalElements,
+          lastPage: data.last,
+          currentPage: data.number,
+          jobDataList: _this.data.jobDataList.concat(data.content)
         });
         if (_this.data.scrollTop > 0 && _page == 0) {
           wx.pageScrollTo({
             scrollTop: 0,
             duration: 450
-          });
-        }
-        if (res.totalElements == 0) {
-          _this.setData({
-            hiddenImage: false
-          });
-        } else {
-          _this.setData({
-            hiddenImage: true
           });
         }
       },
@@ -208,9 +208,7 @@ exports.default = Page({
 
   // 搜索关键字事件
   searchKeyword: function searchKeyword(e) {
-    if (this.data.keyword.length > 0) {
-      this.reloadIndex();
-    }
+    this.reloadIndex();
   },
 
   // 下拉刷新事件
@@ -225,7 +223,7 @@ exports.default = Page({
     this.apiIndex(false);
   },
 
-  // 页面下滑事件
+  // 页面滚动事件
   onPageScroll: function onPageScroll(e) {
     // console.log(e)
     this.setData({
@@ -266,10 +264,38 @@ exports.default = Page({
     }
   },
 
+  // 3->点击“确认”时替换位置信息
+  openConfirm: function openConfirm() {
+    var _this = this;
+    wx.showModal({
+      content: '是否允许授权获取当前位置信息?',
+      confirmText: "确认",
+      cancelText: "取消",
+      success: function success(res) {
+        if (res.confirm) {
+          _this.setData({
+            lat: _this.data.positionLat,
+            log: _this.data.positionLog,
+            currentDistance: 3
+          });
+          _this.reloadIndex();
+        }
+      }
+    });
+  },
   // 3->距离弹出框
   openDistancePopup: function openDistancePopup() {
-    if (this.data.currentDistance == 0) {
-      this.getLocation();
+    var _this2 = this;
+
+    if (!this.data.log) {
+      //判断是否获得了用户地理位置授权
+      wx.getSetting({
+        success: function success(res) {
+          if (!res.authSetting['scope.userLocation']) {
+            _this2.openConfirm();
+          }
+        }
+      });
     } else {
       this.setData({
         pastDistance: this.data.currentDistance,
@@ -346,7 +372,7 @@ exports.default = Page({
   // 不感兴趣该职位
   notInsJob: function notInsJob(index) {
     var index = index.target.dataset.idx;
-    console.log(index);
+    // console.log(index);
     this.data.jobDataList.splice(index, 1);
     this.setData({
       jobDataList: this.data.jobDataList

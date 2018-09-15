@@ -64,5 +64,5 @@
   position: relative;
   background-size: 100% 100%;
   -moz-background-size: 100% 100%;
-  background-image: url('http://bpic.588ku.com/element_pic/17/02/28/8e959816807d2a8b3796c76270ace890.jpg');
+  background-image: url('http://p3ry9qsas.bkt.clouddn.com/empty01.png');
 }

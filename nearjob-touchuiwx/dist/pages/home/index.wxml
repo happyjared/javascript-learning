@@ -2,7 +2,7 @@
 
   <!-- 搜索区域 -->
   <view>
-    <van-search placeholder="搜索关键词" maxlength="100" bind:change="keywordChange" bind:search="searchKeyword" _pid="{{_pid}}">
+    <van-search placeholder="大家都在搜：五险一金、弹性上班、周末双休..." maxlength="50" bind:change="keywordChange" bind:search="searchKeyword" _pid="{{_pid}}">
     </van-search>
   </view>
 
@@ -165,7 +165,7 @@
     </view>
   </ui-swipe-out>
 
-  <!-- 无数据区域 -->
-  <view hidden="{{hiddenImage}}" class="emptyImage" style="width:{{width}}px;height:{{height}}px;"></view>
+  <!-- 空数据区域 -->
+  <view wx:if="{{totalElements==0}}" class="emptyImage" style="width:{{width}}px;height:{{height/2}}px;"></view>
 
 </view>
