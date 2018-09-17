@@ -1,21 +1,15 @@
 <template>
   <view>
-    <view class="starContent" wx:if="{{ isShow }}">
-      <ui-star></ui-star>
-    </view>
+    
 
-    <view class="buttonContent">
-      <button type="primary" bindtap="starShow">创建评分控件</button>
-    </view> 
+    
   </view>
 </template>
 
 <script>
 export default {
   config: {
-    navigationBarTitleText: '首页',
-    backgroundColor: '#F4F4F4',
-    navigationBarTextStyle: 'black'
+
   },
   data: {
     isShow:false

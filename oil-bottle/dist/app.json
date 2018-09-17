@@ -1,18 +1,46 @@
 {
+  "debug": true,
   "pages": [
-    "pages/home/index"
+    "pages/index/index",
+    "pages/home/home",
+    "pages/post/post"
   ],
   "window": {
     "backgroundTextStyle": "dark",
-    "backgroundColor": "#efefef",
+    "backgroundColor": "#F5E690",
     "navigationBarBackgroundColor": "#ffffff",
-    "navigationBarTitleText": "TouchUI",
+    "navigationBarTitleText": "漂油瓶",
     "navigationBarTextStyle": "black"
   },
+  "tabBar": {
+    "color": "#a9a9a9",
+    "selectedColor": "#F5E690",
+    "list": [
+      {
+        "text": "漂油瓶",
+        "iconPath": "static/icon/index.png",
+        "selectedIconPath": "static/icon/sindex.png",
+        "pagePath": "pages/index/index"
+      },
+      {
+        "text": "扔油瓶",
+        "iconPath": "static/icon/post.png",
+        "selectedIconPath": "static/icon/spost.png",
+        "pagePath": "pages/post/post",
+        "selected": true
+      },
+      {
+        "text": "我的",
+        "iconPath": "static/icon/home.png",
+        "selectedIconPath": "static/icon/shome.png",
+        "pagePath": "pages/home/home"
+      }
+    ]
+  },
   "networkTimeout": {
-    "request": 10000
+    "request": 5000
   },
   "theme": {
-    "theme-color": "#39f"
+    "theme-color": "#F5E690"
   }
 }

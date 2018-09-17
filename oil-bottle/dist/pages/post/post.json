@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "ui-segment-item": "../../packages/touchui-wx-components/ui-segment-item/dist/index",
+    "ui-slider": "../../packages/touchui-wx-components/ui-slider/dist/index",
+    "van-button": "../../vantui/button/index"
+  },
+  "navigationBarTitleText": "扔油瓶"
+}

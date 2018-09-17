@@ -1,39 +1,64 @@
 <template>
-  <view>
-    <page></page>
-  </view>
+  <page></page>
 </template>
 
 <script>
-  import system from './static/utils/system'
-  export default {
-    config: {
-      usingComponents: {
-      },
-      pages: [
-        'pages/home/index'
-      ],
-      window: {
-        backgroundTextStyle: 'dark',
-        backgroundColor: '#efefef',
-        navigationBarBackgroundColor: '#ffffff',
-        navigationBarTitleText: 'TouchUI',
-        navigationBarTextStyle: 'black'
-      },
-      networkTimeout: {
-        request: 10000
-      },
-      theme: {
-        'theme-color': '#39f'
-      }
+import system from './static/utils/system'
+
+export default {
+  config: {
+    debug: true,
+    usingComponents: {},
+    pages: ['pages/index/index', 'pages/home/home', 'pages/post/post'],
+    window: {
+      backgroundTextStyle: 'dark',
+      backgroundColor: '#F5E690',
+      navigationBarBackgroundColor: '#ffffff',
+      navigationBarTitleText: '漂油瓶',
+      navigationBarTextStyle: 'black'
     },
-    globalData: { },
-    onLaunch () { 
-      system.attachInfo()
+    tabBar: {
+      color: '#a9a9a9',
+      // borderStyle: 'white',
+      selectedColor: '#F5E690',
+      list: [
+        {
+          text: '漂油瓶',
+          iconPath: 'static/icon/index.png',
+          selectedIconPath: 'static/icon/sindex.png',
+          pagePath: 'pages/index/index',
+        },
+        {
+          text: '扔油瓶',
+          iconPath: 'static/icon/post.png',
+          selectedIconPath: 'static/icon/spost.png',
+          pagePath: 'pages/post/post',
+          selected: true
+        },
+        {
+          text: '我的',
+          iconPath: 'static/icon/home.png',
+          selectedIconPath: 'static/icon/shome.png',
+          pagePath: 'pages/home/home',
+        },
+      ]
     },
-    onShow () { },
-    onHide () { }
-  }
+    networkTimeout: {
+      request: 5000
+    },
+    theme: {
+      'theme-color': '#F5E690'
+    }
+  },
+  globalData: {
+    domain: "https://oil.mariojd.cn/api/",
+  },
+  onLaunch() {
+    system.attachInfo()
+  },
+  onShow() {},
+  onHide() {}
+}
 </script>
 
 <style lang="less">

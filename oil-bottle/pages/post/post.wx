@@ -1,0 +1,99 @@
+<template>
+  <view>
+
+    <ui-row border-top height="180" space-top="10">
+      <ui-col space-left="{{spaceLeft}}" space-right="{{spaceRight}}">   
+        <textarea placeholder="快来快来，把喜悦、烦恼和困惑写在油瓶子里..." class="textarea" 
+          placeholder-class="textarea-placeholder" maxlength="{{maxLength}}" auto-focus bindinput="textareaInput"/>
+      </ui-col>
+    </ui-row>
+    <ui-row border-bottom height="30" space-bottom="20">
+      <ui-col span="4" space-left="{{spaceLeft}}" align="left" vertical-align="bottom" class="word-count">
+        字数：{{length}}/{{maxLength}}
+      </ui-col>
+      <ui-col span="4"></ui-col>
+      <ui-col span="4" space-right="{{spaceRight}}" align="right" vertical-align="middle">
+        <van-button wx:if="{{length>0}}" type="oil" size="mini" style="backgroud-color:#F5E690">发送</van-button>
+      </ui-col>
+    </ui-row>
+
+    <ui-row>
+      <ui-col space-left="{{spaceLeft}}" space-right="{{spaceRight}}">
+        <ui-segment-item>
+          <ui-icon type="dingding"></ui-icon>性别不限
+        </ui-segment-item>
+      </ui-col>
+      <ui-col space-left="{{spaceLeft}}" space-right="{{spaceRight}}">
+        <ui-segment-item>
+          <ui-icon type="weibo"></ui-icon>只限男生
+        </ui-segment-item>
+      </ui-col>
+      <ui-col space-left="{{spaceLeft}}" space-right="{{spaceRight}}">
+        <ui-segment-item>
+          <ui-icon type="weixin"></ui-icon>仅限女生
+        </ui-segment-item>
+      </ui-col>
+    </ui-row>
+
+    <view style="padding:10px;">
+      <ui-row>
+        <ui-col width="45">
+            <text>公里数</text>
+        </ui-col>
+        <ui-col>
+            <text style="color:#666">单位:（公里）</text>
+        </ui-col>
+      </ui-row>
+    </view>
+    <view class="sliderbox">
+        <ui-slider width="{{width}}" value="{{distanceRange}}" show-tooltip step="1" max="10" unlimited></ui-slider>
+    </view>
+
+  </view>
+</template>
+
+<script>
+export default {
+  config: {
+    usingComponents: {
+       "van-button": "../../vantui/button/index",
+    },
+    navigationBarTitleText: '扔油瓶',
+  },
+  data: {
+    width: wx.WIN_WIDTH,
+    length: 0,
+    maxLength: 800,
+    spaceLeft: 10,
+    spaceRight: 8,
+    distanceRange: [0, 5],
+  },
+  textareaInput(e){
+    this.setData({
+      length: e.detail.cursor
+    })
+  },
+  hotelHandler (e) {
+    this.setData({
+      value7:e.detail.value
+    })
+  },
+}
+</script>
+
+<style lang="less">
+.textarea {
+  width:100%;
+  height:100%;
+  padding-top:5px;
+  color: #666;
+}
+.textarea-placeholder {
+  color:#a3a3a3;
+}
+.word-count{
+  color: #a6a6a6;
+  font-size: 12px;
+  line-height: 24px;
+}
+</style>

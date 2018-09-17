@@ -1,0 +1,19 @@
+<template>
+  <view>
+
+    
+
+  </view>
+</template>
+
+<script>
+export default {
+  config: {
+    navigationBarTitleText: '个人中心', 
+  },
+  data: {}
+}
+</script>
+
+<style lang="less">
+</style>

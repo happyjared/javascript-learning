@@ -1,0 +1,68 @@
+<view>
+
+  <view class="ui-row ui-row-border-top" style="margin-top: 10px;height:180px;">
+    <view class="ui-col" style="padding-left: {{spaceLeft}}px;padding-right: {{spaceRight}}px;">
+      <view class="ui-col-content">
+        <textarea placeholder="快来快来，把喜悦、烦恼和困惑写在油瓶子里..." class="textarea" placeholder-class="textarea-placeholder" maxlength="{{maxLength}}" auto-focus bindinput="textareaInput">
+      </textarea></view>
+    </view>
+  </view>
+  <view class="ui-row ui-row-border-bottom" style="margin-bottom: 20px;height:30px;">
+    <view class="word-count ui-col ui-col-4 ui-col-align-left align-left valign-bottom" style="flex: 0 0 33.33333333333333%;padding-left: {{spaceLeft}}px;">
+      <view class="ui-col-content align-left valign-bottom">
+        字数：{{length}}/{{maxLength}}
+      </view>
+    </view>
+    <view class="ui-col ui-col-4" style="flex: 0 0 33.33333333333333%;">
+      <view class="ui-col-content"></view>
+    </view>
+    <view class="ui-col ui-col-4 ui-col-align-right align-right valign-middle" style="flex: 0 0 33.33333333333333%;padding-right: {{spaceRight}}px;">
+      <view class="ui-col-content align-right valign-middle">
+        <van-button wx:if="{{length>0}}" type="oil" size="mini" style="backgroud-color:#F5E690" _pid="{{_pid}}">发送</van-button>
+      </view>
+    </view>
+  </view>
+
+  <view class="ui-row" style="">
+    <view class="ui-col" style="padding-left: {{spaceLeft}}px;padding-right: {{spaceRight}}px;">
+      <view class="ui-col-content">
+        <ui-segment-item _pid="{{_pid}}">
+          <span type="dingding" class="ui-icon icon-dingding" style="font-size: 16px;"></span>性别不限
+        </ui-segment-item>
+      </view>
+    </view>
+    <view class="ui-col" style="padding-left: {{spaceLeft}}px;padding-right: {{spaceRight}}px;">
+      <view class="ui-col-content">
+        <ui-segment-item _pid="{{_pid}}">
+          <span type="weibo" class="ui-icon icon-weibo" style="font-size: 16px;"></span>只限男生
+        </ui-segment-item>
+      </view>
+    </view>
+    <view class="ui-col" style="padding-left: {{spaceLeft}}px;padding-right: {{spaceRight}}px;">
+      <view class="ui-col-content">
+        <ui-segment-item _pid="{{_pid}}">
+          <span type="weixin" class="ui-icon icon-weixin" style="font-size: 16px;"></span>仅限女生
+        </ui-segment-item>
+      </view>
+    </view>
+  </view>
+
+  <view style="padding:10px;">
+    <view class="ui-row" style="">
+      <view class="ui-col" style="flex:0 0 45px;">
+        <view class="ui-col-content">
+          <text>公里数</text>
+        </view>
+      </view>
+      <view class="ui-col" style="">
+        <view class="ui-col-content">
+          <text style="color:#666">单位:（公里）</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="sliderbox">
+    <ui-slider width="{{width}}" value="{{distanceRange}}" show-tooltip step="1" max="10" unlimited _pid="{{_pid}}"></ui-slider>
+  </view>
+
+</view>
