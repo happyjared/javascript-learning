@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "Card 卡片",
-  "usingComponents": {
-    "demo-block": "../../components/demo-block/index",
-    "van-card": "../../dist/card/index",
-    "van-button": "../../dist/button/index"
-  }
-}

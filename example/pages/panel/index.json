@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "Panel 面板",
-  "usingComponents": {
-    "demo-block": "../../components/demo-block/index",
-    "van-panel": "../../dist/panel/index",
-    "van-button": "../../dist/button/index"
-  }
-}
