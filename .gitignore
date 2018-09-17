@@ -1,2 +1,4 @@
 .idea/
 nearjob-touchuiwx/node_modules/
+oil-bottle/node_modules/
+**/node_modules/
