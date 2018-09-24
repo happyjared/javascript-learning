@@ -100,7 +100,7 @@ exports.default = Page({
   // 页面滚动事件
   onPageScroll: function onPageScroll(e) {
     this.setData({
-      pageTop: e.scrollTop < wx.WIN_HEIGHT / 5
+      pageTop: e.scrollTop < wx.WIN_HEIGHT / 10
     });
   }
 });

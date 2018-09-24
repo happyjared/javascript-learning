@@ -28,6 +28,7 @@ exports.default = Page({
     cityList: { 北京: 1, 上海: 2, 广州: 3, 深圳: 4, 杭州: 5, 成都: 6 },
     currentCity: "城市",
     currentCityId: 0,
+    positionCity: undefined,
     positionCityId: 0,
     showDistance: false,
     // 距离数据相关
@@ -74,19 +75,18 @@ exports.default = Page({
         if (_this.data.positionCityId != 0) {
           _this.setData({
             currentDistance: 3,
+            currentCity: _this.data.positionCity,
             sortSelectedValue: ["离我最近"]
           });
         }
         _this.reloadIndex();
       },
       fail: function fail() {
-        if (!_this.data.log) {
-          wx.showModal({
-            title: "功能限制",
-            content: "地理位置授权失败",
-            showCancel: false
-          });
-        }
+        wx.showModal({
+          title: "功能限制",
+          content: "地理位置授权失败",
+          showCancel: false
+        });
       }
     });
   },
@@ -104,17 +104,11 @@ exports.default = Page({
         for (var cityName in cityList) {
           if (city.indexOf(cityName) != -1) {
             _this.setData({
-              currentCity: cityName,
-              currentCityId: cityList[cityName],
+              positionCity: cityName,
               positionCityId: cityList[cityName]
             });
           }
         }
-        var location = res.data.result.location;
-        _this.setData({
-          positionLat: location.lat,
-          positionLog: location.lng
-        });
       }
     });
   },
@@ -273,12 +267,7 @@ exports.default = Page({
       cancelText: "取消",
       success: function success(res) {
         if (res.confirm) {
-          _this.setData({
-            lat: _this.data.positionLat,
-            log: _this.data.positionLog,
-            currentDistance: 3
-          });
-          _this.reloadIndex();
+          // TODO
         }
       }
     });

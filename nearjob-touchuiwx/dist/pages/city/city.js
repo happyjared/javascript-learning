@@ -5,59 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 var app = getApp();
 var cityTagStyle = "\n    font-size: 14px;\n    margin-top: 10px;\n    border-radius: 4px;\n    color: #666;\n    background-color:#fff;\n    border:1px solid #f1f1f1;\n    line-height:35px;\n    text-align:center;\n";
-var notOpenCityTagStyle = "\n    font-size: 14px;\n    margin-top: 10px;\n    border-radius: 4px;\n    color: #f1f2f3;\n    background-color:#fff;\n    border:1px solid #f1f1f1;\n    line-height:35px;\n    text-align:center;\n";
+var notOpenCityTagStyle = "\n    font-size: 14px;\n    margin-top: 10px;\n    border-radius: 4px;\n    color: #C0C0C0;\n    background-color:#fff;\n    border:1px solid #f1f1f1;\n    line-height:35px;\n    text-align:center;\n";
 exports.default = Page({
   data: {
     positionCity: "未知",
-    cityTagList: [{
-      id: 1,
-      text: "北京",
-      tagStyle: cityTagStyle
-    }, {
-      id: 2,
-      text: "上海",
-      tagStyle: cityTagStyle
-    }, {
-      id: 3,
-      text: "广州",
-      tagStyle: cityTagStyle
-    }, {
-      id: 4,
-      text: "深圳",
-      tagStyle: cityTagStyle
-    }, {
-      id: 5,
-      text: "杭州",
-      tagStyle: cityTagStyle
-    }, {
-      id: 6,
-      text: "成都",
-      tagStyle: cityTagStyle
-    }, {
-      id: 0,
-      text: "郑州",
-      tagStyle: notOpenCityTagStyle
-    }, {
-      id: 0,
-      text: "西安",
-      tagStyle: notOpenCityTagStyle
-    }, {
-      id: 0,
-      text: "南京",
-      tagStyle: notOpenCityTagStyle
-    }, {
-      id: 0,
-      text: "武汉",
-      tagStyle: notOpenCityTagStyle
-    }, {
-      id: 0,
-      text: "长沙",
-      tagStyle: notOpenCityTagStyle
-    }, {
-      id: 0,
-      text: "厦门",
-      tagStyle: notOpenCityTagStyle
-    }]
+    cityTagList: [{ id: 1, text: "北京", tagStyle: cityTagStyle }, { id: 2, text: "上海", tagStyle: cityTagStyle }, { id: 3, text: "广州", tagStyle: cityTagStyle }, { id: 4, text: "深圳", tagStyle: cityTagStyle }, { id: 5, text: "杭州", tagStyle: cityTagStyle }, { id: 6, text: "成都", tagStyle: cityTagStyle }, { id: 7, text: "南京", tagStyle: cityTagStyle }, { id: 8, text: "武汉", tagStyle: cityTagStyle }, { id: 9, text: "西安", tagStyle: cityTagStyle }, { id: 10, text: "厦门", tagStyle: cityTagStyle }, { id: 11, text: "长沙", tagStyle: cityTagStyle }, { id: 12, text: "天津", tagStyle: cityTagStyle }, { id: 13, text: "苏州", tagStyle: cityTagStyle }, { id: 14, text: "重庆", tagStyle: cityTagStyle }, { id: 15, text: "郑州", tagStyle: cityTagStyle }, { id: 16, text: "青岛", tagStyle: cityTagStyle }, { id: 17, text: "合肥", tagStyle: cityTagStyle }, { id: 18, text: "珠海", tagStyle: cityTagStyle }, { id: 19, text: "佛山", tagStyle: cityTagStyle }, { id: 20, text: "东莞", tagStyle: cityTagStyle }, { id: 0, text: "福州", tagStyle: notOpenCityTagStyle }, { id: 0, text: "济南", tagStyle: notOpenCityTagStyle }, { id: 0, text: "大连", tagStyle: notOpenCityTagStyle }, { id: 0, text: "无锡", tagStyle: notOpenCityTagStyle }]
   },
   onLoad: function onLoad(options) {
     this.getPosition();

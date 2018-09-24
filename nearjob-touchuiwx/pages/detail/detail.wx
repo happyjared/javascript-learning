@@ -40,18 +40,21 @@
       </ui-row>
     </view>
 
-    <ui-row space-top="20">
-      <ui-col space-left="15">
-        <view class="small-title">岗位描述</view>
-      </ui-col>
-    </ui-row>
-    <ui-row>
-      <ui-col space-left="15" space-right="10">
-          <text style="font-size:14px;color:#333">
-                {{item.jobDescription}}
-          </text>
-      </ui-col>
-    </ui-row>
+    <view wx:if="{{ item.jobDescription.length > 0 }}">
+      <ui-row space-top="20">
+        <ui-col space-left="15">
+          <view class="small-title">岗位描述</view>
+        </ui-col>
+      </ui-row>
+      <ui-row>
+        <ui-col space-left="15" space-right="10">
+            <text style="font-size:14px;color:#333">
+                  {{item.jobDescription}}
+            </text>
+        </ui-col>
+      </ui-row>
+    </view>
+
 
     <ui-row space-top="20">
       <ui-col space-left="15">
@@ -228,7 +231,7 @@ export default {
   // 页面滚动事件
   onPageScroll(e) {
     this.setData({
-      pageTop: e.scrollTop < wx.WIN_HEIGHT/5
+      pageTop: e.scrollTop < wx.WIN_HEIGHT/10
     })
   },
 };
