@@ -31,14 +31,18 @@
             </view>
           </view>
           <ui-popup cropout show="{{showJob}}" position="top" top="{{navHeight}}" mask-style="{{{backgroundColor:'rgba(0,0,0,0.5)',top: navHeight+'px'} }}" _pid="{{_pid}}">
-            <ui-cascader height="180" bindselected="jobSelected" data="{{jobList}}" _pid="{{_pid}}"></ui-cascader>
+            <ui-cascader height="260" bindselected="jobSelected" data="{{jobList}}" _pid="{{_pid}}"></ui-cascader>
           </ui-popup>
 
           <!-- 距离 -->
-          <view bindtap="openDistancePopup" class="ui-col ui-col-align-center align-center valign-middle" style="">
+          <view class="ui-col ui-col-align-center align-center valign-middle" style="">
             <view class="ui-col-content align-center valign-middle">
-              <view>{{currentDistance==0 ? '距离': currentDistance + 'km'}}
+              <view wx:if="{{log > 0}}" bindtap="openDistancePopup">
+                <text>{{currentDistance==0 ? '距离': currentDistance + 'km'}}</text>
                 <span type="slide_down" size="10" color="#878787" style="padding-left:8px;color: #878787;font-size: 10px;" class="ui-icon icon-slide_down"></span>
+              </view>
+              <view wx:else="">
+                <button class="toDistance" open-type="openSetting" bindopensetting="getLocation">距离</button>
               </view>
             </view>
           </view>
@@ -93,8 +97,12 @@
           <!-- 距离 -->
           <view bindtap="openDistancePopup" class="ui-col ui-col-align-center align-center valign-middle" style="">
             <view class="ui-col-content align-center valign-middle">
-              <view>{{currentDistance==0 ? '距离': currentDistance + 'km'}}
+              <view wx:if="{{log > 0}}" bindtap="openDistancePopup">
+                <text>{{currentDistance==0 ? '距离': currentDistance + 'km'}}</text>
                 <span type="slide_down" size="10" color="#878787" style="padding-left:8px;color: #878787;font-size: 10px;" class="ui-icon icon-slide_down"></span>
+              </view>
+              <view wx:else="">
+                <button class="toDistance" open-type="openSetting" bindopensetting="getLocation">距离</button>
               </view>
             </view>
           </view>
@@ -166,6 +174,6 @@
   </ui-swipe-out>
 
   <!-- 空数据区域 -->
-  <view wx:if="{{totalElements==0}}" class="emptyImage" style="width:{{width}}px;height:{{height/2}}px;"></view>
+  <view wx:if="{{!totalElements}}" class="emptyImage" style="width:{{width}}px;height:{{height-100}}px;"></view>
 
 </view>

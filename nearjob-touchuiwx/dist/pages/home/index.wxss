@@ -60,6 +60,13 @@
   text-overflow: ellipsis;
   overflow: hidden;
 }
+.toDistance {
+  background: none !important;
+  color: #878787 !important;
+}
+.toDistance::after {
+  border: none;
+}
 .emptyImage {
   position: relative;
   background-size: 100% 100%;

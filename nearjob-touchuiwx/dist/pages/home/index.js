@@ -38,11 +38,20 @@ exports.default = Page({
     currentJob: "Java",
     currentJobId: 1,
     jobList: [{
+      name: "前端开发",
+      children: [{ name: "HTML5", value: 16 }, { name: "Web前端", value: 13 }, { name: "NodeJS", value: 11 }]
+    }, {
       name: "后端开发",
-      children: [{ name: "Java", value: 1 }, { name: "Python", value: 3 }, { name: "PHP", value: 2 }]
+      children: [{ name: "Java", value: 1 }, { name: "Python", value: 3 }, { name: "PHP", value: 2 }, { name: "GO", value: 12 }, { name: "C", value: 7 }, { name: "C++", value: 6 }, { name: "C#", value: 8 }, { name: ".NET", value: 9 }]
     }, {
       name: "移动开发",
-      children: [{ name: "Andrioid", value: 4 }, { name: "IOS", value: 5 }, { name: "Web前端", value: 6 }]
+      children: [{ name: "Andrioid", value: 4 }, { name: "IOS", value: 5 }]
+    }, {
+      name: "游戏开发",
+      children: [{ name: "U3d", value: 14 }, { name: "Cocos2dx", value: 15 }]
+    }, {
+      name: "大数据开发",
+      children: [{ name: "Hadoop", value: 10 }]
     }],
     // 排序数据相关
     showSort: false,
@@ -59,7 +68,6 @@ exports.default = Page({
   //初始加载事件
   onLoad: function onLoad() {
     this.getPosition();
-    this.getLocation();
     this.apiIndex();
   },
 
@@ -70,11 +78,14 @@ exports.default = Page({
       type: "gcj02",
       success: function success(res) {
         console.log("get location success", res);
-        _this.data.lat = res.latitude;
-        _this.data.log = res.longitude;
+        _this.setData({
+          lat: res.latitude,
+          log: res.longitude
+        });
         if (_this.data.positionCityId != 0) {
           _this.setData({
             currentDistance: 3,
+            currentCityId: _this.data.positionCityId,
             currentCity: _this.data.positionCity,
             sortSelectedValue: ["离我最近"]
           });
@@ -109,6 +120,9 @@ exports.default = Page({
             });
           }
         }
+      },
+      complete: function complete() {
+        _this.getLocation();
       }
     });
   },
@@ -151,11 +165,11 @@ exports.default = Page({
     var _log = this.data.log;
     var _lat = this.data.lat;
     var _distance = this.data.currentDistance;
-    if (_log && _distance && _lat && cityId == this.data.positionCityId) {
+    if (_log && _distance && cityId == this.data.positionCityId) {
       // 按距离升序
       _url += "&longitude=" + _log + "&latitude=" + _lat + "&distance=" + _distance;
     }
-    console.log(this.data.sortSelectedValue == "最新发布");
+    // console.log(this.data.sortSelectedValue == "最新发布");
     if (this.data.sortSelectedValue == "最新发布") {
       // 按时间倒序
       _url += "&sort=postJobTime,desc";
@@ -169,16 +183,25 @@ exports.default = Page({
       url: _url,
       success: function success(res) {
         var data = res.data;
-        _this.setData({
-          totalElements: data.totalElements,
-          lastPage: data.last,
-          currentPage: data.number,
-          jobDataList: _this.data.jobDataList.concat(data.content)
-        });
-        if (_this.data.scrollTop > 0 && _page == 0) {
-          wx.pageScrollTo({
-            scrollTop: 0,
-            duration: 450
+        if (res.statusCode != 500) {
+          _this.setData({
+            totalElements: data.totalElements,
+            lastPage: data.last,
+            currentPage: data.number,
+            jobDataList: _this.data.jobDataList.concat(data.content)
+          });
+          if (_this.data.scrollTop > 0 && _page == 0) {
+            wx.pageScrollTo({
+              scrollTop: 0,
+              duration: 450
+            });
+          }
+        } else {
+          _this.setData({
+            totalElements: 0,
+            lastPage: false,
+            currentPage: 0,
+            jobDataList: []
           });
         }
       },
@@ -258,41 +281,14 @@ exports.default = Page({
     }
   },
 
-  // 3->点击“确认”时替换位置信息
-  openConfirm: function openConfirm() {
-    var _this = this;
-    wx.showModal({
-      content: '是否允许授权获取当前位置信息?',
-      confirmText: "确认",
-      cancelText: "取消",
-      success: function success(res) {
-        if (res.confirm) {
-          // TODO
-        }
-      }
-    });
-  },
   // 3->距离弹出框
   openDistancePopup: function openDistancePopup() {
-    var _this2 = this;
-
-    if (!this.data.log) {
-      //判断是否获得了用户地理位置授权
-      wx.getSetting({
-        success: function success(res) {
-          if (!res.authSetting['scope.userLocation']) {
-            _this2.openConfirm();
-          }
-        }
-      });
-    } else {
-      this.setData({
-        pastDistance: this.data.currentDistance,
-        showJob: false,
-        showSort: false,
-        showDistance: true
-      });
-    }
+    this.setData({
+      pastDistance: this.data.currentDistance,
+      showJob: false,
+      showSort: false,
+      showDistance: true
+    });
   },
 
   // 3->滑动更改距离
