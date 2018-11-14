@@ -132,7 +132,7 @@ exports.default = Page({
     this.data.currentPage = 0, this.data.lastPage = false, this.data.jobDataList.length = 0, this.apiIndex();
   },
 
-  // api/index统一请求入口
+  // apiArticle/index统一请求入口
   apiIndex: function apiIndex(pullDown) {
     wx.showLoading({
       mask: true,
@@ -157,7 +157,7 @@ exports.default = Page({
       return;
     }
     var _page = this.data.currentPage;
-    var _url = "https://mini.mariojd.cn/api/index?jobId=" + this.data.currentJobId + "&page=" + _page;
+    var _url = "https://mini.mariojd.cn/apiArticle/index?jobId=" + this.data.currentJobId + "&page=" + _page;
     var cityId = this.data.currentCityId;
     if (cityId != 0) {
       _url += "&cityId=" + cityId;

@@ -18,77 +18,116 @@
     </style>
 </head>
 <body>
+<div id="mp">
 
-
-<header>
-    <div class="collapse bg-dark" id="navbarHeader">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-8 col-md-7 py-4">
-                    <h4 class="text-white">About</h4>
-                    <p class="text-muted">不错过每个学习的机会</p>
-                </div>
-                <div class="col-sm-4 offset-md-1 py-4">
-                    <h4 class="text-white">Contact</h4>
-                    <ul class="list-unstyled">
-                        <li class="text-muted">如果你有特别想关注或学习的公众号，欢迎联系我负责同步及收集：xxx</li>
-                    </ul>
+    <header>
+        <div class="collapse bg-dark" id="navbarHeader">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8 col-md-7 py-4">
+                        <h4 class="text-white">About</h4>
+                        <p class="text-muted">不错过每个学习的机会</p>
+                    </div>
+                    <div class="col-sm-4 offset-md-1 py-4">
+                        <h4 class="text-white">Contact</h4>
+                        <ul class="list-unstyled">
+                            <li class="text-muted">如果你有特别想关注或学习的公众号，欢迎联系我负责同步及收集：xxx</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="navbar navbar-dark bg-dark box-shadow">
-        <div class="container d-flex justify-content-between">
-            <a href="#" class="navbar-brand d-flex align-items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
-                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
-                    <circle cx="12" cy="13" r="4"></circle>
-                </svg>
-                <strong>吗哩噢</strong>
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader"
-                    aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+        <div class="navbar navbar-dark bg-dark box-shadow">
+            <div class="container d-flex justify-content-between">
+                <a href="#" class="navbar-brand d-flex align-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         class="mr-2">
+                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                        <circle cx="12" cy="13" r="4"></circle>
+                    </svg>
+                    <strong>吗哩噢</strong>
+                    <div class="form-inline mt-2 mt-md-0" style="margin-left: 20px">
+                        <input class="form-control mr-sm-2" type="text" placeholder="Search..." aria-label="Search"
+                               v-model="input_value" @keyup.enter="search">
+                        <div class="btn btn-outline-info  my-2 my-sm-0" @click="search">搜索</div>
+                    </div>
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader"
+                        aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
         </div>
-    </div>
-</header>
+    </header>
 
-<main role="main">
-    <section class="jumbotron text-center" style="margin-bottom:0">
-        <div class="container">
-            <h1 class="jumbotron-heading">一言</h1>
-            <p class="lead text-muted">想把好东西分享与你</p>
-            <p>
-                <a href="#" class="btn btn-primary my-2">Start 行动起来</a>
-                <a href="#" class="btn btn-danger my-2">给俺点赞 Star</a>
-            </p>
-        </div>
-    </section>
-    <div class="album py-5 bg-light">
-        <div class="container" id="mp">
-            <div class="row">
+    <main role="main">
+        <section class="jumbotron text-center" style="margin-bottom:0">
+            <div class="container">
+                <div class="row">
 
-                <div class="col-md-3" v-for="article in articleList">
-                    <a target="_blank" :href="article.contentURL">
-                        <div class="card mb-4 box-shadow">
-                            <img class="card-img-top" :src="article.cover">
-                            <div class="card-body">
-                                <p class="card-text">{{article.title}}</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <small class="text-muted">{{article.postTime}}</small>
+                    <div class="col-md-3" @click="toMp(3)">
+                        <img class="rounded-circle"
+                             src="http://wx.qlogo.cn/mmhead/Q3auHgzwzM75G6sykNf6scOEPJs4zIP1UVFCsZ5u6ia020jslaZIA0A/0"
+                             alt="Generic placeholder image" width="120" height="120">
+                        <h6 class="text-muted" style="margin-top: 15px">老钱说钱</h6>
+                    </div>
+                    <div class="col-md-3" @click="toMp(4)">
+                        <img class="rounded-circle"
+                             src="http://wx.qlogo.cn/mmhead/Q3auHgzwzM4KK3n3L0uicyzf4bQEyJQZa1jSiaxqGdJPAibXpfdfcrxoQ/0"
+                             alt="Generic placeholder image" width="120" height="120">
+                        <h6 class="text-muted" style="margin-top: 15px">关哥说险</h6>
+                    </div>
+                    <div class="col-md-3" @click="toMp(2)">
+                        <img class="rounded-circle"
+                             src="http://wx.qlogo.cn/mmhead/Q3auHgzwzM6bia44ArPNMqFIeUFznyuic1EJI0PVZfLL9NZ6PJZH4NaQ/0"
+                             alt="Generic placeholder image" width="120" height="120">
+                        <h6 class="text-muted" style="margin-top: 15px">36氪</h6>
+                    </div>
+                    <div class="col-md-3" @click="toMp(7)">
+                        <img class="rounded-circle"
+                             src="http://wx.qlogo.cn/mmhead/Q3auHgzwzM4rjia2VAO0lJdkCicqJqMrpiabZw2JfvzVbsQYbicl561vWw/0"
+                             alt="Generic placeholder image" width="120" height="120">
+                        <h6 class="text-muted" style="margin-top: 15px">MelodyC2E</h6>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <div class="album py-5 bg-light">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-md-3" v-for="article in articleList">
+                        <a target="_blank" :href="'api/article/' + article.articleId">
+                            <div class="card mb-4 box-shadow">
+                                <img class="card-img-top" :src="article.cover">
+                                <div class="card-body">
+                                    <p class="card-text">{{article.title}}</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <span>❤</span>
+                                        </div>
+                                        <small class="text-muted">{{article.postTime}}</small>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="row" v-if="mpsId != 0 && !isLast">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6 text-center">
+                        <div class="btn btn-default btn-lg" @click="loadArticle(loadingMore)">加载更多</div>
+                    </div>
                 </div>
 
             </div>
         </div>
-    </div>
-</main>
+    </main>
 
+</div>
 <!-- 开发环境版本，包含了有帮助的命令行警告 -->
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>

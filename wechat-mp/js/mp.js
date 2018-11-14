@@ -4,37 +4,102 @@
 new Vue({
     el: '#mp',
     data: {
-        domain: 'https://mp.mariojd.cn/',
-        articleList: []
+        mpsId: 0,
+        keyword: '',
+        sortBy: '',
+        pageNum: 0,
+        isFirst: true,
+        isLast: false,
+        loadingMore: false,
+        domainName: 'https://mp.mariojd.cn/',
+        articleList: [],
+        input_value: '',
     },
     mounted: function () {
         this.$nextTick(function () {
             this.init();
         });
     },
+    filters: {},
     computed: {},
+    watch: {
+        input_value: function (new_value, old_value) {
+            // console.log(new_value, old_value);
+            this.keyword = new_value;
+        },
+    },
     methods: {
         // 初始化
         init: function () {
-            let _this = this;
-            axios.get(_this.domain + 'api/article?mpsId=3').then(function (response) {
-                _this.articleList = response.data.content;
-                console.log(_this.articleList)
-            }).catch(function (error) {
-                console.log(error);
-            });
+            this.loadMp();
         },
-        // 加载更多
-        more: function () {
-            axios.get(this.domain + 'api/article/1023').then(function (response) {
-                console.log(response);
-            }).catch(function (error) {
-                console.log(error);
-            });
+        // 加载公众号
+        loadMp: function () {
+
         },
-        // 跳转详情
-        detail: function () {
-            
-        }
+        // 点击公众号
+        toMp: function (mpsId) {
+            if (mpsId) {
+                this.pageNum = 0;
+                this.mpsId = mpsId;
+                this.articleList = [];
+                this.loadArticle(true);
+            }
+        },
+        // 关键字搜索
+        search: function () {
+            if (this.keyword) {
+                this.articleList = [];
+                this.loadArticle(true);
+            }
+        },
+        // 加载显示文章
+        loadArticle: function (flag) {
+            this.isFirst = flag;
+            this.loadingMore = !flag;
+
+            const api = this.apiArticle();
+            if (api) {
+                let _this = this;
+                axios.get(api).then(function (response) {
+                    let data = response.data;
+
+                    _this.articleList = _this.articleList.concat(data.content);
+                    _this.loadingMore = false;
+                    _this.isLast = data.last;
+                    _this.isFirst = data.first;
+                    _this.pageNum = data.number;
+                    console.log('IsFirst: ' + data.first + ' && IsLast: ' + data.last + ' && PageNum: ' + data.number);
+                }).catch(function (error) {
+                    _this.isFirst = !flag;
+                    _this.loadingMore = flag;
+                    console.log('Request API Article ' + api + ' Error ' + error);
+                });
+            }
+        },
+        // 获取请求API URL
+        apiArticle: function () {
+            let mpsId = this.mpsId;
+
+            let api = '';
+            if (mpsId) {
+                let sort = this.sortBy;
+                let keyword = this.keyword;
+
+                if (!(this.isFirst || this.isLast) && this.loadingMore) {
+                    this.pageNum += 1;
+                }
+                api += this.domainName + 'api/article?mpsId=' + mpsId + '&page=' + this.pageNum;
+                if (sort) {
+                    api += '&sort=' + sort;
+                }
+                if (keyword) {
+                    api += '&keyword=' + keyword;
+                }
+            }
+
+            console.log('Request API Article URL ' + api);
+            return api
+        },
     }
 });
