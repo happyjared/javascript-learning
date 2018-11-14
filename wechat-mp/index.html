@@ -99,7 +99,8 @@
 
                 <div class="row">
                     <div class="col-md-3" v-for="article in articleList">
-                        <a target="_blank" :href="'api/article/' + article.articleId">
+                        <!-- 图文消息 -->
+                        <a v-if="article.msgType == 49" target="_blank" :href="'api/article/' + article.articleId">
                             <div class="card mb-4 box-shadow">
                                 <img class="card-img-top" :src="article.cover">
                                 <div class="card-body">
@@ -113,6 +114,19 @@
                                 </div>
                             </div>
                         </a>
+                        <!-- 文字 or 图片消息 -->
+                        <div v-if="article.msgType != 49" class="card mb-4 box-shadow">
+                            <img v-if="article.msgType == 3" class="card-img-top" :src="article.cover">
+                            <div class="card-body">
+                                <p v-if="article.msgType == 1" class="card-text" v-html="article.digest.replace(/\\n/g, '<br>')"></p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <span>❤</span>
+                                    </div>
+                                    <small class="text-muted">{{article.postTime}}</small>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
