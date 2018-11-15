@@ -1,6 +1,7 @@
 /**
  * Created by happyJared on 2018-11-13.
  */
+Vue.use(VueLazyload);
 new Vue({
     el: '#mp',
     data: {
@@ -63,6 +64,9 @@ new Vue({
 
             const api = this.apiArticle();
             if (api) {
+                let lodeAnimate = layer.load(1, {
+                    shade: [0.2, '#000']
+                });
                 let _this = this;
                 axios.get(api).then(function (response) {
                     let data = response.data;
@@ -77,6 +81,8 @@ new Vue({
                     _this.isFirst = !flag;
                     _this.loadingMore = flag;
                     console.log('Request API Article ' + api + ' Error ' + error);
+                }).finally(function () {
+                    layer.close(lodeAnimate);
                 });
             }
         },

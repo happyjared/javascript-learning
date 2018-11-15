@@ -20,6 +20,11 @@
         .mps-top {
             margin-top: 15px
         }
+
+        .no-data {
+            width: 100%;
+            height: 100%;
+        }
     </style>
 </head>
 <body>
@@ -116,17 +121,16 @@
             <div class="container">
 
                 <!-- 手机端 -->
-                <div class="my-3 p-3 bg-white rounded box-shadow" v-if="screenWidth < 720">
+                <div v-if="screenWidth < 720" class="my-3 p-3 bg-white rounded box-shadow">
                     <div v-for="(article,index) in articleList">
                         <a v-if="article.msgType != 1" target="_blank"
                            :href="article.msgType == 3 ? article.cover :'api/article/' + article.articleId">
                             <div class="media text-muted pt-3">
-                                <img :src="article.cover" alt="article.title" class="mr-2 rounded" width="36"
-                                     height="36">
+                                <img v-lazy="article.cover" class="mr-2 rounded" width="36" height="36">
                                 <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
                                     <strong class="d-block text-gray-dark"
                                             v-text="article.msgType == 3 ? '『 查看图片 』':article.title"></strong>
-                                    {{article.postTime}}
+                                    <span v-text="article.postTime"></span>
                                 </p>
                             </div>
                         </a>
@@ -134,12 +138,12 @@
                             <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
                                 <strong class="d-block text-gray-dark"
                                         v-html="article.digest.replace(/\\n/g, '<br>')"></strong>
-                                {{article.postTime}}
+                                <span v-text="article.postTime"></span>
                             </p>
                         </div>
                     </div>
                     <small class="d-block text-right mt-3" v-if="mpsId != 0 && !isLast">
-                        <span href="#" @click="loadArticle(loadingMore)">More</span>
+                        <span @click="loadArticle(loadingMore)">More</span>
                     </small>
                 </div>
 
@@ -150,7 +154,7 @@
                         <!-- 图文消息 -->
                         <a v-if="article.msgType == 49" target="_blank" :href="'api/article/' + article.articleId">
                             <div class="card mb-4 box-shadow">
-                                <img class="card-img-top" :src="article.cover" alt="article.title">
+                                <img class="card-img-top" v-lazy="article.cover">
                                 <div class="card-body card-block">
                                     <p class="card-text" v-text="article.title"></p>
                                     <div class="d-flex justify-content-between align-items-center">
@@ -161,7 +165,7 @@
                         </a>
                         <!-- 文字 or 图片消息 -->
                         <div v-if="article.msgType != 49" class="card mb-4 box-shadow">
-                            <img v-if="article.msgType == 3" class="card-img-top" :src="article.cover">
+                            <img v-if="article.msgType == 3" class="card-img-top" v-lazy="article.cover">
                             <div class="card-body card-block">
                                 <p v-if="article.msgType == 1" class="card-text"
                                    v-html="article.digest.replace(/\\n/g, '<br>')"></p>
@@ -176,10 +180,10 @@
                 <div class="row" v-if="mpsId != 0 && !isLast && screenWidth >= 720">
                     <div class="col-md-3"></div>
                     <div class="col-md-6 text-center">
-                        <div class="btn btn-default btn-lg" @click="loadArticle(loadingMore)">More</div>
+                        <span class="btn btn-default btn-lg" @click="loadArticle(loadingMore)">︾</span>
                     </div>
                 </div>
-                <image v-show="isLast && isFirst" src="image/nodata.png" style="height: 100%;width: 100%">
+                <image class="no-data" v-show="isLast && isFirst" src="image/nodata.png">
 
             </div>
         </div>
@@ -189,9 +193,11 @@
 <!-- 开发环境版本，包含了有帮助的命令行警告 -->
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/vue-lazyload/vue-lazyload.js"></script>
 <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js"></script>
 <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="js/mp.js"></script>
+<script src="layer/layer.js"></script>
 </body>
 </html>
