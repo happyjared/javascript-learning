@@ -14,8 +14,11 @@ new Vue({
         domainName: 'https://mp.mariojd.cn/',
         articleList: [],
         input_value: '',
+        screenWidth: document.body.clientWidth, // 屏宽
     },
     mounted: function () {
+        this.screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+        console.log("Screen width : " + this.screenWidth);
         this.$nextTick(function () {
             this.init();
         });
