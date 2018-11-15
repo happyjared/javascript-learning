@@ -17,6 +17,23 @@ new Vue({
         input_value: '',
         screenWidth: document.body.clientWidth, // 屏宽
     },
+    created() {
+        let _this = this;
+        window.onscroll = function () {
+            //变量scrollTop是滚动条滚动时，距离顶部的距离
+            let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            //变量windowHeight是可视区的高度
+            let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+            //变量scrollHeight是滚动条的总高度
+            let scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+            //滚动条到底部的条件
+            if (scrollTop + windowHeight === scrollHeight) {
+                //写后台加载数据的函数
+                _this.loadArticle(_this.loadingMore);
+                console.log("距顶部" + scrollTop + "可视区高度" + windowHeight + "滚动条总高度" + scrollHeight);
+            }
+        }
+    },
     mounted: function () {
         this.screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
         console.log("Screen width : " + this.screenWidth);
@@ -27,8 +44,9 @@ new Vue({
     filters: {},
     computed: {},
     watch: {
+        // 搜索框输入
         input_value: function (new_value, old_value) {
-            // console.log(new_value, old_value);
+            console.log(new_value, old_value);
             this.keyword = new_value;
         },
     },
@@ -45,6 +63,9 @@ new Vue({
         toMp: function (mpsId) {
             if (mpsId) {
                 this.pageNum = 0;
+                this.isFirst = true;
+                this.isLast = false;
+                this.loadingMore = false;
                 this.mpsId = mpsId;
                 this.articleList = [];
                 this.loadArticle(true);
@@ -53,6 +74,7 @@ new Vue({
         // 关键字搜索
         search: function () {
             if (this.keyword) {
+                this.pageNum = 0;
                 this.articleList = [];
                 this.loadArticle(true);
             }
@@ -91,7 +113,7 @@ new Vue({
             let mpsId = this.mpsId;
 
             let api = '';
-            if (mpsId) {
+            if (mpsId && !this.isLast) {
                 let sort = this.sortBy;
                 let keyword = this.keyword;
 
@@ -110,5 +132,5 @@ new Vue({
             console.log('Request API Article URL ' + api);
             return api
         },
-    }
+    },
 });
