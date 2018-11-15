@@ -27,7 +27,7 @@ new Vue({
             //变量scrollHeight是滚动条的总高度
             let scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
             //滚动条到底部的条件
-            if (scrollTop + windowHeight === scrollHeight) {
+            if (scrollTop + windowHeight === scrollHeight && !_this.isLast) {
                 //写后台加载数据的函数
                 _this.loadArticle(_this.loadingMore);
                 console.log("距顶部" + scrollTop + "可视区高度" + windowHeight + "滚动条总高度" + scrollHeight);
@@ -62,20 +62,15 @@ new Vue({
         // 点击公众号
         toMp: function (mpsId) {
             if (mpsId) {
-                this.pageNum = 0;
-                this.isFirst = true;
-                this.isLast = false;
-                this.loadingMore = false;
+                this.backInitData();
                 this.mpsId = mpsId;
-                this.articleList = [];
                 this.loadArticle(true);
             }
         },
         // 关键字搜索
         search: function () {
             if (this.keyword) {
-                this.pageNum = 0;
-                this.articleList = [];
+                this.backInitData();
                 this.loadArticle(true);
             }
         },
@@ -131,6 +126,14 @@ new Vue({
 
             console.log('Request API Article URL ' + api);
             return api
+        },
+        // 重置初始数据
+        backInitData: function () {
+            this.pageNum = 0;
+            this.isFirst = true;
+            this.isLast = false;
+            this.loadingMore = false;
+            this.articleList = [];
         },
     },
 });
