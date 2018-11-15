@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" href="image/favicon.ico">
+    <link rel="stylesheet" href="https://unpkg.com/iview/dist/styles/iview.css">
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <style type="text/css">
         a {
@@ -117,8 +118,16 @@
             </div>
         </section>
 
-        <div class="album py-5 bg-light">
+        <div class="album bg-light">
             <div class="container">
+                <div class="row" style="padding: 15px 0">
+                    <div class="col-md-9"></div>
+                    <div class="col-md-3 text-muted">
+                        <date-picker style="width: 100%" size="large" type="daterange" v-model="startTime"
+                                     placeholder="选择日期..." format="yyyy/MM/dd" placement="left" editable="false"
+                                     :options="dateOptions" @on-change="onStartTimeChange"></date-picker>
+                    </div>
+                </div>
 
                 <!-- 手机端 -->
                 <div v-if="screenWidth < 720" class="my-3 p-3 bg-white rounded box-shadow">
@@ -194,10 +203,11 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://unpkg.com/vue-lazyload/vue-lazyload.js"></script>
+<script src="https://unpkg.com/iview/dist/iview.min.js"></script>
 <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js"></script>
 <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="js/mp.js"></script>
 <script src="layer/layer.js"></script>
+<script src="js/mp.js"></script>
 </body>
 </html>
