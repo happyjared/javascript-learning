@@ -120,12 +120,14 @@
 
         <div class="album bg-light">
             <div class="container">
-                <div class="row" style="padding: 15px 0">
+
+                <!-- 日期选择器 -->
+                <div class="row" style="padding: 15px 0" v-show="mpsId != 0 && articleList.length != 0 && screenWidth >= 720">
                     <div class="col-md-9"></div>
                     <div class="col-md-3 text-muted">
-                        <date-picker style="width: 100%" size="large" type="daterange" v-model="startTime"
-                                     placeholder="选择日期..." format="yyyy/MM/dd" placement="left" editable="false"
-                                     :options="dateOptions" @on-change="onStartTimeChange"></date-picker>
+                        <date-picker style="width: 100%" size="large" type="daterange" placeholder="选择日期..." v-model="dateValue"
+                                     format="yyyy/MM/dd" placement="left" :editable="false" :options="dateOptions"
+                                     @on-change="changeDate" split-panels></date-picker>
                     </div>
                 </div>
 

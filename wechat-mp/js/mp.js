@@ -12,14 +12,21 @@ new Vue({
         isFirst: true,
         isLast: false,
         loadingMore: false,
+        endTime: 0,
+        startTime: 0,
+        dateValue: [],
         domainName: 'https://mp.mariojd.cn/',
         articleList: [],
         input_value: '',
         screenWidth: document.body.clientWidth, // 屏宽
+        dateEditable: false,
         dateOptions: {
+            disabledDate(date) {
+                return date.valueOf() > Date.now();
+            },
             shortcuts: [
                 {
-                    text: '近1周内',
+                    text: '近1周',
                     value() {
                         const end = new Date();
                         const start = new Date();
@@ -42,6 +49,24 @@ new Vue({
                         const end = new Date();
                         const start = new Date();
                         start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+                        return [start, end];
+                    }
+                },
+                {
+                    text: '半年内',
+                    value() {
+                        const end = new Date();
+                        const start = new Date();
+                        start.setTime(start.getTime() - 3600 * 1000 * 24 * 183);
+                        return [start, end];
+                    }
+                },
+                {
+                    text: '一年内',
+                    value() {
+                        const end = new Date();
+                        const start = new Date();
+                        start.setTime(start.getTime() - 3600 * 1000 * 24 * 365);
                         return [start, end];
                     }
                 }
@@ -95,6 +120,9 @@ new Vue({
             if (mpsId) {
                 this.backInitData();
                 this.mpsId = mpsId;
+                this.startTime = 0;
+                this.endTime = 0;
+                this.dateValue = [];
                 this.loadArticle(true);
             }
         },
@@ -142,6 +170,8 @@ new Vue({
             if (mpsId && !this.isLast) {
                 let sort = this.sortBy;
                 let keyword = this.keyword;
+                let startTime = this.startTime;
+                let endTime = this.endTime;
 
                 if (!(this.isFirst || this.isLast) && this.loadingMore) {
                     this.pageNum += 1;
@@ -153,10 +183,20 @@ new Vue({
                 if (keyword) {
                     api += '&keyword=' + keyword;
                 }
+                if (startTime && endTime) {
+                    api += '&startTime=' + startTime + '&endTime=' + endTime;
+                }
             }
 
             console.log('Request API Article URL ' + api);
             return api
+        },
+        // 帅选时间条件
+        changeDate: function (date) {
+            this.startTime = Date.parse(date[0]);
+            this.endTime = Date.parse(date[1]);
+            this.backInitData();
+            this.loadArticle(true);
         },
         // 重置初始数据
         backInitData: function () {
