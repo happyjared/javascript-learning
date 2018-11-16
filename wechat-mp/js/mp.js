@@ -7,7 +7,7 @@ new Vue({
     data: {
         mpsId: 0,
         keyword: '',
-        sortBy: '',
+        sortDesc: true,
         pageNum: 0,
         isFirst: true,
         isLast: false,
@@ -168,7 +168,7 @@ new Vue({
 
             let api = '';
             if (mpsId && !this.isLast) {
-                let sort = this.sortBy;
+                let sortDesc = this.sortDesc;
                 let keyword = this.keyword;
                 let startTime = this.startTime;
                 let endTime = this.endTime;
@@ -177,14 +177,16 @@ new Vue({
                     this.pageNum += 1;
                 }
                 api += this.domainName + 'api/article?mpsId=' + mpsId + '&page=' + this.pageNum;
-                if (sort) {
-                    api += '&sort=' + sort;
-                }
                 if (keyword) {
                     api += '&keyword=' + keyword;
                 }
                 if (startTime && endTime) {
                     api += '&startTime=' + startTime + '&endTime=' + endTime;
+                }
+                if (sortDesc) {
+                    api += '&sort=postTime,DESC';
+                } else {
+                    api += '&sort=postTime,ASC';
                 }
             }
 
@@ -205,6 +207,12 @@ new Vue({
             this.isLast = false;
             this.loadingMore = false;
             this.articleList = [];
+        },
+        // 切换排序条件
+        changeSort: function (sort) {
+            this.sortDesc = !sort;
+            this.backInitData();
+            this.loadArticle(true);
         },
     },
 });
