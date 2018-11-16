@@ -78,13 +78,13 @@
                     <!--<circle cx="12" cy="13" r="4"></circle>-->
                     <!--</svg>-->
                     <strong v-if="screenWidth >= 720">吗哩噢</strong>
-                    <Spin size="large"></Spin>
                     <div class="form-inline mt-2 mt-md-0" style="margin-left: 20px">
                         <input class="form-control mr-sm-2" type="text" placeholder="Search..." aria-label="Search"
                                v-model="input_value" @keyup.enter="search">
                         <div :class="mpsId ===0 || keyword === ''? 'disabled':''" class="btn btn-info" @click="search">
                             搜索
                         </div>
+                        <Spin size="large"></Spin>
                     </div>
                 </a>
                 <button v-if="screenWidth >= 720" class="navbar-toggler" type="button" data-toggle="collapse"
@@ -248,6 +248,7 @@
                     <line x1="16.62" y1="12" x2="10.88" y2="21.94"></line>
                 </svg>
                 <small class="d-block mb-3 text-footer-muted">
+                    happyJared - 洞见<br>
                     Copyright &copy; 2018<br>
                     粤ICP备17033077号-1
                 </small>
