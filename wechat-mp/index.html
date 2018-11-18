@@ -169,8 +169,10 @@
                 <!-- 日期选择器 -->
                 <div class="row" style="padding: 15px 0" v-show="mpsId != 0 && screenWidth >= 720">
                     <div class="col-md-3">
-                        <Tag class="sort-by-time" type="dot" color="error" @click="changeSort(sortDesc)">按时间 <span
-                                v-text="sortDesc ? '↓':'↑'"></span></Tag>
+                        <div class="sort-by-time ivu-tag ivu-tag-error ivu-tag-dot ivu-tag-checked" @click="changeSort(sortDesc)">
+                            <span class="ivu-tag-dot-inner"></span>
+                            <span class="ivu-tag-text">按时间 <span v-text="sortDesc ? '↓':'↑'"></span></span>
+                        </div>
                     </div>
                     <div class="col-md-6"></div>
                     <div class="col-md-3 col-md-offset-9 text-muted">
