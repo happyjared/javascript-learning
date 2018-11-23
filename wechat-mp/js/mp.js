@@ -17,6 +17,7 @@ new Vue({
         dateValue: [],
         domainName: 'https://mp.mariojd.cn/',
         articleList: [],
+        weChatMpList: [],
         input_value: '',
         screenWidth: document.body.clientWidth, // 屏宽
         dateEditable: false,
@@ -113,7 +114,23 @@ new Vue({
         },
         // 加载公众号
         loadMp: function () {
+            const api = this.apiWeChatMp();
+            if (api) {
+                let lodeAnimate = layer.load(1, {
+                    shade: [0.3, '#0b0b0b']
+                });
+                let _this = this;
+                axios.get(api).then(function (response) {
+                    let contentList = response.data.content;
+                    _this.weChatMpList = _this.weChatMpList.concat(contentList);
 
+                    console.log('ContentList size: ' + contentList.length);
+                }).catch(function (error) {
+                    console.log('Request API WeChatMp ' + api + ' Error ' + error);
+                }).finally(function () {
+                    layer.close(lodeAnimate);
+                });
+            }
         },
         // 点击公众号
         toMp: function (mpsId) {
@@ -162,7 +179,13 @@ new Vue({
                 });
             }
         },
-        // 获取请求API URL
+        // 获取请求WeChatMp API URL
+        apiWeChatMp: function () {
+            let api = this.domainName + 'api/mp/list';
+            console.log('Request API WeChatMp URL ' + api);
+            return api;
+        },
+        // 获取请求Article API URL
         apiArticle: function () {
             let mpsId = this.mpsId;
 
