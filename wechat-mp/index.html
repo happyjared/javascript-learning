@@ -169,7 +169,7 @@
                             <div class="card mb-4 box-shadow">
                                 <img class="card-img-top" v-lazy="article.cover">
                                 <div class="card-body card-block">
-                                    <p class="card-text" v-text="article.title"></p>
+                                    <p class="card-text" v-html="article.title"></p>
                                     <div class="d-flex justify-content-between align-items-center">
                                         <small class="text-muted" v-text="article.postTime"></small>
                                     </div>
