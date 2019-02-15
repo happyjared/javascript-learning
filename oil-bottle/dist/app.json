@@ -17,28 +17,17 @@
     "selectedColor": "#F5E690",
     "list": [
       {
-        "text": "油瓶圈",
+        "text": "漂油瓶",
         "iconPath": "static/icon/index.png",
         "selectedIconPath": "static/icon/sindex.png",
         "pagePath": "pages/index/index"
       },
       {
-        "text": "捞一捞",
-        "iconPath": "static/icon/post.png",
-        "selectedIconPath": "static/icon/spost.png",
-        "pagePath": "pages/post/post"
-      },
-      {
         "text": "扔油瓶",
         "iconPath": "static/icon/post.png",
         "selectedIconPath": "static/icon/spost.png",
-        "pagePath": "pages/post/post"
-      },
-      {
-        "text": "排行榜",
-        "iconPath": "static/icon/post.png",
-        "selectedIconPath": "static/icon/spost.png",
-        "pagePath": "pages/post/post"
+        "pagePath": "pages/post/post",
+        "selected": true
       },
       {
         "text": "我的",
