@@ -12,6 +12,7 @@ new Vue({
         isFirst: true,
         isLast: false,
         loadingMore: false,
+        requesting: false,
         endTime: 0,
         startTime: 0,
         dateValue: [],
@@ -152,31 +153,35 @@ new Vue({
         },
         // 加载显示文章
         loadArticle: function (flag) {
-            this.isFirst = flag;
-            this.loadingMore = !flag;
+            if (!this.requesting) {
+                this.isFirst = flag;
+                this.loadingMore = !flag;
 
-            const api = this.apiArticle();
-            if (api) {
-                let lodeAnimate = layer.load(1, {
-                    shade: [0.2, '#000']
-                });
-                let _this = this;
-                axios.get(api).then(function (response) {
-                    let data = response.data;
+                const api = this.apiArticle();
+                if (api) {
+                    this.requesting = true;
+                    let lodeAnimate = layer.load(1, {
+                        shade: [0.2, '#000']
+                    });
+                    let _this = this;
+                    axios.get(api).then(function (response) {
+                        let data = response.data;
 
-                    _this.articleList = _this.articleList.concat(data.content);
-                    _this.loadingMore = false;
-                    _this.isLast = data.last;
-                    _this.isFirst = data.first;
-                    _this.pageNum = data.number;
-                    console.log('IsFirst: ' + data.first + ' && IsLast: ' + data.last + ' && PageNum: ' + data.number);
-                }).catch(function (error) {
-                    _this.isFirst = !flag;
-                    _this.loadingMore = flag;
-                    console.log('Request API Article ' + api + ' Error ' + error);
-                }).finally(function () {
-                    layer.close(lodeAnimate);
-                });
+                        _this.articleList = _this.articleList.concat(data.content);
+                        _this.isLast = data.last;
+                        _this.isFirst = data.first;
+                        _this.pageNum = data.number;
+                        console.log('IsFirst: ' + data.first + ' && IsLast: ' + data.last + ' && PageNum: ' + data.number);
+                        _this.loadingMore = false;
+                    }).catch(function (error) {
+                        _this.isFirst = !flag;
+                        _this.loadingMore = flag;
+                        console.log('Request API Article ' + api + ' Error ' + error);
+                    }).finally(function () {
+                        _this.requesting = false;
+                        layer.close(lodeAnimate);
+                    });
+                }
             }
         },
         // 获取请求WeChatMp API URL
