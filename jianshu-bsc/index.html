@@ -1,10 +1,165 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
-	<meta charset="UTF-8">
-	<title>贝市场排行榜</title>
+    <meta charset="UTF-8">
+    <title>happyJared - 第一届贝市场征文大赛排行榜</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="image/favicon.ico">
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        i {
+            background: url('image/top-icon.png') no-repeat;
+            width: 10px;
+            height: 17px;
+            display: inline-block;
+            margin-left: 5px;
+            padding-top: 5px;
+        }
+
+        i.mdUp {
+            background-position: -135px -54px;
+        }
+
+        i.mdDrop {
+            background-position: -110px -54px;
+        }
+    </style>
 </head>
 <body>
 
+<main role="main" id="bsc">
+    <section class="jumbotron text-center" style="margin-bottom:0">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12" style="text-align: center;">
+                    <h1>
+                        <a href="//www.jianshu.com/p/6eea1e5f885c" target="_blank"
+                           style="text-decoration: none;color:#1f2d3d;font-weight: bold">
+                            第一届贝市场征文大赛排行榜
+                        </a>
+                    </h1>
+                    <h6 v-text="'已收录'+size+'篇参赛文章'" style="color: #868c9b;margin-top: 15px"></h6>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12" style="text-align: right;">
+                    <span style="color: #a4b0c3;font-size: 12px">排名更新时间：每天6/12/18和24时</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="bs-example" style="background-color: #fff;" data-example-id="contextual-table">
+                        <table class="table table-bordered table-hover" style="margin-bottom: 0">
+                            <thead style="background-color: #dbdbdb;">
+                            <tr>
+                                <th>排名</th>
+                                <th>用户</th>
+                                <th>征文</th>
+                                <th>阅读数*1</th>
+                                <th>评论数*10</th>
+                                <th>点赞量*10</th>
+                                <th>简书钻*50</th>
+                                <th>得分系数</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-for="(rank,index) in rankList" @click="toMp(mp.id)">
+                                <th scope="row" width="8%" style="color:red;">
+                                    {{index+1}}
+                                    <i class="mdDrop"></i>
+                                </th>
+                                <td width="15%">
+                                    <a v-text="rank.nickname" target="_blank"
+                                       style="text-decoration:none;color:#1f2d3d"
+                                       :href="'//www.jianshu.com'+rank.home">
+                                    </a>
+                                </td>
+                                <td width="30%">
+                                    <a v-text="rank.title" target="_blank" style="text-decoration: none"
+                                       :href="'//www.jianshu.com'+rank.article">
+                                    </a>
+                                </td>
+                                <td v-text="rank.read"></td>
+                                <td v-text="rank.comment"></td>
+                                <td v-text="rank.like"></td>
+                                <td v-text="rank.jsz"></td>
+                                <td v-text="rank.coefficient"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12" style="text-align: right;">
+                    <span style="color: #a4b0c3;font-size: 12px;">排名更新时间：每天6/12/18和24时</span>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="container py-5">
+    <div class="row">
+        <div class="col-md-4">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                <circle cx="12" cy="13" r="4"></circle>
+            </svg>
+            <div id="hitokoto" class="text-muted">
+                相视而笑，莫逆于心
+            </div>
+        </div>
+        <div class="col-4 col-md">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                 class="d-block mb-2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="14.31" y1="8" x2="20.05" y2="17.94"></line>
+                <line x1="9.69" y1="8" x2="21.17" y2="8"></line>
+                <line x1="7.38" y1="12" x2="13.12" y2="2.06"></line>
+                <line x1="9.69" y1="16" x2="3.95" y2="6.06"></line>
+                <line x1="14.31" y1="16" x2="2.83" y2="16"></line>
+                <line x1="16.62" y1="12" x2="10.88" y2="21.94"></line>
+            </svg>
+            <small class="d-block mb-3 text-footer-muted">
+                happyJared<br>
+                Copyright &copy; 2019<br>
+                粤ICP备17033077号-1
+            </small>
+        </div>
+        <div class="col-4 col-md">
+            <h5>About</h5>
+            <ul class="list-unstyled text-small text-footer-muted">
+                <li><a class="text-muted  text-footer-muted" target="_blank"
+                       href="//www.jianshu.com/u/000a530f461c">简书</a>
+                <li><a class="text-muted  text-footer-muted" target="_blank" href="//blog.mariojd.cn/">博客</a></li>
+                </li>
+            </ul>
+        </div>
+        <div class="col-4 col-md">
+            <h5>Technology</h5>
+            <ul class="list-unstyled text-small">
+                <li><a class="text-muted  text-footer-muted" href="#">Redis</a></li>
+                <li><a class="text-muted  text-footer-muted" href="#">Vue.js</a></li>
+                <li><a class="text-muted  text-footer-muted" href="#">Requests</a></li>
+                <li><a class="text-muted  text-footer-muted" href="#">Spring Boot</a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+
+<script src="//cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js"></script>
+<script src="//cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/vue-lazyload/1.2.6/vue-lazyload.js"></script>
+<script src="//v1.hitokoto.cn/?encode=js&select=%23hitokoto" defer></script>
+<script src="layer/layer.js"></script>
+<script src="js/bsc.js"></script>
 </body>
 </html>
