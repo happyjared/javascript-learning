@@ -7,8 +7,7 @@ new Vue({
     data: {
         size: 0,
         rankList: [],
-        domainName: 'http://localhost:19999',
-        // domainName: 'http://jianshu.mariojd.cn',
+        domainName: 'http://jianshu.mariojd.cn',
         screenWidth: document.body.clientWidth,
     },
     created() {
