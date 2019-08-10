@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" href="image/favicon.ico">
-    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
 <style>
@@ -60,12 +60,12 @@
                             <thead style="background-color: #dbdbdb;">
                             <tr>
                                 <th>排名</th>
-                                <th style="text-align: left">用户</th>
+                                <th style="text-align: left" v-if="largeScreen">用户</th>
                                 <th>征文</th>
-                                <th>阅读数*1</th>
-                                <th>评论数*10</th>
-                                <th>点赞量*10</th>
-                                <th>简书钻*50</th>
+                                <th v-if="largeScreen">阅读数*1</th>
+                                <th v-if="largeScreen">评论数*10</th>
+                                <th v-if="largeScreen">点赞量*10</th>
+                                <th v-if="largeScreen">简书钻*50</th>
                                 <th>系数</th>
                             </tr>
                             </thead>
@@ -75,10 +75,9 @@
                                     {{index+1}}
                                     <span v-if="rank.oldRank && rank.newRank != rank.oldRank">
                                         <i :class="rank.newRank < rank.oldRank ? 'mdUp':'mdDrop'"></i>
-                                        <!--{{rank.newRank -  rank.oldRank}}-->
                                     </span>
                                 </th>
-                                <td width="17%" style="vertical-align: middle;text-align: left">
+                                <td width="17%" style="vertical-align: middle;text-align: left" v-if="largeScreen">
                                     <img class="rounded-circle" v-lazy="rank.avatar" :alt="rank.nickname"
                                          width="20" height="20">
                                     <a v-text="rank.nickname" target="_blank"
@@ -90,10 +89,10 @@
                                        :href="'//www.jianshu.com'+rank.article">
                                     </a>
                                 </td>
-                                <td v-text="rank.read" style="vertical-align: middle;"></td>
-                                <td v-text="rank.comment" style="vertical-align: middle;"></td>
-                                <td v-text="rank.like" style="vertical-align: middle;"></td>
-                                <td v-text="rank.jsz" style="vertical-align: middle;"></td>
+                                <td v-text="rank.read" style="vertical-align: middle;" v-if="largeScreen"></td>
+                                <td v-text="rank.comment" style="vertical-align: middle;" v-if="largeScreen"></td>
+                                <td v-text="rank.like" style="vertical-align: middle;" v-if="largeScreen"></td>
+                                <td v-text="rank.jsz" style="vertical-align: middle;" v-if="largeScreen"></td>
                                 <td v-text="rank.coefficient" style="vertical-align: middle;"></td>
                             </tr>
                             </tbody>
@@ -165,7 +164,7 @@
 <script src="//cdn.bootcss.com/vue/2.6.10/vue.js"></script>
 <script>Vue.config.productionTip = false</script>
 <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js"></script>
-<script src="//cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/vue-lazyload/1.2.6/vue-lazyload.js"></script>
 <script src="//v1.hitokoto.cn/?encode=js&select=%23hitokoto" defer></script>

@@ -8,13 +8,15 @@ new Vue({
         size: 0,
         rankList: [],
         domainName: 'https://jianshu.mariojd.cn',
+        largeScreen: true,
         screenWidth: document.body.clientWidth,
     },
     created() {
     },
     mounted: function () {
         this.screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-        console.log("Screen width : " + this.screenWidth);
+        this.largeScreen = this.screenWidth > 768;
+        console.log("Screen width : " + this.screenWidth + " ; Large screen: " + this.largeScreen);
         this.$nextTick(function () {
             this.loadArticle();
         });
