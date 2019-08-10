@@ -7,29 +7,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" href="image/favicon.ico">
     <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <style>
-        i {
-            background: url('image/top-icon.png') no-repeat;
-            width: 10px;
-            height: 17px;
-            display: inline-block;
-            margin-left: 5px;
-            padding-top: 5px;
-        }
-
-        i.mdUp {
-            background-position: -135px -54px;
-        }
-
-        i.mdDrop {
-            background-position: -110px -54px;
-        }
-    </style>
 </head>
 <body>
+<style>
+    .jumbotron {
+        background: url('image/bg.jpg') transparent;
+        background-size: 100% 100%;
+        margin-bottom: 0;
+    }
+
+    i {
+        background: url('image/top-icon.png') no-repeat;
+        width: 10px;
+        height: 10px;
+        margin-left: 5px;
+        padding-top: 5px;
+        display: inline-block;
+    }
+
+    i.mdUp {
+        background-position: -135px -54px;
+    }
+
+    i.mdDrop {
+        background-position: -110px -61px;
+    }
+</style>
 
 <main role="main" id="bsc">
-    <section class="jumbotron text-center" style="margin-bottom:0">
+    <section class="jumbotron text-center">
         <div class="container">
             <div class="row">
                 <div class="col-sm-12" style="text-align: center;">
@@ -65,11 +71,14 @@
                             </thead>
                             <tbody>
                             <tr v-for="(rank,index) in rankList" @click="toMp(mp.id)">
-                                <th scope="row" width="8%" style="color:red;">
+                                <th scope="row" width="8%" style="vertical-align: middle;">
                                     {{index+1}}
-                                    <i class="mdDrop"></i>
+                                    <span v-if="rank.oldRank && rank.newRank != rank.oldRank">
+                                        <i :class="rank.newRank > rank.oldRank ? 'mdUp':'mdDrop'"></i>
+                                        <!--{{rank.newRank -  rank.oldRank}}-->
+                                    </span>
                                 </th>
-                                <td width="15%">
+                                <td width="15%" style="vertical-align: middle;">
                                     <a v-text="rank.nickname" target="_blank"
                                        style="text-decoration:none;color:#1f2d3d"
                                        :href="'//www.jianshu.com'+rank.home">
@@ -80,11 +89,11 @@
                                        :href="'//www.jianshu.com'+rank.article">
                                     </a>
                                 </td>
-                                <td v-text="rank.read"></td>
-                                <td v-text="rank.comment"></td>
-                                <td v-text="rank.like"></td>
-                                <td v-text="rank.jsz"></td>
-                                <td v-text="rank.coefficient"></td>
+                                <td v-text="rank.read" style="vertical-align: middle;"></td>
+                                <td v-text="rank.comment" style="vertical-align: middle;"></td>
+                                <td v-text="rank.like" style="vertical-align: middle;"></td>
+                                <td v-text="rank.jsz" style="vertical-align: middle;"></td>
+                                <td v-text="rank.coefficient" style="vertical-align: middle;"></td>
                             </tr>
                             </tbody>
                         </table>
