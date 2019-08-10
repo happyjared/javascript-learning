@@ -7,7 +7,7 @@ new Vue({
     data: {
         size: 0,
         rankList: [],
-        domainName: 'http://jianshu.mariojd.cn',
+        domainName: 'https://jianshu.mariojd.cn',
         screenWidth: document.body.clientWidth,
     },
     created() {
