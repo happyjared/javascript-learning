@@ -1,5 +1,5 @@
 /**
- * Created by happyJared on 2018-11-13.
+ * Created by happyJared on 2019-08-10.
  */
 Vue.use(VueLazyload);
 new Vue({
