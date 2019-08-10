@@ -16,6 +16,15 @@
         margin-bottom: 0;
     }
 
+    .cheese {
+        background: url('image/cheese.png') no-repeat;
+        width: 16px;
+        height: 16px;
+        margin-right: 2px;
+        vertical-align: middle;
+        display: inline-block;
+    }
+
     i {
         background: url('image/top-icon.png') no-repeat;
         width: 10px;
@@ -77,15 +86,18 @@
                                         <i :class="rank.newRank < rank.oldRank ? 'mdUp':'mdDrop'"></i>
                                     </span>
                                 </th>
-                                <td width="17%" style="vertical-align: middle;text-align: left" v-if="largeScreen">
+                                <td width="18%" style="vertical-align: middle;text-align: left" v-if="largeScreen">
+                                    <span v-if="index<54" class="cheese"></span>
                                     <img class="rounded-circle" v-lazy="rank.avatar" :alt="rank.nickname"
-                                         width="20" height="20">
+                                         width="20" height="20" style="vertical-align: middle">
                                     <a v-text="rank.nickname" target="_blank"
-                                       style="text-decoration:none;color:#1f2d3d" :href="'//www.jianshu.com'+rank.home">
+                                       style="text-decoration:none;color:#1f2d3d;vertical-align: middle"
+                                       :href="'//www.jianshu.com'+rank.home">
                                     </a>
                                 </td>
                                 <td width="30%">
-                                    <a v-text="rank.title" target="_blank" style="text-decoration: none"
+                                    <a v-text="rank.title" target="_blank"
+                                       style="text-decoration: none;vertical-align: middle;"
                                        :href="'//www.jianshu.com'+rank.article">
                                     </a>
                                 </td>
