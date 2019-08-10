@@ -96,7 +96,7 @@
                                        :href="'//www.jianshu.com'+rank.home">
                                     </a>
                                 </td>
-                                <td width="30%">
+                                <td :style="largeScreen?'width:30%':'width:60%'">
                                     <!--<span v-if="!largeScreen && index<54" class="cheese"></span>-->
                                     <a v-text="rank.title" target="_blank"
                                        style="text-decoration: none;vertical-align: middle;"
