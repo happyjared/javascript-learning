@@ -80,7 +80,8 @@
                             </thead>
                             <tbody>
                             <tr v-for="(rank,index) in rankList" @click="toMp(mp.id)" :class="getTableColor(index)">
-                                <th scope="row" width="8%" style="vertical-align: middle;">
+                                <th scope="row"
+                                    :style="largeScreen?'vertical-align:middle;width:8%':'vertical-align:middle;'">
                                     {{index+1}}
                                     <span v-if="rank.oldRank && rank.newRank != rank.oldRank">
                                         <i :class="rank.newRank < rank.oldRank ? 'mdUp':'mdDrop'"></i>
