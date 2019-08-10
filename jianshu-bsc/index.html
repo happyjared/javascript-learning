@@ -74,7 +74,7 @@
                                 <th scope="row" width="8%" style="vertical-align: middle;">
                                     {{index+1}}
                                     <span v-if="rank.oldRank && rank.newRank != rank.oldRank">
-                                        <i :class="rank.newRank > rank.oldRank ? 'mdUp':'mdDrop'"></i>
+                                        <i :class="rank.newRank < rank.oldRank ? 'mdUp':'mdDrop'"></i>
                                         <!--{{rank.newRank -  rank.oldRank}}-->
                                     </span>
                                 </th>
