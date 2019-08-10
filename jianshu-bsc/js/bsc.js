@@ -49,5 +49,18 @@ new Vue({
             console.log('Request API URL ' + api);
             return api;
         },
+        getTableColor: function (index) {
+            if (index === 0) {
+                return "table-danger";
+            } else if (index >= 1 && index <= 5) {
+                return "table-success";
+            } else if (index >= 6 && index <= 13) {
+                return "table-primary";
+            } else if (index >= 14 && index <= 23) {
+                return "table-warning";
+            } else if (index >= 24 && index <= 53) {
+                return "table-secondary";
+            }
+        },
     },
 });
