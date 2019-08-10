@@ -60,7 +60,7 @@
                             <thead style="background-color: #dbdbdb;">
                             <tr>
                                 <th>排名</th>
-                                <th>用户</th>
+                                <th style="text-align: left">用户</th>
                                 <th>征文</th>
                                 <th>阅读数*1</th>
                                 <th>评论数*10</th>
@@ -78,10 +78,11 @@
                                         <!--{{rank.newRank -  rank.oldRank}}-->
                                     </span>
                                 </th>
-                                <td width="15%" style="vertical-align: middle;">
+                                <td width="17%" style="vertical-align: middle;text-align: left">
+                                    <img class="rounded-circle" v-lazy="rank.avatar" :alt="rank.nickname"
+                                         width="20" height="20">
                                     <a v-text="rank.nickname" target="_blank"
-                                       style="text-decoration:none;color:#1f2d3d"
-                                       :href="'//www.jianshu.com'+rank.home">
+                                       style="text-decoration:none;color:#1f2d3d" :href="'//www.jianshu.com'+rank.home">
                                     </a>
                                 </td>
                                 <td width="30%">
