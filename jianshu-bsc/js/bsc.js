@@ -26,7 +26,8 @@ new Vue({
         // 请求API
         loadArticle: function () {
             let lodeAnimate = layer.load(1, {
-                shade: [0.3, '#0b0b0b']
+                shade: [0.3, '#0b0b0b'],
+                time: 3000
             });
             axios.post(this.getApi()).then(response => {
                 this.rankList = response.data;
