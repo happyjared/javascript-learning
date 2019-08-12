@@ -12,23 +12,17 @@ new Vue({
         screenWidth: document.body.clientWidth,
     },
     created() {
+     this.loadArticle();
     },
     mounted: function () {
         this.screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
         this.largeScreen = this.screenWidth > 768;
         console.log("Screen width : " + this.screenWidth + " ; Large screen: " + this.largeScreen);
-        this.$nextTick(function () {
-            this.loadArticle();
-        });
     },
     filters: {},
     computed: {},
     watch: {},
     methods: {
-        // 初始化
-        init: function () {
-            this.loadMp();
-        },
         // 请求API
         loadArticle: function () {
             let lodeAnimate = layer.load(1, {
