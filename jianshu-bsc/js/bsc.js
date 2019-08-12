@@ -25,9 +25,9 @@ new Vue({
     methods: {
         // 请求API
         loadArticle: function () {
-            let lodeAnimate = layer.load(1, {
-                shade: [0.3, '#0b0b0b']
-            });
+//            let lodeAnimate = layer.load(1, {
+//                shade: [0.3, '#0b0b0b']
+//            });
             axios.post(this.getApi()).then(response => {
                 this.rankList = response.data;
                 this.size = this.rankList.length;
@@ -35,9 +35,9 @@ new Vue({
             }).catch(function (error) {
                 console.log('Request API Error ' + error);
             }).finally(function () {
-                layer.close(lodeAnimate);
+//                layer.close(lodeAnimate);
             });
-            layer.closeAll();
+//            layer.closeAll();
         },
         getApi: function () {
             let api = this.domainName + '/rank/';
