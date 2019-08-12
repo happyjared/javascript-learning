@@ -37,6 +37,7 @@ new Vue({
             }).finally(function () {
                 layer.close(lodeAnimate);
             });
+            layer.closeAll('loading');
         },
         getApi: function () {
             let api = this.domainName + '/rank/';
