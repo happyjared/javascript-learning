@@ -26,8 +26,7 @@ new Vue({
         // 请求API
         loadArticle: function () {
             let lodeAnimate = layer.load(1, {
-                shade: [0.3, '#0b0b0b'],
-                time: 3000
+                shade: [0.3, '#0b0b0b']
             });
             axios.post(this.getApi()).then(response => {
                 this.rankList = response.data;
@@ -38,7 +37,7 @@ new Vue({
             }).finally(function () {
                 layer.close(lodeAnimate);
             });
-            layer.closeAll('loading');
+            layer.closeAll();
         },
         getApi: function () {
             let api = this.domainName + '/rank/';
@@ -57,6 +56,13 @@ new Vue({
             } else if (index >= 24 && index <= 53) {
                 return "table-secondary";
             }
+        },
+        isWeiXin:function (){
+            var ua = window.navigator.userAgent.toLowerCase();
+            if(ua.match(/MicroMessenger/i) == 'micromessenger'){
+                return true;
+            }
+            return false;
         },
     },
 });
