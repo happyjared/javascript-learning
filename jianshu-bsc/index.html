@@ -41,6 +41,31 @@
     i.mdDrop {
         background-position: -110px -61px;
     }
+
+    .badge-danger {
+        color: #212529;
+        background-color: #ed969e;
+    }
+
+    .badge-success {
+        color: #212529;
+        background-color: #8fd19e;
+    }
+
+    .badge-primary {
+        color: #212529;
+        background-color: #7abaff;
+    }
+
+    .badge-warning {
+        color: #212529;
+        background-color: #ffdf7e;
+    }
+
+    .badge-secondary {
+        color: #212529;
+        background-color: #b3b7bb;
+    }
 </style>
 
 <main role="main" id="bsc">
@@ -59,7 +84,16 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-12" :style="largeScreen?'text-align:right':'text-align:center'">
+                <div class="col-lg-9" style="text-align: left">
+                    <div v-if="screenWidth>1200">
+                        <span class="badge badge-danger">特等奖/2500贝</span>
+                        <span class="badge badge-success">一等奖/1000贝</span>
+                        <span class="badge badge-primary">二等奖/500贝</span>
+                        <span class="badge badge-warning">三等奖/300贝</span>
+                        <span class="badge badge-secondary">四等奖/100贝</span>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-12" :style="largeScreen?'text-align:right':'text-align:center'">
                     <span style="color: #a4b0c3;font-size: 12px">排名更新时间：每天6/12/18和24点</span>
                 </div>
             </div>
