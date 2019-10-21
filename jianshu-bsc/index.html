@@ -1,231 +1,57 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>happyJared - 贝市场征文大赛排行榜</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="icon" href="image/favicon.ico">
+    <title>蒋勋细读红楼梦</title>
     <link rel="stylesheet" href="//cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
-<style>
-    .jumbotron {
-        background: url('image/bg.jpg') transparent;
-        background-size: 100% 100%;
-        margin-bottom: 0;
-    }
 
-    .cheese {
-        background: url('image/cheese.png') no-repeat;
-        width: 16px;
-        height: 16px;
-        margin-right: 2px;
-        vertical-align: middle;
-        display: inline-block;
-    }
-
-    i {
-        background: url('image/top-icon.png') no-repeat;
-        width: 10px;
-        height: 10px;
-        margin-left: 5px;
-        padding-top: 5px;
-        display: inline-block;
-    }
-
-    i.mdUp {
-        background-position: -135px -54px;
-    }
-
-    i.mdDrop {
-        background-position: -110px -61px;
-    }
-
-    .badge-danger {
-        color: #212529;
-        background-color: #ed969e;
-    }
-
-    .badge-success {
-        color: #212529;
-        background-color: #8fd19e;
-    }
-
-    .badge-primary {
-        color: #212529;
-        background-color: #7abaff;
-    }
-
-    .badge-warning {
-        color: #212529;
-        background-color: #ffdf7e;
-    }
-
-    .badge-secondary {
-        color: #212529;
-        background-color: #b3b7bb;
-    }
-</style>
-
-<main role="main" id="bsc">
-    <section class="jumbotron text-center">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12" style="text-align: center;">
-                    <h1>
-                        <a href="//www.jianshu.com/p/6eea1e5f885c" target="_blank"
-                           style="text-decoration: none;color:#1f2d3d;font-weight: bold">
-                            第一届贝市场征文大赛排行榜
-                        </a>
-                    </h1>
-                    <h6 v-text="'已收录'+size+'篇参赛文章（已截止）'" style="color: #868c9b;margin-top: 15px"></h6>
-                    <h6 v-if="!largeScreen" style="font-size:9px;color:#868c9b">『 电脑查看 • 数据更全 』</h6>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12" style="text-align: center">
-                    <div v-if="screenWidth>1200">
-                        <span class="badge badge-danger">特等奖/2500贝</span>
-                        <span class="badge badge-success">一等奖/1000贝</span>
-                        <span class="badge badge-primary">二等奖/500贝</span>
-                        <span class="badge badge-warning">三等奖/300贝</span>
-                        <span class="badge badge-secondary">四等奖/100贝</span>
-                    </div>
-                </div>
-                <!--<div class="col-lg-3 col-md-12" :style="largeScreen?'text-align:right':'text-align:center'">
-                    <span style="color: #a4b0c3;font-size: 12px">排名更新时间：每天6/12/18和24点</span>
-                </div>-->
-            </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="bs-example table-responsive" style="background-color: #fff;">
-                        <table class="table table-bordered table-hover table-striped" style="margin-bottom: 0">
-                            <thead style="background-color: #dbdbdb;">
-                            <tr>
-                                <th>排名</th>
-                                <th style="text-align: left" v-if="largeScreen">用户</th>
-                                <th>征文</th>
-                                <th v-if="largeScreen">阅读数*1</th>
-                                <th v-if="largeScreen">评论数*10</th>
-                                <th v-if="largeScreen">点赞量*10</th>
-                                <th v-if="largeScreen">简书钻*50</th>
-                                <th>系数</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr v-for="(rank,index) in rankList" @click="toMp(mp.id)" :class="getTableColor(index)">
-                                <th scope="row"
-                                    :style="largeScreen?'vertical-align:middle;width:8%':'vertical-align:middle;'">
-                                    {{index+1}}
-                                    <span v-if="rank.oldRank && rank.newRank != rank.oldRank">
-                                        <i :class="rank.newRank < rank.oldRank ? 'mdUp':'mdDrop'"></i>
-                                    </span>
-                                </th>
-                                <td width="18%" style="vertical-align: middle;text-align: left" v-if="largeScreen">
-                                    <span v-if="index<54" class="cheese"></span>
-                                    <img class="rounded-circle" v-lazy="rank.avatar" :alt="rank.nickname"
-                                         width="20" height="20" style="vertical-align: middle">
-                                    <a v-text="rank.nickname" target="_blank"
-                                       style="text-decoration:none;color:#1f2d3d;vertical-align: middle"
-                                       :href="'//www.jianshu.com'+rank.home">
-                                    </a>
-                                </td>
-                                <td :style="largeScreen?'width:30%':'width:50%'">
-                                    <!--<span v-if="!largeScreen && index<54" class="cheese"></span>-->
-                                    <a v-text="rank.title" target="_blank"
-                                       style="text-decoration: none;vertical-align: middle;"
-                                       :href="'//www.jianshu.com'+rank.article">
-                                    </a>
-                                </td>
-                                <td v-text="rank.read" style="vertical-align: middle;" v-if="largeScreen"></td>
-                                <td v-text="rank.comment" style="vertical-align: middle;" v-if="largeScreen"></td>
-                                <td v-text="rank.like" style="vertical-align: middle;" v-if="largeScreen"></td>
-                                <td v-text="rank.jsz" style="vertical-align: middle;" v-if="largeScreen"></td>
-                                <td v-text="rank.coefficient" style="vertical-align: middle;"></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <!--<div class="row">
-                <div class="col-sm-12" :style="largeScreen?'text-align:right':'text-align:center'">
-                    <span style="color: #a4b0c3;font-size: 12px;">排名更新时间：每天6/12/18和24点</span>
-                </div>
-            </div>-->
-        </div>
-    </section>
-</main>
+<!-- view-source:https://www.iqiyi.com/v_19rqu48n3s.html#curid=2023761300_5f76b3f6af630813d75da7e5300c08ea -->
+<!-- https://m.ishuyin.com/player.php?mov_id=15626&look_id=160&player=mp -->
 
 <div class="container">
-    <div class="row">
-        <div class="col-sm-12" style="text-align:center;margin-top:-25px">
-            <span style="color: #a4b0c3;font-size: 8px;">注：排名仅供参考，最终结果以官方公布为准</span>
-        </div>
+    <div class="row" style="margin: 20px">
+        <div class="col-sm-6 col-xs-12" style="text-align:center;margin-top: 5px"><h5>001: 甄士隐梦幻识通灵 贾雨村风尘怀闺秀（1）</h5></div>
+        <div class="col-sm-6 col-xs-12" style="text-align:center;margin-top: 5px"><audio src="audio/001.mp3" controls></audio></div>
     </div>
+    <!--<div class="row" style="margin: 20px">-->
+        <!--<div class="col-sm-6 col-xs-12" style="text-align:center;margin-top: 5px"><h5>002: 甄士隐梦幻识通灵 贾雨村风尘怀闺秀（2）</h5></div>-->
+        <!--<div class="col-sm-6 col-xs-12" style="text-align:center;margin-top: 5px"><audio src="http://m8.music.126.net/20191022001907/85cdfd1928dbd3f5764909e6c12dbf59/ymusic/8d70/31a7/bae0/37eb4a2aa87898dfde0e465d8211f994.mp3" controls></audio></div>-->
+    <!--</div>-->
+    <!--<div class="row" style="margin: 20px">-->
+        <!--<div class="col-sm-6 col-xs-12" style="text-align:center;margin-top: 5px"><h5>003: 贾夫人仙逝扬州城 冷子兴演说荣国府（1）</h5></div>-->
+        <!--<div class="col-sm-6 col-xs-12" style="text-align:center;margin-top: 5px"><audio src="http://m8.music.126.net/20191022001907/85cdfd1928dbd3f5764909e6c12dbf59/ymusic/8d70/31a7/bae0/37eb4a2aa87898dfde0e465d8211f994.mp3" controls></audio></div>-->
+    <!--</div>-->
+    <!--<div class="row" style="margin: 20px">-->
+        <!--<div class="col-sm-6 col-xs-12" style="text-align:center;margin-top: 5px"><h5>004: 贾夫人仙逝扬州城 冷子兴演说荣国府（2）</h5></div>-->
+        <!--<div class="col-sm-6 col-xs-12" style="text-align:center;margin-top: 5px"><audio src="http://m8.music.126.net/20191022001907/85cdfd1928dbd3f5764909e6c12dbf59/ymusic/8d70/31a7/bae0/37eb4a2aa87898dfde0e465d8211f994.mp3" controls></audio></div>-->
+    <!--</div>-->
+    <!--<div class="row" style="margin: 20px">-->
+        <!--<div class="col-sm-6 col-xs-12" style="text-align:center;margin-top: 5px"><h5>005: 贾雨村夤缘复旧职 林黛玉抛父进京都（1）</h5></div>-->
+        <!--<div class="col-sm-6 col-xs-12" style="text-align:center;margin-top: 5px"><audio src="http://m8.music.126.net/20191022001907/85cdfd1928dbd3f5764909e6c12dbf59/ymusic/8d70/31a7/bae0/37eb4a2aa87898dfde0e465d8211f994.mp3" controls></audio></div>-->
+    <!--</div>-->
+    <!--<div class="row" style="margin: 20px">-->
+        <!--<div class="col-sm-6 col-xs-12" style="text-align:center;margin-top: 5px"><h5>006: 贾雨村夤缘复旧职 林黛玉抛父进京都（2）</h5></div>-->
+        <!--<div class="col-sm-6 col-xs-12" style="text-align:center;margin-top: 5px"><audio src="http://m8.music.126.net/20191022001907/85cdfd1928dbd3f5764909e6c12dbf59/ymusic/8d70/31a7/bae0/37eb4a2aa87898dfde0e465d8211f994.mp3" controls></audio></div>-->
+    <!--</div>-->
+    <!--<div class="row" style="margin: 20px">-->
+        <!--<div class="col-sm-6 col-xs-12" style="text-align:center;margin-top: 5px"><h5>007: 薄命女偏逢薄命郎 葫芦僧乱判葫芦案（1）</h5></div>-->
+        <!--<div class="col-sm-6 col-xs-12" style="text-align:center;margin-top: 5px"><audio src="http://m8.music.126.net/20191022001907/85cdfd1928dbd3f5764909e6c12dbf59/ymusic/8d70/31a7/bae0/37eb4a2aa87898dfde0e465d8211f994.mp3" controls></audio></div>-->
+    <!--</div>-->
+    <!--<div class="row" style="margin: 20px">-->
+        <!--<div class="col-sm-6 col-xs-12" style="text-align:center;margin-top: 5px"><h5>008: 薄命女偏逢薄命郎 葫芦僧乱判葫芦案（2）</h5></div>-->
+        <!--<div class="col-sm-6 col-xs-12" style="text-align:center;margin-top: 5px"><audio src="http://m8.music.126.net/20191022001907/85cdfd1928dbd3f5764909e6c12dbf59/ymusic/8d70/31a7/bae0/37eb4a2aa87898dfde0e465d8211f994.mp3" controls></audio></div>-->
+    <!--</div>-->
+    <!--<div class="row" style="margin: 20px">-->
+        <!--<div class="col-sm-6 col-xs-12" style="text-align:center;margin-top: 5px"><h5>009: 游幻境指迷十二钗 饮仙醪曲演红楼梦（1）</h5></div>-->
+        <!--<div class="col-sm-6 col-xs-12" style="text-align:center;margin-top: 5px"><audio src="http://m8.music.126.net/20191022001907/85cdfd1928dbd3f5764909e6c12dbf59/ymusic/8d70/31a7/bae0/37eb4a2aa87898dfde0e465d8211f994.mp3" controls></audio></div>-->
+    <!--</div>-->
+    <!--<div class="row" style="margin: 20px">-->
+        <!--<div class="col-sm-6 col-xs-12" style="text-align:center;margin-top: 5px"><h5>010: 游幻境指迷十二钗 饮仙醪曲演红楼梦（2）</h5></div>-->
+        <!--<div class="col-sm-6 col-xs-12" style="text-align:center;margin-top: 5px"><audio src="http://m8.music.126.net/20191022001907/85cdfd1928dbd3f5764909e6c12dbf59/ymusic/8d70/31a7/bae0/37eb4a2aa87898dfde0e465d8211f994.mp3" controls></audio></div>-->
+    <!--</div>-->
 </div>
 
-<footer class="container py-5">
-    <div class="row">
-        <div class="col-md-4">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
-                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
-                <circle cx="12" cy="13" r="4"></circle>
-            </svg>
-            <div id="hitokoto" class="text-muted" style="margin-top:8px;margin-bottom: 12px">
-                相视而笑，莫逆于心
-            </div>
-        </div>
-        <div class="col-4 col-md">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                 class="d-block mb-2">
-                <circle cx="12" cy="12" r="10"></circle>
-                <line x1="14.31" y1="8" x2="20.05" y2="17.94"></line>
-                <line x1="9.69" y1="8" x2="21.17" y2="8"></line>
-                <line x1="7.38" y1="12" x2="13.12" y2="2.06"></line>
-                <line x1="9.69" y1="16" x2="3.95" y2="6.06"></line>
-                <line x1="14.31" y1="16" x2="2.83" y2="16"></line>
-                <line x1="16.62" y1="12" x2="10.88" y2="21.94"></line>
-            </svg>
-            <small class="d-block mb-3 text-footer-muted">
-                happyJared<br>
-                Copyright &copy; 2019<br>
-                粤ICP备17033077号-1
-            </small>
-        </div>
-        <div class="col-4 col-md">
-            <h5>About</h5>
-            <ul class="list-unstyled text-small text-footer-muted">
-                <li><a class="text-muted text-footer-muted" target="_blank" style="text-decoration: none"
-                       href="//www.jianshu.com/u/000a530f461c">简书</a>
-                <li><a class="text-muted text-footer-muted" target="_blank" style="text-decoration: none"
-                       href="https://blog.mariojd.cn/">博客</a></li>
-                </li>
-            </ul>
-        </div>
-        <div class="col-4 col-md">
-            <h5>Tech</h5>
-            <ul class="list-unstyled text-small">
-                <li><span class="text-muted  text-footer-muted">Redis</span></li>
-                <li><span class="text-muted  text-footer-muted">Vue.js</span></li>
-                <li><span class="text-muted  text-footer-muted">Requests</span></li>
-                <li><span class="text-muted  text-footer-muted">Spring Boot</span></li>
-            </ul>
-        </div>
-    </div>
-</footer>
-
-<script src="//cdn.bootcss.com/vue/2.6.10/vue.js"></script>
-<script>Vue.config.productionTip = false</script>
-<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js"></script>
-<script src="//cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/vue-lazyload/1.2.6/vue-lazyload.js"></script>
-<script src="//v1.hitokoto.cn/?encode=js&select=%23hitokoto" defer></script>
-<script src="layer/layer.js"></script>
-<script src="js/bsc.js"></script>
 </body>
 </html>
