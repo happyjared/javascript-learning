@@ -6,22 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <title>蒋勋细读红楼梦</title>
     <script type="text/javascript">
-        !(function(doc, win) {
-	      var docEl = doc.documentElement,
-	        resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
-	        recalc = function() {
-	          var clientWidth = docEl.clientWidth;
-	          if (!clientWidth) return;
-	          if (clientWidth < 750) {
-	            docEl.style.fontSize = 100 * (clientWidth / 750) + 'px';
-	          } else {
-	            docEl.style.fontSize = '100px';
-	          }
-	        };
-	      if (!doc.addEventListener) return;
-	      win.addEventListener(resizeEvt, recalc, false);
-	      doc.addEventListener('DOMContentLoaded', recalc, false);
-	    })(document, window);
+        !(function (doc, win) {
+            var docEl = doc.documentElement,
+                resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+                recalc = function () {
+                    var clientWidth = docEl.clientWidth;
+                    if (!clientWidth) return;
+                    if (clientWidth < 750) {
+                        docEl.style.fontSize = '80px';
+                    } else {
+                        docEl.style.fontSize = '100px';
+                    }
+                };
+            if (!doc.addEventListener) return;
+            win.addEventListener(resizeEvt, recalc, false);
+            doc.addEventListener('DOMContentLoaded', recalc, false);
+        })(document, window);
 
     </script>
     <link rel="stylesheet" type="text/css" href="css/share.css">
@@ -44,96 +44,97 @@
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/rangeslider.min.js"></script>
 <script type="text/javascript">
-		var _audio = document.getElementById("audio");
-		var isPlay = false;
-		var $document = $(document);
-	    var selector = '[data-rangeslider]';
-	    var $element = $(selector);
-		
-		$(function(){
-			
-			$document.on('input', 'input[type="range"], ' + selector, function(e) {
-		        showCurrTime(e.target);
-		    });
-		    
-		    $element.rangeslider({
-		        polyfill: false,
-		        onInit: function() {
-		            showCurrTime(this.$element[0]);
-		            if(checkDevice()){
-				   		$(".rangeslider__handle").eq(0).on("touchstart",function(){
-				   			if(!_audio.paused && !_audio.ended && _audio.currentTime!=0){
-				   				_audio.pause();
-				   			}
-				   		});		    	
-				    }else{
-				    	$(".rangeslider__handle").eq(0).on("mouseenter",function(){
-				   			if(!_audio.paused && !_audio.ended && _audio.currentTime!=0){
-				   				_audio.pause();
-				   			}
-				   		});	
-				    }
-		        },
-		        onSlide: function(position, value) {
-		        },
-		        onSlideEnd: function(position, value) {
-		        	var duration = _audio.duration;
-		        	var currTime = value*duration/100;
-		            _audio.currentTime = currTime;
-		            _audio.play();
-		        }
-		    });
-		});
-		
-		_audio.ontimeupdate = function(){
-			isPlay = true;
-			showCurrTime();
-		}
-		_audio.onended = function(){
-			var duration = _audio.duration;
-			$("#controlBtn").removeClass("hover");
-			isPlay = false;
-		}
-		
-		function checkDevice(){
-			var info = navigator.userAgent;
-			if(info.indexOf("iPod")!=-1 || info.indexOf("iPad")!=-1 || info.indexOf("iPhone")!=-1 || info.indexOf("Android")!=-1){
-				return true;
-			}else{
-				return false;
-			}
-		}
-		
-		function showCurrTime(element) {
-			var duration = _audio.duration;
-			if(element){
-		        var currValue = element.value;
-				var currTime = currValue*duration/100;
-			}else{
-				var currTime = _audio.currentTime;
-				var _w = parseInt((currTime/duration)*100);
-	            $element.val(_w).change();
-			}
-	        $("#controlTime").html(getFormatTimer(currTime)+'/'+getFormatTimer(duration));
-	    }
-		
-		function playAudio(e){
-			if(!isPlay){
-				_audio.play();
-				$("#controlBtn").addClass("hover");
-			}else{
-				_audio.pause();
-				isPlay = false;
-				$("#controlBtn").removeClass("hover");
-			}
-		}
-		/*获取格式化的分秒*/
-		function getFormatTimer(timer){
-			if(!timer) return "00:00";
-			var m = parseInt(timer / 60,10);
-			var s = parseInt(timer % 60,10);
-			return (m<10?("0"+m):m)+":"+(s<10?("0"+s):s);
-		};
+    var _audio = document.getElementById("audio");
+    var isPlay = false;
+    var $document = $(document);
+    var selector = '[data-rangeslider]';
+    var $element = $(selector);
+
+    $(function () {
+
+        $document.on('input', 'input[type="range"], ' + selector, function (e) {
+            showCurrTime(e.target);
+        });
+
+        $element.rangeslider({
+            polyfill: false,
+            onInit: function () {
+                showCurrTime(this.$element[0]);
+                if (checkDevice()) {
+                    $(".rangeslider__handle").eq(0).on("touchstart", function () {
+                        if (!_audio.paused && !_audio.ended && _audio.currentTime != 0) {
+                            _audio.pause();
+                        }
+                    });
+                } else {
+                    $(".rangeslider__handle").eq(0).on("mouseenter", function () {
+                        if (!_audio.paused && !_audio.ended && _audio.currentTime != 0) {
+                            _audio.pause();
+                        }
+                    });
+                }
+            },
+            onSlide: function (position, value) {
+            },
+            onSlideEnd: function (position, value) {
+                var duration = _audio.duration;
+                var currTime = value * duration / 100;
+                _audio.currentTime = currTime;
+                _audio.play();
+            }
+        });
+    });
+
+    _audio.ontimeupdate = function () {
+        isPlay = true;
+        showCurrTime();
+    }
+    _audio.onended = function () {
+        var duration = _audio.duration;
+        $("#controlBtn").removeClass("hover");
+        isPlay = false;
+    }
+
+    function checkDevice() {
+        var info = navigator.userAgent;
+        if (info.indexOf("iPod") != -1 || info.indexOf("iPad") != -1 || info.indexOf("iPhone") != -1 || info.indexOf("Android") != -1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function showCurrTime(element) {
+        var duration = _audio.duration;
+        if (element) {
+            var currValue = element.value;
+            var currTime = currValue * duration / 100;
+        } else {
+            var currTime = _audio.currentTime;
+            var _w = parseInt((currTime / duration) * 100);
+            $element.val(_w).change();
+        }
+        $("#controlTime").html(getFormatTimer(currTime) + '/' + getFormatTimer(duration));
+    }
+
+    function playAudio(e) {
+        if (!isPlay) {
+            _audio.play();
+            $("#controlBtn").addClass("hover");
+        } else {
+            _audio.pause();
+            isPlay = false;
+            $("#controlBtn").removeClass("hover");
+        }
+    }
+
+    /*获取格式化的分秒*/
+    function getFormatTimer(timer) {
+        if (!timer) return "00:00";
+        var m = parseInt(timer / 60, 10);
+        var s = parseInt(timer % 60, 10);
+        return (m < 10 ? ("0" + m) : m) + ":" + (s < 10 ? ("0" + s) : s);
+    };
 
 </script>
 </body>
