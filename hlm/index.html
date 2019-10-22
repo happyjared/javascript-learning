@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-	<title>蒋勋细读红楼梦</title>
-	<script type="text/javascript">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>蒋勋细读红楼梦</title>
+    <script type="text/javascript">
         !(function(doc, win) {
 	      var docEl = doc.documentElement,
 	        resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
@@ -22,25 +22,28 @@
 	      win.addEventListener(resizeEvt, recalc, false);
 	      doc.addEventListener('DOMContentLoaded', recalc, false);
 	    })(document, window);
+
     </script>
-	<link rel="stylesheet" type="text/css" href="css/share.css">
+    <link rel="stylesheet" type="text/css" href="css/share.css">
 </head>
 <body>
-	<div class="readBoxer">
-		<h6>背诵录音</h6>
-		<div class="hide"><audio id="audio" src="http://www.ewingtel.com/1.mp3"></audio></div>
-		<div class="playArea clearfix">
-			<div id="controlBtn" class="controlBtn" onclick="playAudio(this);"></div>
-			<div class="controlBar">
-				<input id="controlSlider" type="range" value="0" min="0" max="100" data-rangeslider>
-			</div>
-			<div id="controlTime" class="controlTime">00:00/00:00</div>
-		</div>
-	</div>
-	
-	<script type="text/javascript" src="js/jquery.min.js"></script>
-	<script type="text/javascript" src="js/rangeslider.min.js"></script>
-	<script type="text/javascript">
+<div class="readBoxer">
+    <h6>背诵录音</h6>
+    <div class="hide">
+        <audio id="audio" src="http://www.ewingtel.com/1.mp3"></audio>
+    </div>
+    <div class="playArea clearfix">
+        <div id="controlBtn" class="controlBtn" onclick="playAudio(this);"></div>
+        <div class="controlBar">
+            <input id="controlSlider" type="range" value="0" min="0" max="100" data-rangeslider>
+        </div>
+        <div id="controlTime" class="controlTime">00:00/00:00</div>
+    </div>
+</div>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/rangeslider.min.js"></script>
+<script type="text/javascript">
 		var _audio = document.getElementById("audio");
 		var isPlay = false;
 		var $document = $(document);
@@ -131,6 +134,7 @@
 			var s = parseInt(timer % 60,10);
 			return (m<10?("0"+m):m)+":"+(s<10?("0"+s):s);
 		};
-	</script>
+
+</script>
 </body>
 </html>
