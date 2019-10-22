@@ -117,16 +117,6 @@
         });
     });
 
-    _audio.ontimeupdate = function () {
-        isPlay = true;
-        showCurrTime();
-    };
-
-    _audio.onended = function () {
-        $("#controlBtn" + _id).removeClass("hover");
-        isPlay = false;
-    };
-
     function showCurrTime() {
         const duration = _audio.duration;
         const currTime = _audio.currentTime;
@@ -140,6 +130,15 @@
         for (let i = 0; i < audios.length; i++) {
             if (e.parentNode.parentNode.querySelector("audio").getAttribute("src") === audios[i].getAttribute("src")) {
                 _audio = audios[i];
+                _audio.ontimeupdate = function () {
+                    isPlay = true;
+                    showCurrTime();
+                };
+
+                _audio.onended = function () {
+                    $("#controlBtn" + _id).removeClass("hover");
+                    isPlay = false;
+                };
                 _id = audios[i].getAttribute("src").replace(".mp3", "").split("/")[1];
                 if (!isPlay) {
                     _audio.play();
