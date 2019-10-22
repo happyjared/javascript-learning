@@ -62,13 +62,13 @@
                 showCurrTime(this.$element[0]);
                 if (checkDevice()) {
                     $(".rangeslider__handle").eq(0).on("touchstart", function () {
-                        if (!_audio.paused && !_audio.ended && _audio.currentTime != 0) {
+                        if (!_audio.paused && !_audio.ended && _audio.currentTime !== 0) {
                             _audio.pause();
                         }
                     });
                 } else {
                     $(".rangeslider__handle").eq(0).on("mouseenter", function () {
-                        if (!_audio.paused && !_audio.ended && _audio.currentTime != 0) {
+                        if (!_audio.paused && !_audio.ended && _audio.currentTime !== 0) {
                             _audio.pause();
                         }
                     });
@@ -88,16 +88,17 @@
     _audio.ontimeupdate = function () {
         isPlay = true;
         showCurrTime();
-    }
+    };
+
     _audio.onended = function () {
         var duration = _audio.duration;
         $("#controlBtn").removeClass("hover");
         isPlay = false;
-    }
+    };
 
     function checkDevice() {
         var info = navigator.userAgent;
-        if (info.indexOf("iPod") != -1 || info.indexOf("iPad") != -1 || info.indexOf("iPhone") != -1 || info.indexOf("Android") != -1) {
+        if (info.indexOf("iPod") !== -1 || info.indexOf("iPad") !== -1 || info.indexOf("iPhone") !== -1 || info.indexOf("Android") !== -1) {
             return true;
         } else {
             return false;
@@ -134,8 +135,7 @@
         var m = parseInt(timer / 60, 10);
         var s = parseInt(timer % 60, 10);
         return (m < 10 ? ("0" + m) : m) + ":" + (s < 10 ? ("0" + s) : s);
-    };
-
+    }
 </script>
 </body>
 </html>
