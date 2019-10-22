@@ -44,42 +44,17 @@
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/rangeslider.min.js"></script>
 <script type="text/javascript">
-    var _audio = document.getElementById("audio");
-    var isPlay = false;
-    var $document = $(document);
-    var selector = '[data-rangeslider]';
-    var $element = $(selector);
+    const _audio = document.getElementById("audio");
+    let isPlay = false;
+    const selector = '[data-rangeslider]';
+    const $element = $(selector);
 
     $(function () {
-
-        $document.on('input', 'input[type="range"], ' + selector, function (e) {
-            showCurrTime(e.target);
-        });
-
         $element.rangeslider({
             polyfill: false,
-            onInit: function () {
-                showCurrTime(this.$element[0]);
-                if (checkDevice()) {
-                    $(".rangeslider__handle").eq(0).on("touchstart", function () {
-                        if (!_audio.paused && !_audio.ended && _audio.currentTime !== 0) {
-                            _audio.pause();
-                        }
-                    });
-                } else {
-                    $(".rangeslider__handle").eq(0).on("mouseenter", function () {
-                        if (!_audio.paused && !_audio.ended && _audio.currentTime !== 0) {
-                            _audio.pause();
-                        }
-                    });
-                }
-            },
-            onSlide: function (position, value) {
-            },
             onSlideEnd: function (position, value) {
-                var duration = _audio.duration;
-                var currTime = value * duration / 100;
-                _audio.currentTime = currTime;
+                const duration = _audio.duration;
+                _audio.currentTime = value * duration / 100;
                 _audio.play();
             }
         });
@@ -91,30 +66,15 @@
     };
 
     _audio.onended = function () {
-        var duration = _audio.duration;
         $("#controlBtn").removeClass("hover");
         isPlay = false;
     };
 
-    function checkDevice() {
-        var info = navigator.userAgent;
-        if (info.indexOf("iPod") !== -1 || info.indexOf("iPad") !== -1 || info.indexOf("iPhone") !== -1 || info.indexOf("Android") !== -1) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    function showCurrTime(element) {
-        var duration = _audio.duration;
-        if (element) {
-            var currValue = element.value;
-            var currTime = currValue * duration / 100;
-        } else {
-            var currTime = _audio.currentTime;
-            var _w = parseInt((currTime / duration) * 100);
-            $element.val(_w).change();
-        }
+    function showCurrTime() {
+        const duration = _audio.duration;
+        const currTime = _audio.currentTime;
+        const _w = parseInt((currTime / duration) * 100);
+        $element.val(_w).change();
         $("#controlTime").html(getFormatTimer(currTime) + '/' + getFormatTimer(duration));
     }
 
@@ -129,11 +89,10 @@
         }
     }
 
-    /*获取格式化的分秒*/
     function getFormatTimer(timer) {
         if (!timer) return "00:00";
-        var m = parseInt(timer / 60, 10);
-        var s = parseInt(timer % 60, 10);
+        const m = parseInt(timer / 60, 10);
+        const s = parseInt(timer % 60, 10);
         return (m < 10 ? ("0" + m) : m) + ":" + (s < 10 ? ("0" + s) : s);
     }
 </script>
