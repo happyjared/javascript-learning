@@ -44,10 +44,9 @@
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/rangeslider.min.js"></script>
 <script type="text/javascript">
-    const _audio = document.getElementById("audio");
     let isPlay = false;
-    const selector = '[data-rangeslider]';
-    const $element = $(selector);
+    const $element = $('[data-rangeslider]');
+    const _audio = document.getElementById("audio");
 
     $(function () {
         $element.rangeslider({
