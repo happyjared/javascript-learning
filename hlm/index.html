@@ -35,7 +35,7 @@
     <div class="playArea clearfix">
         <div id="controlBtn" class="controlBtn" onclick="playAudio(this);"></div>
         <div class="controlBar">
-            <input id="controlSlider" type="range" value="0" min="0" max="100" data-rangeslider>
+            <input type="range" value="0" min="0" max="100" data-rangeslider>
         </div>
         <div id="controlTime" class="controlTime">00:00/00:00</div>
     </div>
@@ -46,45 +46,41 @@
 <script type="text/javascript">
     let isPlay = false;
     const $element = $('[data-rangeslider]');
-    const _audio = document.getElementById("audio");
 
     $(function () {
         $element.rangeslider({
-            polyfill: false,
-            onSlideEnd: function (position, value) {
-                const duration = _audio.duration;
-                _audio.currentTime = value * duration / 100;
-                _audio.play();
-            }
+            polyfill: false
         });
     });
 
-    _audio.ontimeupdate = function () {
-        isPlay = true;
-        showCurrTime();
-    };
-
-    _audio.onended = function () {
-        $("#controlBtn").removeClass("hover");
-        isPlay = false;
-    };
-
-    function showCurrTime() {
-        const duration = _audio.duration;
-        const currTime = _audio.currentTime;
-        const _w = parseInt((currTime / duration) * 100);
-        $element.val(_w).change();
-        $("#controlTime").html(getFormatTimer(currTime) + '/' + getFormatTimer(duration));
-    }
-
     function playAudio(e) {
-        if (!isPlay) {
-            _audio.play();
-            $("#controlBtn").addClass("hover");
-        } else {
-            _audio.pause();
-            isPlay = false;
-            $("#controlBtn").removeClass("hover");
+        const audios = document.getElementsByTagName("audio");
+        for (let i = 0; i < audios.length; i++) {
+            if (e.parentNode.parentNode.querySelector("#audio").getAttribute("src") === audios[i].getAttribute("src")) {
+                let _audio = audios[i];
+                if (!isPlay) {
+                    _audio.play();
+                    $("#controlBtn").addClass("hover");
+                } else {
+                    _audio.pause();
+                    isPlay = false;
+                    $("#controlBtn").removeClass("hover");
+                }
+
+                _audio.ontimeupdate = function () {
+                    isPlay = true;
+                    const duration = _audio.duration;
+                    const currTime = _audio.currentTime;
+                    const _w = parseInt((currTime / duration) * 100);
+                    $element.val(_w).change();
+                    $("#controlTime").html(getFormatTimer(currTime) + '/' + getFormatTimer(duration));
+                };
+
+                _audio.onended = function () {
+                    $("#controlBtn").removeClass("hover");
+                    isPlay = false;
+                };
+            }
         }
     }
 
