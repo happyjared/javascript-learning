@@ -121,6 +121,7 @@
         const duration = _audio.duration;
         const currTime = _audio.currentTime;
         const _w = parseInt((currTime / duration) * 100);
+        console.log(_w)
         $element.val(_w).change();
         $("#controlTime" + _id).html(getFormatTimer(currTime) + '/' + getFormatTimer(duration));
     }
