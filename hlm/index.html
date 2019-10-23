@@ -28,76 +28,34 @@
 </head>
 <body>
 
-<div class="readBoxer">
-    <h6 style="text-align: center">005</h6>
-    <div class="hide">
-        <audio src="audio/005.mp3"></audio>
-    </div>
-    <div class="playArea clearfix">
-        <div id="controlBtn005" class="controlBtn" onclick="playAudio(this);"></div>
-        <div class="controlBar">
-            <input id="controlVal005" type="range" value="0" min="0" max="100" data-rangeslider>
+<div id="hlm">
+
+    <!-- https://segmentfault.com/q/1010000009239668?_ea=1865252 -->
+    <div class="readBoxer" v-for="n in 5">
+        <h6 style="text-align: center" v-text=" n>=10 ? '0'+n: '00'+n "></h6>
+        <div class="hide">
+            <audio :src=" n>=10 ? 'audio/0'+n+'.mp3': 'https://jianshu.mariojd.cn/hlm/audio/00'+n+'.mp3' "></audio>
         </div>
-        <div id="controlTime005" class="controlTime">00:00/00:00</div>
+        <div class="playArea clearfix">
+            <div :id=" n>=10 ? 'controlBtn0'+n: 'controlBtn00'+n " class="controlBtn" onclick="playAudio(this);"></div>
+            <div class="controlBar">
+                <input :id=" n>=10 ? 'controlVal0'+n: 'controlVal00'+n " type="range" value="0" min="0" max="100" data-rangeslider>
+            </div>
+            <div :id=" n>=10 ? 'controlTime0'+n: 'controlTime00'+n " class="controlTime">00:00/00:00</div>
+        </div>
     </div>
+
 </div>
 
-<div class="readBoxer">
-    <h6 style="text-align: center">004</h6>
-    <div class="hide">
-        <audio src="audio/004.mp3"></audio>
-    </div>
-    <div class="playArea clearfix">
-        <div id="controlBtn004" class="controlBtn" onclick="playAudio(this);"></div>
-        <div class="controlBar">
-            <input id="controlVal004" type="range" value="0" min="0" max="100" data-rangeslider>
-        </div>
-        <div id="controlTime004" class="controlTime">00:00/00:00</div>
-    </div>
-</div>
-
-<div class="readBoxer">
-    <h6 style="text-align: center">003</h6>
-    <div class="hide">
-        <audio src="audio/003.mp3"></audio>
-    </div>
-    <div class="playArea clearfix">
-        <div id="controlBtn003" class="controlBtn" onclick="playAudio(this);"></div>
-        <div class="controlBar">
-            <input id="controlVal003" type="range" value="0" min="0" max="100" data-rangeslider>
-        </div>
-        <div id="controlTime003" class="controlTime">00:00/00:00</div>
-    </div>
-</div>
-
-<div class="readBoxer">
-    <h6 style="text-align: center">002</h6>
-    <div class="hide">
-        <audio src="audio/002.mp3"></audio>
-    </div>
-    <div class="playArea clearfix">
-        <div id="controlBtn002" class="controlBtn" onclick="playAudio(this);"></div>
-        <div class="controlBar">
-            <input id="controlVal002" type="range" value="0" min="0" max="100" data-rangeslider>
-        </div>
-        <div id="controlTime002" class="controlTime">00:00/00:00</div>
-    </div>
-</div>
-
-<div class="readBoxer">
-    <h6 style="text-align: center">001</h6>
-    <div class="hide">
-        <audio src="audio/001.mp3"></audio>
-    </div>
-    <div class="playArea clearfix">
-        <div id="controlBtn001" class="controlBtn" onclick="playAudio(this);"></div>
-        <div class="controlBar">
-            <input id="controlVal001" type="range" value="0" min="0" max="100" data-rangeslider>
-        </div>
-        <div id="controlTime001" class="controlTime">00:00/00:00</div>
-    </div>
-</div>
-
+<script src="//cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<script>
+    new Vue({
+        el: '#hlm',
+        data: {
+            audioNum: 10,
+        },
+    });
+</script>
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/rangeslider.min.js"></script>
 <script type="text/javascript">
