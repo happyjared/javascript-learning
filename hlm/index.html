@@ -93,9 +93,10 @@
                 };
 
                 _audio.onended = function () {
-                    console.log('onended....');
-                    $("#controlBtn" + _id).removeClass("hover");
                     isPlay = false;
+                    $("#controlVal" + _id).val(0);
+                    $("#controlBtn" + _id).removeClass("hover");
+                    $("#controlTime" + _id).html('00:00/00:00');
                 };
                 _id = audios[i].getAttribute("src").replace(".mp3", "").split("/")[1];
                 if (!isPlay) {
