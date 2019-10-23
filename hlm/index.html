@@ -94,7 +94,7 @@
 
                 _audio.onended = function () {
                     isPlay = false;
-                    $("#controlVal" + _id).val(0);
+                    $("#controlVal" + _id).val(0).change();
                     $("#controlBtn" + _id).removeClass("hover");
                     $("#controlTime" + _id).html('00:00/00:00');
                 };
