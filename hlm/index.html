@@ -30,18 +30,17 @@
 
 <div id="hlm">
 
-    <!-- https://segmentfault.com/q/1010000009239668?_ea=1865252 -->
-    <div class="readBoxer" v-for="n in 5">
-        <h6 style="text-align: center" v-text=" n>=10 ? '0'+n: '00'+n "></h6>
+    <div class="readBoxer" v-for="item in audioIds">
+        <h6 style="text-align: center" v-text="item"></h6>
         <div class="hide">
-            <audio :src=" n>=10 ? 'audio/0'+n+'.mp3': 'https://jianshu.mariojd.cn/hlm/audio/00'+n+'.mp3' "></audio>
+            <audio :src="'audio/'+item+'.mp3'"></audio>
         </div>
         <div class="playArea clearfix">
-            <div :id=" n>=10 ? 'controlBtn0'+n: 'controlBtn00'+n " class="controlBtn" onclick="playAudio(this);"></div>
+            <div :id="'controlBtn'+item" class="controlBtn" onclick="playAudio(this);"></div>
             <div class="controlBar">
-                <input :id=" n>=10 ? 'controlVal0'+n: 'controlVal00'+n " type="range" value="0" min="0" max="100" data-rangeslider>
+                <input :id="'controlVal'+item" type="range" value="0" min="0" max="100" data-rangeslider>
             </div>
-            <div :id=" n>=10 ? 'controlTime0'+n: 'controlTime00'+n " class="controlTime">00:00/00:00</div>
+            <div :id="'controlTime'+item" class="controlTime">00:00/00:00</div>
         </div>
     </div>
 
@@ -52,7 +51,7 @@
     new Vue({
         el: '#hlm',
         data: {
-            audioNum: 10,
+            audioIds: ["005", "004", "003", "002", "001"],
         },
     });
 </script>
@@ -79,8 +78,7 @@
         const duration = _audio.duration;
         const currTime = _audio.currentTime;
         const _w = parseInt((currTime / duration) * 100);
-        // $element.val(_w).change();
-        $("#controlVal"+ _id).val(_w);
+        $("#controlVal" + _id).val(_w);
         $("#controlTime" + _id).html(getFormatTimer(currTime) + '/' + getFormatTimer(duration));
     }
 
