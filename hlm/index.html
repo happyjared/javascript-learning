@@ -36,7 +36,7 @@
     <div class="playArea clearfix">
         <div id="controlBtn001" class="controlBtn" onclick="playAudio(this);"></div>
         <div class="controlBar">
-            <input type="range" value="0" min="0" max="100" data-rangeslider>
+            <input id="controlVal001" type="range" value="0" min="0" max="100" data-rangeslider>
         </div>
         <div id="controlTime001" class="controlTime">00:00/00:00</div>
     </div>
@@ -50,7 +50,7 @@
     <div class="playArea clearfix">
         <div id="controlBtn002" class="controlBtn" onclick="playAudio(this);"></div>
         <div class="controlBar">
-            <input type="range" value="0" min="0" max="100" data-rangeslider>
+            <input id="controlVal002" type="range" value="0" min="0" max="100" data-rangeslider>
         </div>
         <div id="controlTime002" class="controlTime">00:00/00:00</div>
     </div>
@@ -64,7 +64,7 @@
     <div class="playArea clearfix">
         <div id="controlBtn003" class="controlBtn" onclick="playAudio(this);"></div>
         <div class="controlBar">
-            <input type="range" value="0" min="0" max="100" data-rangeslider>
+            <input id="controlVal003" type="range" value="0" min="0" max="100" data-rangeslider>
         </div>
         <div id="controlTime003" class="controlTime">00:00/00:00</div>
     </div>
@@ -78,7 +78,7 @@
     <div class="playArea clearfix">
         <div id="controlBtn004" class="controlBtn" onclick="playAudio(this);"></div>
         <div class="controlBar">
-            <input type="range" value="0" min="0" max="100" data-rangeslider>
+            <input id="controlVal004" type="range" value="0" min="0" max="100" data-rangeslider>
         </div>
         <div id="controlTime004" class="controlTime">00:00/00:00</div>
     </div>
@@ -92,7 +92,7 @@
     <div class="playArea clearfix">
         <div id="controlBtn005" class="controlBtn" onclick="playAudio(this);"></div>
         <div class="controlBar">
-            <input type="range" value="0" min="0" max="100" data-rangeslider>
+            <input id="controlVal005" type="range" value="0" min="0" max="100" data-rangeslider>
         </div>
         <div id="controlTime005" class="controlTime">00:00/00:00</div>
     </div>
@@ -121,8 +121,8 @@
         const duration = _audio.duration;
         const currTime = _audio.currentTime;
         const _w = parseInt((currTime / duration) * 100);
-        console.log(_w)
-        $element.val(_w).change();
+        // $element.val(_w).change();
+        $("#controlVal"+ _id).val(_w);
         $("#controlTime" + _id).html(getFormatTimer(currTime) + '/' + getFormatTimer(duration));
     }
 
