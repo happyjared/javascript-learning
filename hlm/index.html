@@ -93,6 +93,7 @@
                 };
 
                 _audio.onended = function () {
+                    console.log('onended....');
                     $("#controlBtn" + _id).removeClass("hover");
                     isPlay = false;
                 };
