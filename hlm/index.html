@@ -114,6 +114,8 @@
         const duration = _audio.duration;
         const currTime = _audio.currentTime;
         const _w = parseInt((currTime / duration) * 100);
+        console.log(duration);
+        console.log(currTime);
         $("#controlVal" + _id).val(_w).change();
         $("#controlTime" + _id).html(getFormatTimer(currTime) + '/' + getFormatTimer(duration));
         window.localStorage.setItem('value', _w);
