@@ -70,14 +70,13 @@
             onInit: function () {
             },
             onSlideEnd: function (position, value) {
-                console.log("onSlideEnd" + position + "..." + value);
                 const duration = _audio.duration;
                 _audio.currentTime = value * duration / 100;
                 _audio.play();
             }
         });
         // recover();
-        initTime();
+        // initTime();
     });
 
     function initTime() {
