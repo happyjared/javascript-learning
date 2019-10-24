@@ -106,7 +106,6 @@
                     isPlay = true;
                     _audio = audios[i];
                     _audio.currentTime = _value * parseFloat(_duration) / 100;
-                    console.log(_value * parseFloat(_duration) / 100);
                     _id = _audioSrc.replace(".mp3", "").split("/")[1];
                     $("#controlBtn" + _id).addClass("hover");
                     $("#controlVal" + _id).val(_value).change();
