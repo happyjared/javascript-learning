@@ -70,7 +70,7 @@
             onInit: function () {
             },
             onSlideEnd: function (position, value) {
-                console.log("onSlideEnd");
+                console.log("onSlideEnd" + position + "..." + value);
                 const duration = _audio.duration;
                 _audio.currentTime = value * duration / 100;
                 _audio.play();
@@ -131,7 +131,7 @@
                     $("#controlBtn" + _id).removeClass("hover");
                     const ele = new Audio(_audio.getAttribute("src"));
                     ele.addEventListener("loadedmetadata", () => {
-                        console.log(".............");
+                        console.log("............. " + id + " ....... " + ele.duration);
                         $("#controlTime" + _id).html('00:00/' + getFormatTimer(ele.duration));
                     });
                     playAudio(audios[parseInt(i-1)].parentNode.nextSibling.nextSibling.firstChild);
