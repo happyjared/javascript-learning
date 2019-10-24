@@ -114,7 +114,7 @@
                     isPlay = false;
                     $("#controlVal" + _id).val(0).change();
                     $("#controlBtn" + _id).removeClass("hover");
-                    $("#controlTime" + _id).html('00:00/00:00');
+                    initTime();
                     playAudio(audios[parseInt(i-1)].parentNode.nextSibling.nextSibling.firstChild);
                 };
 
