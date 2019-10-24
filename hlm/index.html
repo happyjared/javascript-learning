@@ -72,6 +72,7 @@
             onSlideEnd: function (position, value) {
                 const duration = _audio.duration;
                 _audio.currentTime = value * duration / 100;
+                console.log(_audio.currentTime);
                 _audio.play();
             }
         });
@@ -105,6 +106,7 @@
                     isPlay = true;
                     _audio = audios[i];
                     _audio.currentTime = _value * parseFloat(_duration) / 100;
+                    console.log(_audio.currentTime);
                     _id = _audioSrc.replace(".mp3", "").split("/")[1];
                     $("#controlBtn" + _id).addClass("hover");
                     $("#controlVal" + _id).val(_value).change();
