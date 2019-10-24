@@ -75,7 +75,6 @@
                 _audio.play();
             }
         });
-        recover();
         initTime();
     });
 
@@ -88,6 +87,7 @@
                 $("#controlTime" + _id).html('00:00/' + getFormatTimer(ele.duration));
             });
         }
+        recover();
     }
 
     function recover() {
@@ -100,7 +100,7 @@
                 if (_audioSrc === audios[i].getAttribute("src")) {
                     isPlay = true;
                     _audio = audios[i];
-                    _audio.currentTime = parseInt(_value) * parseInt(_duration) / 100;
+                    _audio.currentTime = parseInt(_value) * parseFloat(_duration) / 100;
                     _id = _audioSrc.replace(".mp3", "").split("/")[1];
                     $("#controlBtn" + _id).addClass("hover");
                     $("#controlVal" + _id).val(_value).change();
