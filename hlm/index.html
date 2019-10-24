@@ -89,7 +89,7 @@
         for (let i = 0; i < audios.length; i++) {
             if (e.parentNode.parentNode.querySelector("audio").getAttribute("src") === audios[i].getAttribute("src")) {
                 _audio = audios[i];
-                const next = parseInt(i + 1);
+                const next = parseInt(i-1);
                 console.log(next);
                 _id = audios[i].getAttribute("src").replace(".mp3", "").split("/")[1];
 
