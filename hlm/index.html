@@ -109,8 +109,16 @@
                     _id = _audioSrc.replace(".mp3", "").split("/")[1];
                     $("#controlBtn" + _id).addClass("hover");
                     $("#controlVal" + _id).val(_value).change();
+                    _audio.load();
                     setTimeout(function () {
-                        _audio.play();
+                        let playPromise = _audio.play();
+                        if (playPromise !== undefined) {
+                            playPromise.then(() => {
+                                _audio.play()
+                            }).catch(() => {
+                            })
+                        }
+
                     }, 3000);
                 }
             }
