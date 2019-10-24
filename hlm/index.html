@@ -98,9 +98,9 @@
                     $("#controlVal" + _id).val(0).change();
                     $("#controlBtn" + _id).removeClass("hover");
                     $("#controlTime" + _id).html('00:00/00:00');
-                    const next = i + 1;
-                    console.log(audios[1].parentNode);
-                    playAudio(audios[1].parentNode.nextSibling.nextSibling.firstChild);
+                    const next = parseInt(i + 1);
+                    console.log(audios[next].parentNode);
+                    playAudio(audios[next].parentNode.nextSibling.nextSibling.firstChild);
                 };
                 _id = audios[i].getAttribute("src").replace(".mp3", "").split("/")[1];
                 if (!isPlay) {
