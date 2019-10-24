@@ -75,16 +75,19 @@
                 _audio.play();
             }
         });
+        initTime();
+    });
+
+    function initTime() {
         const audios = document.getElementsByTagName("audio");
         for (let i = 0; i < audios.length; i++) {
-            console.log(audios[i]);
-            _audio = audios[i].setAttribute("src", "https://jianshu.mariojd.cn/hlm/" + audios[i].getAttribute("src"));
-            _audio.load();
-            console.log(_audio);
-            const duration = _audio.duration;
-            $("#controlTime001").html('00:00/' + getFormatTimer(duration));
+            const ele = new Audio("https://jianshu.mariojd.cn/hlm/" + audios[i].getAttribute("src"));
+            ele.addEventListener("loadedmetadata", () => {
+                _id = ele.getAttribute("src").replace(".mp3", "").split("/")[1];
+                $("#controlTime" + _id).html('00:00/' + getFormatTimer(ele.duration));
+            });
         }
-    });
+    }
 
     function showCurrTime() {
         const duration = _audio.duration;
