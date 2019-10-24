@@ -90,6 +90,18 @@
         }
     }
 
+    function recover() {
+        const _audioNum = window.localStorage.getItem("audioNum");
+        const _duration = window.localStorage.getItem("duration");
+        if (_audioNum && _duration) {
+            const audios = document.getElementsByTagName("audio");
+            _audio = audios[parseInt(_audioNum)];
+            const duration = _audio.duration;
+            _audio.currentTime = value * duration / 100;
+            _audio.play();
+        }
+    }
+
     function showCurrTime() {
         const duration = _audio.duration;
         const currTime = _audio.currentTime;
