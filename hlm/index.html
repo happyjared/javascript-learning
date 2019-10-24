@@ -132,7 +132,7 @@
                     isPlay = false;
                     $("#controlVal" + _id).val(0).change();
                     $("#controlBtn" + _id).removeClass("hover");
-                    $("#controlTime" + _id).html('00:00/' + $("#controlTime" + _id).innerText.split("/")[1]);
+                    $("#controlTime" + _id).html('00:00/' + $("#controlTime" + _id).innerHTML.split("/")[1]);
                     playAudio(audios[parseInt(i - 1)].parentNode.nextSibling.nextSibling.firstChild);
                 };
 
