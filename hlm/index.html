@@ -99,7 +99,7 @@
                 if (_audioSrc === audios[i].getAttribute("src")) {
                     _audio = audios[i];
                     const duration = _audio.duration;
-                    console.log(audios[i].duration);
+                    console.log(audios[i]);
                     _value = parseInt(_value);
                     _audio.currentTime = _value * duration / 100;
                     isPlay = true;
