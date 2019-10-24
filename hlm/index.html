@@ -96,7 +96,7 @@
         $("#controlVal" + _id).val(_w).change();
         $("#controlTime" + _id).html(getFormatTimer(currTime) + '/' + getFormatTimer(duration));
         if (window.localStorage) {
-            localstroage.setItem('uid', '10001');
+            window.localStorage.setItem('uid', '10001');
         }
     }
 
@@ -118,6 +118,7 @@
                     $("#controlBtn" + _id).removeClass("hover");
                     const ele = new Audio(_audio.getAttribute("src"));
                     ele.addEventListener("loadedmetadata", () => {
+                        console.log(".............");
                         $("#controlTime" + _id).html('00:00/' + getFormatTimer(ele.duration));
                     });
                     playAudio(audios[parseInt(i-1)].parentNode.nextSibling.nextSibling.firstChild);
