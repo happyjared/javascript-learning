@@ -88,7 +88,9 @@
                 $("#controlTime" + _id).html('00:00/' + getFormatTimer(ele.duration));
             });
         }
-        recover();
+        setTimeout(function () {
+            recover();
+        }, 3000);
     }
 
     function recover() {
