@@ -97,6 +97,7 @@
             const audios = document.getElementsByTagName("audio");
             for (let i = 0; i < audios.length; i++) {
                 if (_audioSrc === audios[i].getAttribute("src")) {
+                    _audio = audios[i];
                     const duration = _audio.duration;
                     _value = parseInt(_value);
                     console.log(_value);
