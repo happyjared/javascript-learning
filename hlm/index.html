@@ -84,6 +84,7 @@
         for (let i = 0; i < audios.length; i++) {
             const ele = new Audio(audios[i].getAttribute("src"));
             ele.addEventListener("loadedmetadata", () => {
+                console.log(i)
                 _id = ele.getAttribute("src").replace(".mp3", "").split("/")[1];
                 $("#controlTime" + _id).html('00:00/' + getFormatTimer(ele.duration));
             });
