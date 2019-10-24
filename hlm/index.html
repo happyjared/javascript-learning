@@ -76,6 +76,7 @@
                 _audio.play();
             }
         });
+        // recover();
         initTime();
     });
 
@@ -92,14 +93,16 @@
 
     function recover() {
         const _value = window.localStorage.getItem("value");
-        const _audioNum = window.localStorage.getItem("audioNum");
-        const _duration = window.localStorage.getItem("duration");
-        if (_audioNum && _duration && _value) {
+        const _audioSrc = window.localStorage.getItem("audioSrc");
+        if (_audioSrc && _value) {
             const audios = document.getElementsByTagName("audio");
-            _audio = audios[parseInt(_audioNum)];
-            const duration = _audio.duration;
-            _audio.currentTime = _value * duration / 100;
-            _audio.play();
+            for (let i = 0; i < audios.length; i++) {
+                if (_audioSrc === audios[i].getAttribute("src")) {
+                    const duration = _audio.duration;
+                    _audio.currentTime = _value * duration / 100;
+                    _audio.play();
+                }
+            }
         }
     }
 
@@ -109,10 +112,8 @@
         const _w = parseInt((currTime / duration) * 100);
         $("#controlVal" + _id).val(_w).change();
         $("#controlTime" + _id).html(getFormatTimer(currTime) + '/' + getFormatTimer(duration));
-        if (window.localStorage) {
-            window.localStorage.setItem('duration', duration);
-            window.localStorage.setItem('value', currTime);
-        }
+        window.localStorage.setItem('value', currTime);
+        window.localStorage.setItem('audioSrc', _audio.getAttribute("src"));
     }
 
     function playAudio(e) {
@@ -133,10 +134,9 @@
                     $("#controlBtn" + _id).removeClass("hover");
                     const ele = new Audio(_audio.getAttribute("src"));
                     ele.addEventListener("loadedmetadata", () => {
-                        console.log("............. " + id + " ....... " + ele.duration);
                         $("#controlTime" + _id).html('00:00/' + getFormatTimer(ele.duration));
                     });
-                    playAudio(audios[parseInt(i-1)].parentNode.nextSibling.nextSibling.firstChild);
+                    playAudio(audios[parseInt(i - 1)].parentNode.nextSibling.nextSibling.firstChild);
                 };
 
                 if (!isPlay) {
