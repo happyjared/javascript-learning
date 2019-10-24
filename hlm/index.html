@@ -79,9 +79,9 @@
         for (let i = 0; i < audios.length; i++) {
             console.log(audios[i]);
             _audio = audios[i].setAttribute("src", "https://jianshu.mariojd.cn/hlm/" + audios[i].getAttribute("src"));
-            _audio[i].load();
+            _audio.load();
             console.log(_audio);
-            const duration = _audio[i].duration;
+            const duration = _audio.duration;
             $("#controlTime001").html('00:00/' + getFormatTimer(duration));
         }
     });
