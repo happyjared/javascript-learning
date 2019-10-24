@@ -99,6 +99,7 @@
                     $("#controlBtn" + _id).removeClass("hover");
                     $("#controlTime" + _id).html('00:00/00:00');
                     const next = parseInt(i + 1);
+                    console.log(next);
                     console.log(audios[next].parentNode);
                     playAudio(audios[next].parentNode.nextSibling.nextSibling.firstChild);
                 };
