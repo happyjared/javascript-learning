@@ -88,9 +88,6 @@
                 $("#controlTime" + _id).html('00:00/' + getFormatTimer(ele.duration));
             });
         }
-        setTimeout(function () {
-            recover();
-        }, 3000);
     }
 
     function recover() {
@@ -111,7 +108,9 @@
                     _id = _audioSrc.replace(".mp3", "").split("/")[1];
                     $("#controlBtn" + _id).addClass("hover");
                     $("#controlVal" + _id).val(_value).change();
-                    _audio.play();
+                    setTimeout(function () {
+                        _audio.play();
+                    }, 3000);
                 }
             }
         }
