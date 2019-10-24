@@ -95,6 +95,9 @@
         const _w = parseInt((currTime / duration) * 100);
         $("#controlVal" + _id).val(_w).change();
         $("#controlTime" + _id).html(getFormatTimer(currTime) + '/' + getFormatTimer(duration));
+        if (window.localStorage) {
+            localstroage.setItem('uid', '10001');
+        }
     }
 
     function playAudio(e) {
@@ -113,7 +116,10 @@
                     isPlay = false;
                     $("#controlVal" + _id).val(0).change();
                     $("#controlBtn" + _id).removeClass("hover");
-                    initTime();
+                    const ele = new Audio(_audio.getAttribute("src"));
+                    ele.addEventListener("loadedmetadata", () => {
+                        $("#controlTime" + _id).html('00:00/' + getFormatTimer(ele.duration));
+                    });
                     playAudio(audios[parseInt(i-1)].parentNode.nextSibling.nextSibling.firstChild);
                 };
 
