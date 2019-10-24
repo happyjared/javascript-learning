@@ -100,7 +100,7 @@
                 if (_audioSrc === audios[i].getAttribute("src")) {
                     _audio = audios[i];
                     _audio.currentTime = parseInt(_value) * parseInt(_duration) / 100;
-                    console.log("xxx" + _audio);
+                    console.log(_audio);
                     isPlay = true;
                     _id = _audioSrc.replace(".mp3", "").split("/")[1];
                     $("#controlBtn" + _id).addClass("hover");
