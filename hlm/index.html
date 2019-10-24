@@ -88,6 +88,7 @@
         for (let i = 0; i < audios.length; i++) {
             if (e.parentNode.parentNode.querySelector("audio").getAttribute("src") === audios[i].getAttribute("src")) {
                 _audio = audios[i];
+                console.log(audios[i]+1)
                 _audio.ontimeupdate = function () {
                     isPlay = true;
                     showCurrTime();
@@ -98,7 +99,7 @@
                     $("#controlVal" + _id).val(0).change();
                     $("#controlBtn" + _id).removeClass("hover");
                     $("#controlTime" + _id).html('00:00/00:00');
-                    playAudio(audios[i + 1]);
+                    playAudio(audios[i + 1].firstChild);
                 };
                 _id = audios[i].getAttribute("src").replace(".mp3", "").split("/")[1];
                 if (!isPlay) {
