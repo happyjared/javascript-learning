@@ -132,10 +132,7 @@
                     isPlay = false;
                     $("#controlVal" + _id).val(0).change();
                     $("#controlBtn" + _id).removeClass("hover");
-                    // const ele = new Audio(_audio.getAttribute("src"));
-                    // ele.addEventListener("loadedmetadata", () => {
-                    //     $("#controlTime" + _id).html('00:00/' + getFormatTimer(ele.duration));
-                    // });
+                    $("#controlTime" + _id).html('00:00/' + $("#controlTime" + _id).innerText.split("/")[1]);
                     playAudio(audios[parseInt(i - 1)].parentNode.nextSibling.nextSibling.firstChild);
                 };
 
