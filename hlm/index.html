@@ -88,6 +88,9 @@
         for (let i = 0; i < audios.length; i++) {
             if (e.parentNode.parentNode.querySelector("audio").getAttribute("src") === audios[i].getAttribute("src")) {
                 _audio = audios[i];
+                const next = parseInt(i + 1);
+                _id = audios[i].getAttribute("src").replace(".mp3", "").split("/")[1];
+
                 _audio.ontimeupdate = function () {
                     isPlay = true;
                     showCurrTime();
@@ -98,12 +101,11 @@
                     $("#controlVal" + _id).val(0).change();
                     $("#controlBtn" + _id).removeClass("hover");
                     $("#controlTime" + _id).html('00:00/00:00');
-                    const next = parseInt(i + 1);
                     console.log(next);
                     console.log(audios[next].parentNode);
                     playAudio(audios[next].parentNode.nextSibling.nextSibling.firstChild);
                 };
-                _id = audios[i].getAttribute("src").replace(".mp3", "").split("/")[1];
+
                 if (!isPlay) {
                     _audio.play();
                     $("#controlBtn" + _id).addClass("hover");
@@ -112,7 +114,6 @@
                     isPlay = false;
                     $("#controlBtn" + _id).removeClass("hover");
                 }
-                break
             }
         }
     }
