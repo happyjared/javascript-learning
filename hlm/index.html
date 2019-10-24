@@ -79,7 +79,7 @@
         for (let i = 0; i < audios.length; i++) {
             audios[i].load();
             const duration = audios[i].duration;
-            console.log(audios[i].duration);
+            console.log(audios[i]);
             $("#controlTime001").html('00:00/' + getFormatTimer(duration));
         }
     });
