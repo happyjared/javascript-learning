@@ -71,7 +71,6 @@
             },
             onSlideEnd: function (position, value) {
                 const duration = _audio.duration;
-                console.log("--------" + duration);
                 _audio.currentTime = value * duration / 100;
                 _audio.play();
             }
@@ -93,16 +92,14 @@
 
     function recover() {
         let _value = window.localStorage.getItem("value");
+        let _duration = window.localStorage.getItem("duration");
         const _audioSrc = window.localStorage.getItem("audioSrc");
         if (_audioSrc && _value) {
             const audios = document.getElementsByTagName("audio");
             for (let i = 0; i < audios.length; i++) {
                 if (_audioSrc === audios[i].getAttribute("src")) {
                     _audio = audios[i];
-                    const duration = _audio.duration;
-                    console.log(audios[i]);
-                    _value = parseInt(_value);
-                    _audio.currentTime = _value * duration / 100;
+                    _audio.currentTime = parseInt(_value) * _duration / 100;
                     isPlay = true;
                     _audio.play();
                 }
@@ -114,11 +111,10 @@
         const duration = _audio.duration;
         const currTime = _audio.currentTime;
         const _w = parseInt((currTime / duration) * 100);
-        console.log(duration);
-        console.log(currTime);
         $("#controlVal" + _id).val(_w).change();
         $("#controlTime" + _id).html(getFormatTimer(currTime) + '/' + getFormatTimer(duration));
         window.localStorage.setItem('value', _w);
+        window.localStorage.setItem('duration', duration);
         window.localStorage.setItem('audioSrc', _audio.getAttribute("src"));
     }
 
