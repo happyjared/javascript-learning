@@ -71,6 +71,7 @@
             },
             onSlideEnd: function (position, value) {
                 const duration = _audio.duration;
+                console.log("--------" + duration);
                 _audio.currentTime = value * duration / 100;
                 _audio.play();
             }
