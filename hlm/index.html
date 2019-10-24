@@ -100,8 +100,10 @@
                 if (_audioSrc === audios[i].getAttribute("src")) {
                     _audio = audios[i];
                     _audio.currentTime = parseInt(_value) * parseInt(_duration) / 100;
-                    console.log(_audio.currentTime);
+                    console.log("xxx" + _audio);
                     isPlay = true;
+                    _id = _audioSrc.replace(".mp3", "").split("/")[1];
+                    $("#controlBtn" + _id).addClass("hover");
                     _audio.play();
                 }
             }
@@ -140,6 +142,7 @@
                 };
 
                 if (!isPlay) {
+                    console.log(_audio);
                     _audio.play();
                     $("#controlBtn" + _id).addClass("hover");
                 } else {
