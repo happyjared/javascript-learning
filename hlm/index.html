@@ -99,7 +99,8 @@
                     $("#controlBtn" + _id).removeClass("hover");
                     $("#controlTime" + _id).html('00:00/00:00');
                     const next = i + 1;
-                    playAudio(audios[next].parentNode.nextSibling.nextSibling.firstChild);
+                    console.log(audios[1].parentNode);
+                    playAudio(audios[1].parentNode.nextSibling.nextSibling.firstChild);
                 };
                 _id = audios[i].getAttribute("src").replace(".mp3", "").split("/")[1];
                 if (!isPlay) {
