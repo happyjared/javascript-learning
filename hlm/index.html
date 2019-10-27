@@ -57,14 +57,22 @@
     });
 </script>
 <script type="text/javascript" src="js/jquery.min.js"></script>
-<script type="text/javascript" src="js/layer.js"></script>
+<!--<script type="text/javascript" src="js/layer.js"></script>-->
 <!--<script type="text/javascript" src="js/mobile/layer.js"></script>-->
+<script>
+    if (screen.width > 1024) {
+        document.write('<script type="text/javascript" src="js/layer.js"><\/script>');
+    } else {
+        document.write('<script type="text/javascript" src="js/mobile/layer.js"><\/script>');
+    }
+</script>
 <script type="text/javascript" src="js/rangeslider.min.js"></script>
 <script type="text/javascript">
     let _id = "001";
     let isPlay = false;
     const $element = $('[data-rangeslider]');
     let _audio = document.getElementsByTagName("audio")[0];
+    const isFHD = screen.width > 1024;
 
     $(function () {
         $element.rangeslider({
@@ -103,29 +111,50 @@
             if (_value < 0 || _value >= 100) {
                 return;
             }
-            layer.confirm('系统检测到上次播放未完成，是否继续播放？', {
-                btn: ['是', '否']
-            }, function () {
-                layer.msg('即将为你播放...', {title: '提示', time: 1000, icon: 16, shade: [0.3, '#000']});
-                setTimeout(function () {
-                    layer.closeAll('loading');
-                }, 1000);
-                const audios = document.getElementsByTagName("audio");
-                for (let i = 0; i < audios.length; i++) {
-                    if (_audioSrc === audios[i].getAttribute("src")) {
-                        isPlay = true;
-                        _audio = audios[i];
-                        _audio.currentTime = _currentTime;
-                        _id = _audioSrc.replace(".mp3", "").split("/")[1];
-                        $("#controlBtn" + _id).addClass("hover");
-                        $("#controlVal" + _id).val(_value).change();
-                        _audio.play();
-                        playing();
+            if (isFHD) {
+                layer.confirm('系统检测到上次播放未完成，是否继续播放？', {
+                    btn: ['是', '否']
+                }, function () {
+                    layer.msg('即将为你播放...', {title: '提示', time: 1000, icon: 16, shade: [0.3, '#000']});
+                    setTimeout(function () {
+                        layer.closeAll();
+                    }, 1000);
+                    toPlay(_audioSrc, _currentTime, _value);
+                }, function () {
+                    // nothing
+                });
+            } else {
+                layer.open({
+                    content: '系统检测到上次播放未完成，是否继续播放？',
+                    btn: ['是', '否'],
+                    yes: function () {
+                        layer.open({
+                            type: 2,
+                            content: '即将为你播放...'
+                        });
+                        setTimeout(function () {
+                            layer.closeAll();
+                        }, 1000);
+                        toPlay(_audioSrc, _currentTime, _value);
                     }
-                }
-            }, function () {
+                });
+            }
+        }
+    }
 
-            });
+    function toPlay(_audioSrc, _currentTime, _value) {
+        const audios = document.getElementsByTagName("audio");
+        for (let i = 0; i < audios.length; i++) {
+            if (_audioSrc === audios[i].getAttribute("src")) {
+                isPlay = true;
+                _audio = audios[i];
+                _audio.currentTime = _currentTime;
+                _id = _audioSrc.replace(".mp3", "").split("/")[1];
+                $("#controlBtn" + _id).addClass("hover");
+                $("#controlVal" + _id).val(_value).change();
+                _audio.play();
+                playing();
+            }
         }
     }
 
