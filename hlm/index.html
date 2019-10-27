@@ -95,11 +95,10 @@
     }
 
     function recover() {
-        let _value = window.localStorage.getItem("value");
-        let _duration = window.localStorage.getItem("duration");
+        const _value = window.localStorage.getItem("value");
         const _audioSrc = window.localStorage.getItem("audioSrc");
-        if (_audioSrc && _value && _duration) {
-            _value = parseInt(_value);
+        const _currentTime = window.localStorage.getItem("currentTime");
+        if (_audioSrc && _value && _currentTime) {
             if (_value <= 0 || _value >= 100) {
                 return;
             }
@@ -115,8 +114,7 @@
                     if (_audioSrc === audios[i].getAttribute("src")) {
                         isPlay = true;
                         _audio = audios[i];
-                        _audio.currentTime = parseInt(_value * parseInt(_duration) / 100);
-                        console.log(_audio.currentTime);
+                        _audio.currentTime = _currentTime;
                         _id = _audioSrc.replace(".mp3", "").split("/")[1];
                         $("#controlBtn" + _id).addClass("hover");
                         $("#controlVal" + _id).val(_value).change();
@@ -137,7 +135,7 @@
         $("#controlVal" + _id).val(_w).change();
         $("#controlTime" + _id).html(getFormatTimer(currTime) + '/' + getFormatTimer(duration));
         window.localStorage.setItem('value', _w);
-        window.localStorage.setItem('duration', duration);
+        window.localStorage.setItem('currTime', currTime);
         window.localStorage.setItem('audioSrc', _audio.getAttribute("src"));
     }
 
