@@ -99,7 +99,7 @@
         const _audioSrc = window.localStorage.getItem("audioSrc");
         const _currentTime = window.localStorage.getItem("currentTime");
         if (_audioSrc && _value && _currentTime) {
-            if (_value <= 0 || _value >= 100) {
+            if (_value < 0 || _value >= 100) {
                 return;
             }
             layer.confirm('系统检测到上次播放未完成，是否继续播放？', {
@@ -135,7 +135,7 @@
         $("#controlVal" + _id).val(_w).change();
         $("#controlTime" + _id).html(getFormatTimer(currTime) + '/' + getFormatTimer(duration));
         window.localStorage.setItem('value', _w);
-        window.localStorage.setItem('currTime', currTime);
+        window.localStorage.setItem('currentTime', currTime);
         window.localStorage.setItem('audioSrc', _audio.getAttribute("src"));
     }
 
