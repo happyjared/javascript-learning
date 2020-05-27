@@ -3,7 +3,7 @@
  */
 Vue.use(VueLazyload);
 new Vue({
-    el: '#bsc',
+    el: '#movie',
     data: {
         size: 0,
         rankList: [],
@@ -38,8 +38,8 @@ new Vue({
         },
         // 请求API
         getApi: function (index) {
-            let api = this.domainName + '/bsc/rank/';
-            axios.post(api).then(response => {
+            let api = this.domainName + '/douban/movie/top250';
+            axios.get(api).then(response => {
                 this.rankList = response.data;
                 this.size = this.rankList.length;
                 console.log('RankList size: ' + this.size);
