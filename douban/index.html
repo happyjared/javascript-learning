@@ -106,17 +106,17 @@
                             <thead style="background-color: #dbdbdb;">
                             <tr>
                                 <th>排名</th>
-                                <th style="text-align: left" v-if="largeScreen">用户</th>
+                                <th>用户</th>
                                 <th>征文</th>
-                                <th v-if="largeScreen">阅读数*1</th>
-                                <th v-if="largeScreen">评论数*10</th>
-                                <th v-if="largeScreen">点赞量*10</th>
-                                <th v-if="largeScreen">简书钻*50</th>
+                                <th>阅读数*1</th>
+                                <th>评论数*10</th>
+                                <th>点赞量*10</th>
+                                <th>简书钻*50</th>
                                 <th>系数</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr v-for="(rank,index) in rankList" @click="toMp(mp.id)" :class="getTableColor(index)">
+                            <tr v-for="(movie,index) in movieList">
                                 <th scope="row"
                                     :style="largeScreen?'vertical-align:middle;width:8%':'vertical-align:middle;'">
                                     {{index+1}}

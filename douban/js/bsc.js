@@ -6,7 +6,7 @@ new Vue({
     el: '#movie',
     data: {
         size: 0,
-        rankList: [],
+        movieList: [],
         domainName: 'https://jianshu.mariojd.cn/api',
         largeScreen: true,
         screenWidth: document.body.clientWidth,
@@ -40,28 +40,15 @@ new Vue({
         getApi: function (index) {
             let api = this.domainName + '/douban/movie/top250';
             axios.get(api).then(response => {
-                this.rankList = response.data;
-                this.size = this.rankList.length;
-                console.log('RankList size: ' + this.size);
+                this.movieList = response.data.content;
+                this.size = response.data.size;
+                console.log('ResultLisT size: ' + this.size);
             }).catch(function (error) {
                 console.log('Request API Error ' + error);
             }).finally(function () {
                 layer.close(index);
                 layer.closeAll();
             });
-        },
-        getTableColor: function (index) {
-            if (index === 0) {
-                return "table-danger";
-            } else if (index >= 1 && index <= 5) {
-                return "table-success";
-            } else if (index >= 6 && index <= 13) {
-                return "table-primary";
-            } else if (index >= 14 && index <= 23) {
-                return "table-warning";
-            } else if (index >= 24 && index <= 53) {
-                return "table-secondary";
-            }
         },
         isWeiXin: function (){
             return navigator.userAgent.toLowerCase().indexOf('micromessenger') > -1;
