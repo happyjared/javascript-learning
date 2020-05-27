@@ -106,45 +106,33 @@
                             <thead style="background-color: #dbdbdb;">
                             <tr>
                                 <th>排名</th>
-                                <th>用户</th>
-                                <th>征文</th>
-                                <th>阅读数*1</th>
-                                <th>评论数*10</th>
-                                <th>点赞量*10</th>
-                                <th>简书钻*50</th>
-                                <th>系数</th>
+                                <th>电影名</th>
+                                <th>上映年份</th>
+                                <th>用户评分/评分人次</th>
+                                <th>语言</th>
+                                <th>类型</th>
+                                <th>时长（分钟）</th>
+                                <th>观看状态</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr v-for="(movie,index) in movieList">
-                                <th scope="row"
-                                    :style="largeScreen?'vertical-align:middle;width:8%':'vertical-align:middle;'">
-                                    {{index+1}}
-                                    <span v-if="rank.oldRank && rank.newRank != rank.oldRank">
-                                        <i :class="rank.newRank < rank.oldRank ? 'mdUp':'mdDrop'"></i>
-                                    </span>
+                                <th scope="row" v-text="movie.sort">
                                 </th>
-                                <td width="18%" style="vertical-align: middle;text-align: left" v-if="largeScreen">
-                                    <span v-if="index<54" class="cheese"></span>
-                                    <img class="rounded-circle" v-lazy="rank.avatar" :alt="rank.nickname"
-                                         width="20" height="20" style="vertical-align: middle">
-                                    <a v-text="rank.nickname" target="_blank"
+                                <td width="18%" style="vertical-align: middle;text-align: left">
+                                    <img class="rounded img-fluid" v-lazy="movie.introPic" :alt="movie.name"
+                                         width="50" height="50" style="vertical-align: middle">
+                                    <a v-text="movie.name" target="_blank"
                                        style="text-decoration:none;color:#1f2d3d;vertical-align: middle"
-                                       :href="'//www.jianshu.com'+rank.home">
+                                       :href="movie.link">
                                     </a>
                                 </td>
-                                <td :style="largeScreen?'width:30%':'width:50%'">
-                                    <!--<span v-if="!largeScreen && index<54" class="cheese"></span>-->
-                                    <a v-text="rank.title" target="_blank"
-                                       style="text-decoration: none;vertical-align: middle;"
-                                       :href="'//www.jianshu.com'+rank.article">
-                                    </a>
-                                </td>
-                                <td v-text="rank.read" style="vertical-align: middle;" v-if="largeScreen"></td>
-                                <td v-text="rank.comment" style="vertical-align: middle;" v-if="largeScreen"></td>
-                                <td v-text="rank.like" style="vertical-align: middle;" v-if="largeScreen"></td>
-                                <td v-text="rank.jsz" style="vertical-align: middle;" v-if="largeScreen"></td>
-                                <td v-text="rank.coefficient" style="vertical-align: middle;"></td>
+                                <td v-text="movie.releaseYear" style="vertical-align: middle;"></td>
+                                <td style="vertical-align: middle;">{{movie.score}}/{{movie.scoreMembers}}</td>
+                                <td v-text="movie.language" style="vertical-align: middle;"></td>
+                                <td v-text="movie.movieType" style="vertical-align: middle;"></td>
+                                <td v-text="movie.duration" style="vertical-align: middle;"></td>
+                                <td v-text="movie.status" style="vertical-align: middle;"></td>
                             </tr>
                             </tbody>
                         </table>
@@ -230,6 +218,6 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/vue-lazyload/1.2.6/vue-lazyload.js"></script>
 <script src="//v1.hitokoto.cn/?encode=js&select=%23hitokoto" defer></script>
 <script src="layer/layer.js"></script>
-<script src="js/bsc.js"></script>
+<script src="js/movie.js"></script>
 </body>
 </html>
