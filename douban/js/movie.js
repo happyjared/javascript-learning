@@ -10,6 +10,8 @@ new Vue({
         domainName: 'https://jianshu.mariojd.cn/api',
         largeScreen: true,
         screenWidth: document.body.clientWidth,
+        yes: 0,
+        no: 0,
     },
     created() {
      this.init();
@@ -42,6 +44,8 @@ new Vue({
             axios.get(api).then(response => {
                 this.movieList = response.data.content;
                 this.size = response.data.size;
+                this.no = this.movieList.filter(item => !item.status).length;
+                this.yes = this.movieList.filter(item => item.status).length;
                 console.log('ResultLisT size: ' + this.size);
             }).catch(function (error) {
                 console.log('Request API Error ' + error);

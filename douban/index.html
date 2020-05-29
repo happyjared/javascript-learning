@@ -84,20 +84,14 @@
             </div>
 
 
-            <!--<div class="row">
-                <div class="col-lg-12" style="text-align: center">
+            <div class="row">
+                <div class="col-lg-12" style="text-align: center;padding-bottom: 10px">
                     <div v-if="screenWidth>1200">
-                        <span class="badge badge-danger">特等奖/2500贝</span>
-                        <span class="badge badge-success">一等奖/1000贝</span>
-                        <span class="badge badge-primary">二等奖/500贝</span>
-                        <span class="badge badge-warning">三等奖/300贝</span>
-                        <span class="badge badge-secondary">四等奖/100贝</span>
+                        <span class="badge badge-danger">看过：{{yes}} 部</span>
+                        <span class="badge badge-secondary" style="background-color: #fff">未看：{{no}} 部</span>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-12" :style="largeScreen?'text-align:right':'text-align:center'">
-                    <span style="color: #a4b0c3;font-size: 12px">排名更新时间：每天6/12/18和24点</span>
-                </div>
-            </div>-->
+            </div>
 
             <div class="row">
                 <div class="col-sm-12">
@@ -121,7 +115,7 @@
                                 <th width="6%" scope="row" v-text="movie.sort" style="vertical-align: middle;">
                                 </th>
                                 <td width="25%" style="vertical-align: middle;text-align: left">
-                                    <img class="rounded" v-lazy="movie.introPic" :alt="movie.name"
+                                    <img class="rounded" v-lazy="'/image/douban/'+movie.path" :alt="movie.name"
                                          width="50" height="50" style="vertical-align: middle">
                                     <a v-text="movie.name" target="_blank"
                                        style="text-decoration:none;color:#1f2d3d;vertical-align: middle"
