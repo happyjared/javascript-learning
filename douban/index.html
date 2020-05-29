@@ -115,10 +115,11 @@
                                 <th width="6%" scope="row" v-text="movie.sort" style="vertical-align: middle;">
                                 </th>
                                 <td width="25%" style="vertical-align: middle;text-align: left">
-                                    <img class="rounded" v-lazy="'/image/douban/'+movie.path" :alt="movie.name"
-                                         width="50" height="50" style="vertical-align: middle">
+                                    <img class="rounded" v-lazy="'http://xhs.mariojd.cn/douban/'+movie.path"
+                                         :alt="movie.name"
+                                         width="54" height="80" style="vertical-align: middle">
                                     <a v-text="movie.name" target="_blank"
-                                       style="text-decoration:none;color:#1f2d3d;vertical-align: middle"
+                                       style="text-decoration:none;color:#222;vertical-align: middle;font-weight: bolder;margin-left: 10px"
                                        :href="movie.link">
                                     </a>
                                 </td>
