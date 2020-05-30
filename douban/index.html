@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" href="image/favicon.ico">
+    <link rel="stylesheet" href="//cdn.bootcdn.net/ajax/libs/iview/3.5.4/styles/iview.css">
     <link rel="stylesheet" href="//cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
@@ -14,33 +15,25 @@
         background: url('image/bg.jpg') transparent;
         background-size: 100% 100%;
         margin-bottom: 0;
+        padding: 2rem;
     }
 
-    .cheese {
-        background: url('image/cheese.png') no-repeat;
-        width: 16px;
-        height: 16px;
-        margin-right: 2px;
-        vertical-align: middle;
-        display: inline-block;
-    }
+    /*i {*/
+    /*background: url('image/top-icon.png') no-repeat;*/
+    /*width: 10px;*/
+    /*height: 10px;*/
+    /*!*margin-left: 5px;*!*/
+    /*!*padding-top: 5px;*!*/
+    /*display: inline-block;*/
+    /*}*/
 
-    i {
-        background: url('image/top-icon.png') no-repeat;
-        width: 10px;
-        height: 10px;
-        margin-left: 5px;
-        padding-top: 5px;
-        display: inline-block;
-    }
+    /*i.mdUp {*/
+    /*background-position: -162px -54px;*/
+    /*}*/
 
-    i.mdUp {
-        background-position: -135px -54px;
-    }
-
-    i.mdDrop {
-        background-position: -110px -61px;
-    }
+    /*i.mdDrop {*/
+    /*background-position: -163px -64px;*/
+    /*}*/
 
     .badge-danger {
         color: #212529;
@@ -66,13 +59,27 @@
         color: #212529;
         background-color: #b3b7bb;
     }
+
+    .sort-by-time {
+        opacity: .85;
+        height: 32px;
+        line-height: 30px;
+        border: 1px solid #e8eaec !important;
+        padding: 0 12px;
+    }
+
+    .ivu-table .badge-danger td {
+        background-color: #ffdfd7;
+        color: #515a6e;
+        font-weight: bolder;
+    }
 </style>
 
 <main role="main" id="movie">
     <section class="jumbotron text-center">
         <div class="container">
             <div class="row">
-                <div class="col-sm-12" style="text-align: center;padding-bottom: 25px">
+                <div class="col-sm-12" style="text-align: center;padding-bottom: 5px">
                     <h1>
                         <a href="//movie.douban.com/top250" target="_blank"
                            style="text-decoration: none;color:#1f2d3d;font-weight: bold">
@@ -93,49 +100,85 @@
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="bs-example table-responsive" style="background-color: #fff;">
-                        <table class="table table-bordered table-hover table-striped" style="margin-bottom: 0">
-                            <thead style="background-color: #dbdbdb;">
-                            <tr>
-                                <th>排名</th>
-                                <th>电影</th>
-                                <th>语言</th>
-                                <th>类型</th>
-                                <th>上映</th>
-                                <th>评分</th>
-                                <th>人次</th>
-                                <th>时长</th>
-                                <th>状态</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr v-for="(movie,index) in movieList" :class="movie.status?'table-danger':''">
-                                <th width="6%" scope="row" v-text="movie.sort" style="vertical-align: middle;">
-                                </th>
-                                <td width="25%" style="vertical-align: middle;text-align: left">
-                                    <img class="rounded" v-lazy="'http://xhs.mariojd.cn/douban/'+movie.path"
-                                         :alt="movie.name"
-                                         width="54" height="80" style="vertical-align: middle">
-                                    <a v-text="movie.name" target="_blank"
-                                       style="text-decoration:none;color:#222;vertical-align: middle;font-weight: bolder;margin-left: 10px"
-                                       :href="movie.link">
-                                    </a>
-                                </td>
-                                <td width="20%" v-text="movie.language" style="vertical-align: middle;"></td>
-                                <td width="19%" v-text="movie.movieType" style="vertical-align: middle;"></td>
-                                <td width="6%" v-text="movie.releaseYear" style="vertical-align: middle;"></td>
-                                <td width="6%" style="vertical-align: middle;">{{movie.score}}</td>
-                                <td width="6%" style="vertical-align: middle;">{{movie.scoreMembers}}</td>
-                                <td width="6%" v-text="movie.duration" style="vertical-align: middle;"></td>
-                                <td width="6%" v-text="movie.status?'看过':'未看'" style="vertical-align: middle;"></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+            <template>
+                <!--<checkbox-group :model.sync="tableColumnsChecked" @on-change="changeTableColumns">-->
+                <!--<checkbox value="sort">排名</checkbox>-->
+                <!--<checkbox value="language">语言</checkbox>-->
+                <!--<checkbox value="movieType">类型</checkbox>-->
+                <!--<checkbox value="releaseYear">上映</checkbox>-->
+                <!--<checkbox value="score">评分</checkbox>-->
+                <!--<checkbox value="scoreMembers">人次</checkbox>-->
+                <!--<checkbox value="duration">时长</checkbox>-->
+                <!--<checkbox value="statusText">状态</checkbox>-->
+                <!--</checkbox-group>-->
+
+                <!--<radio-group :model.sync="tableSize" type="button">-->
+                <!--<radio value="large">大</radio>-->
+                <!--<radio value="default">中</radio>-->
+                <!--<radio value="small">小</radio>-->
+                <!--</radio-group>-->
+
+                <!-- size="large" stripe :row-class-name="rowClassName" height="750"-->
+                <i-table border stripe
+                         @on-row-dblclick="toDouban" :size="tableSize"
+                         :columns="headers" :data="movieList"></i-table>
+
+                <Back-top></Back-top>
+            </template>
+
+            <!--<div class="row" v-show="screenWidth >= 720">-->
+            <!--<div class="col-md-3">-->
+            <!--<div class="sort-by-time ivu-tag ivu-tag-error ivu-tag-dot ivu-tag-checked"-->
+            <!--@click="changeSort(sortDesc)">-->
+            <!--<span class="ivu-tag-dot-inner"></span>-->
+            <!--<span class="ivu-tag-text">按时间 <span v-text="sortDesc ? '↓':'↑'"></span></span>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+
+            <!--<div class="row">-->
+            <!--<div class="col-sm-12">-->
+            <!--<div class="bs-example table-responsive" style="background-color: #fff;">-->
+            <!--<table class="table table-bordered table-hover table-striped" style="margin-bottom: 0">-->
+            <!--<thead style="background-color: #dbdbdb;">-->
+            <!--<tr>-->
+            <!--<th>排名</th>-->
+            <!--<th>电影</th>-->
+            <!--<th>语言</th>-->
+            <!--<th>类型</th>-->
+            <!--<th>上映</th>-->
+            <!--<th>评分</th>-->
+            <!--<th>人次</th>-->
+            <!--<th>时长</th>-->
+            <!--<th>状态</th>-->
+            <!--</tr>-->
+            <!--</thead>-->
+            <!--<tbody>-->
+            <!--<tr v-for="(movie,index) in movieList" :class="movie.status?'table-danger':''">-->
+            <!--<th width="6%" scope="row" v-text="movie.sort" style="vertical-align: middle;">-->
+            <!--</th>-->
+            <!--<td width="25%" style="vertical-align: middle;text-align: left">-->
+            <!--<img class="rounded" v-lazy="'http://xhs.mariojd.cn/douban/'+movie.path"-->
+            <!--:alt="movie.name"-->
+            <!--width="54" height="80" style="vertical-align: middle">-->
+            <!--<a v-text="movie.name" target="_blank"-->
+            <!--style="text-decoration:none;color:#222;vertical-align: middle;font-weight: bolder;margin-left: 10px"-->
+            <!--:href="movie.link">-->
+            <!--</a>-->
+            <!--</td>-->
+            <!--<td width="20%" v-text="movie.language" style="vertical-align: middle;"></td>-->
+            <!--<td width="19%" v-text="movie.movieType" style="vertical-align: middle;"></td>-->
+            <!--<td width="6%" v-text="movie.releaseYear" style="vertical-align: middle;"></td>-->
+            <!--<td width="6%" style="vertical-align: middle;">{{movie.score}}</td>-->
+            <!--<td width="6%" style="vertical-align: middle;">{{movie.scoreMembers}}</td>-->
+            <!--<td width="6%" v-text="movie.duration" style="vertical-align: middle;"></td>-->
+            <!--<td width="6%" v-text="movie.status?'看过':'未看'" style="vertical-align: middle;"></td>-->
+            <!--</tr>-->
+            <!--</tbody>-->
+            <!--</table>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
 
             <!--<div class="row">
                 <div class="col-sm-12" :style="largeScreen?'text-align:right':'text-align:center'">
@@ -213,6 +256,7 @@
 <script src="//cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/vue-lazyload/1.2.6/vue-lazyload.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/iview/3.3.3/iview.min.js"></script>
 <script src="//v1.hitokoto.cn/?encode=js&select=%23hitokoto" defer></script>
 <script src="layer/layer.js"></script>
 <script src="js/movie.js"></script>
