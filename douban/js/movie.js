@@ -75,10 +75,20 @@ new Vue({
                                 // lazy: 'loaded',
                                 // 'data-src': "http://xhs.mariojd.cn/douban/" + params.row.path,
                             },
+                            on: {
+                                click: () => {
+                                    Vue.prototype.$Modal.info({
+                                        title: params.row.name,
+                                        content: params.row.desc,
+                                        width: 600,
+                                    });
+                                }
+                            },
                         }),
-                        h('span', {
+                        h('Tooltip', {
                             attrs: {
-                                //style: 'font-size: 13px',
+                                content: params.row.quote,
+                                placement: "top-start",
                             },
                         }, params.row.name),
                     ]);
