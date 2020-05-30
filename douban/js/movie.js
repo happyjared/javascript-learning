@@ -24,11 +24,11 @@ new Vue({
                 width: 95,
                 filters: [
                     {
-                        label: '001 - 050',
+                        label: '1 - 50',
                         value: 1
                     },
                     {
-                        label: '050 - 100',
+                        label: '51 - 100',
                         value: 2
                     },
                     {
@@ -36,11 +36,11 @@ new Vue({
                         value: 3
                     },
                     {
-                        label: '150 - 200',
+                        label: '151 - 200',
                         value: 4
                     },
                     {
-                        label: '200 - 250',
+                        label: '201 - 250',
                         value: 5
                     }
                 ],
