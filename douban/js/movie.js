@@ -430,7 +430,7 @@ new Vue({
                 layer.closeAll();
                 Vue.prototype.$Notice.info({
                     title: '温馨提示',
-                    desc: "双击可快速跳转豆瓣电影",
+                    desc: "双击即可快速跳转豆瓣电影",
                     duration: 10
                 });
             });
