@@ -370,8 +370,10 @@ new Vue({
                 },
                 render: (h, params) => {
                     if (params.row.status) {
-                        return h('span', {
+                        return h('Tooltip', {
                             attrs: {
+                                // placement: "right",
+                                content: params.row.markTime,
                                 style: 'background-color: #ffdfd7;color: #515a6e;font-weight: bolder;',
                             },
                         }, params.row.statusText);
