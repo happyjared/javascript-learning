@@ -65,6 +65,34 @@ new Vue({
                 key: 'name',
                 width: 200,
                 ellipsis: true,
+                // render: (h, params) => {
+                //     return h('div', [
+                //         h('img', {
+                //             attrs: {
+                //                 src: "http://xhs.mariojd.cn/douban/" + params.row.path,
+                //                 style: 'width: 54px; height: 80px; margin: 10px 10px 10px 0;',
+                //                 class: 'rounded',
+                //             },
+                //             on: {
+                //                 click: () => {
+                //                     Vue.prototype.$Modal.info({
+                //                         title: params.row.name,
+                //                         content: params.row.desc,
+                //                         width: 600,
+                //                     });
+                //                 }
+                //             },
+                //         }),
+                //         // http://www.7vo.cn/article/50.html
+                //         h('Tooltip', {
+                //             attrs: {
+                //                 content: params.row.quote,
+                //                 placement: "top-start",
+                //             },
+                //         }, params.row.name),
+                //     ]);
+                // },
+
                 render: (h, params) => {
                     return h('div', [
                         h('img', {
@@ -84,11 +112,20 @@ new Vue({
                             },
                         }),
                         h('Tooltip', {
-                            attrs: {
-                                content: params.row.quote,
-                                placement: "top-start",
-                            },
-                        }, params.row.name),
+                            props: {
+                                placement: 'top-start',
+                            }
+                        }, [
+                            h('div', [
+                                h('span', params.row.name),
+                            ]),
+                            h('div', {
+                                slot: 'content',
+                                style: {
+                                    whiteSpace: 'normal',
+                                }
+                            }, params.row.quote)
+                        ])
                     ]);
                 },
             },
