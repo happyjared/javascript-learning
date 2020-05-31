@@ -72,8 +72,6 @@ new Vue({
                                 src: "http://xhs.mariojd.cn/douban/" + params.row.path,
                                 style: 'width: 54px; height: 80px; margin: 10px 10px 10px 0;',
                                 class: 'rounded',
-                                // lazy: 'loaded',
-                                // 'data-src': "http://xhs.mariojd.cn/douban/" + params.row.path,
                             },
                             on: {
                                 click: () => {
@@ -443,7 +441,7 @@ new Vue({
                 Vue.prototype.$Notice.info({
                     title: '温馨提示',
                     desc: "双击即可快速跳转豆瓣电影",
-                    duration: 10
+                    duration: 30
                 });
             });
         },
