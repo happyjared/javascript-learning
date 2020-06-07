@@ -505,13 +505,16 @@ new Vue({
                 this.movieList = response.data.content.map(item => {
                     item.statusText = item.status ? '看过' : '未看';
                     item.huahuaStatusText = item.huahuaStatus ? '看过' : '未看';
+                    if (item.huahuaStatus) {
+                        this.huahuaYes = this.huahuaYes + 1
+                    } else {
+                        this.huahuaNo = this.huahuaNo + 1
+                    }
                     return item;
                 });
                 this.size = response.data.size;
                 this.no = this.movieList.filter(item => !item.status).length;
                 this.yes = this.movieList.filter(item => item.status).length;
-                this.huahuaYes = this.movieList.filter(item => item.huahuaStatus).length;
-                this.huahuaNo = this.movieList.filter(item => !item.huahuaStatus).length;
                 console.log('ResultLisT size: ' + this.size);
             }).catch(function (error) {
                 console.log('Request API Error ' + error);
