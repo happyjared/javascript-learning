@@ -13,8 +13,8 @@ new Vue({
         screenHeight: document.body.clientHeight,
         yes: 0,
         no: 0,
-        huahuaYes: 0,
         huahuaNo: 0,
+        huahuaYes: 0,
         tableSize: 'default',
         tableColumnsChecked: ['sort', 'language', 'movieType', 'releaseYear', 'score', 'scoreMembers', 'duration', 'statusText'],
         headers: [
