@@ -63,7 +63,7 @@ new Vue({
             {
                 title: '电影',
                 key: 'name',
-                width: 200,
+                width: 220,
                 ellipsis: true,
                 // render: (h, params) => {
                 //     return h('div', [
@@ -392,7 +392,7 @@ new Vue({
                 },
             },
             {
-                title: '状态',
+                title: '🍀🍀',
                 key: 'statusText',
                 sortable: true,
                 align: "center",
@@ -419,13 +419,51 @@ new Vue({
                             attrs: {
                                 // placement: "right",
                                 content: params.row.markTime,
-                                style: 'background-color: #ffdfd7;color: #515a6e;font-weight: bolder;',
+                                style: 'background-color: #8CC63E;color: #515a6e;font-weight: bolder;',
                             },
                         }, params.row.statusText);
                     } else {
                         return h('span', {
                             attrs: {},
                         }, params.row.statusText);
+                    }
+                },
+            },
+            {
+                title: '🌺🌺',
+                key: 'huahuaStatusText',
+                sortable: true,
+                align: "center",
+                filters: [
+                    {
+                        label: '看过',
+                        value: true
+                    },
+                    {
+                        label: '未看',
+                        value: false
+                    }
+                ],
+                filterMultiple: false,
+                filterMethod(value, row) {
+                    if (value) {
+                        return row.huahuaStatus;
+                    }
+                    return !row.huahuaStatus;
+                },
+                render: (h, params) => {
+                    if (params.row.huahuaStatus) {
+                        return h('Tooltip', {
+                            attrs: {
+                                placement: "top",
+                                content: params.row.huahuaMarkTime,
+                                style: 'background-color: #FF67B2;color: #515a6e;font-weight: bolder;',
+                            },
+                        }, params.row.huahuaStatusText);
+                    } else {
+                        return h('span', {
+                            attrs: {},
+                        }, params.row.huahuaStatusText);
                     }
                 },
             }
@@ -464,6 +502,7 @@ new Vue({
             axios.get(api).then(response => {
                 this.movieList = response.data.content.map(item => {
                     item.statusText = item.status ? '看过' : '未看';
+                    item.huahuaStatusText = item.huahuaStatus ? '看过' : '未看';
                     return item;
                 });
                 this.size = response.data.size;
