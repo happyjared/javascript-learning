@@ -12,7 +12,9 @@ new Vue({
         screenWidth: document.body.clientWidth,
         screenHeight: document.body.clientHeight,
         yes: 0,
+        yes2: 0,
         no: 0,
+        no2: 0,
         tableSize: 'default',
         tableColumnsChecked: ['sort', 'language', 'movieType', 'releaseYear', 'score', 'scoreMembers', 'duration', 'statusText'],
         headers: [
@@ -508,6 +510,8 @@ new Vue({
                 this.size = response.data.size;
                 this.no = this.movieList.filter(item => !item.status).length;
                 this.yes = this.movieList.filter(item => item.status).length;
+                this.yes2 = this.movieList.filter(item => item.huahuaStatus).length;
+                this.no2 = this.movieList.filter(item => !item.huahuaStatus).length;
                 console.log('ResultLisT size: ' + this.size);
             }).catch(function (error) {
                 console.log('Request API Error ' + error);
