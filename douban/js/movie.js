@@ -337,7 +337,7 @@ new Vue({
                 title: '人次',
                 key: 'scoreMembers',
                 sortable: true,
-                // align: "center",
+                align: "center",
                 filters: [
                     {
                         label: '[0,500000)',
