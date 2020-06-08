@@ -268,7 +268,7 @@ new Vue({
                 align: "center",
                 filters: [
                     {
-                        label: '1980年之前',
+                        label: '1980年前',
                         value: 1
                     },
                     {
@@ -280,7 +280,7 @@ new Vue({
                         value: 3
                     },
                     {
-                        label: '2010年至今',
+                        label: '2010年后',
                         value: 4
                     }
                 ],
@@ -316,7 +316,7 @@ new Vue({
                         value: 3
                     },
                     {
-                        label: '9.5 ~ 10.0',
+                        label: '9.5 ~ 10',
                         value: 4
                     }
                 ],
@@ -340,15 +340,15 @@ new Vue({
                 align: "center",
                 filters: [
                     {
-                        label: '[0,500000)',
+                        label: '少于50万',
                         value: 1
                     },
                     {
-                        label: '[500000,1000000)',
+                        label: '少于100万',
                         value: 2
                     },
                     {
-                        label: '[1000000,+∞)',
+                        label: '大于100万',
                         value: 3
                     }
                 ],
