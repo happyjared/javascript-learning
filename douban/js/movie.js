@@ -431,44 +431,44 @@ new Vue({
                     }
                 },
             },
-            {
-                title: '🌺🌺',
-                key: 'huahuaStatusText',
-                sortable: true,
-                align: "center",
-                filters: [
-                    {
-                        label: '看过',
-                        value: true
-                    },
-                    {
-                        label: '未看',
-                        value: false
-                    }
-                ],
-                filterMultiple: false,
-                filterMethod(value, row) {
-                    if (value) {
-                        return row.huahuaStatus;
-                    }
-                    return !row.huahuaStatus;
-                },
-                render: (h, params) => {
-                    if (params.row.huahuaStatus) {
-                        return h('Tooltip', {
-                            attrs: {
-                                placement: "top",
-                                content: params.row.huahuaMarkTime,
-                                style: 'background-color: #FF67B2;color: #515a6e;font-weight: bolder;',
-                            },
-                        }, params.row.huahuaStatusText);
-                    } else {
-                        return h('span', {
-                            attrs: {},
-                        }, params.row.huahuaStatusText);
-                    }
-                },
-            }
+            // {
+            //     title: '🌺🌺',
+            //     key: 'huahuaStatusText',
+            //     sortable: true,
+            //     align: "center",
+            //     filters: [
+            //         {
+            //             label: '看过',
+            //             value: true
+            //         },
+            //         {
+            //             label: '未看',
+            //             value: false
+            //         }
+            //     ],
+            //     filterMultiple: false,
+            //     filterMethod(value, row) {
+            //         if (value) {
+            //             return row.huahuaStatus;
+            //         }
+            //         return !row.huahuaStatus;
+            //     },
+            //     render: (h, params) => {
+            //         if (params.row.huahuaStatus) {
+            //             return h('Tooltip', {
+            //                 attrs: {
+            //                     placement: "top",
+            //                     content: params.row.huahuaMarkTime,
+            //                     style: 'background-color: #FF67B2;color: #515a6e;font-weight: bolder;',
+            //                 },
+            //             }, params.row.huahuaStatusText);
+            //         } else {
+            //             return h('span', {
+            //                 attrs: {},
+            //             }, params.row.huahuaStatusText);
+            //         }
+            //     },
+            // }
         ],
     },
     created() {
